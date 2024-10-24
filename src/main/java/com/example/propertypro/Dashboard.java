@@ -5,9 +5,13 @@ import javafx.scene.text.Text;
 
 public class Dashboard extends BorderPane {
     Dashboard(){
-        Text titleDas = new Text("DashBord");
-        titleDas.setStyle("-fx-font-size:22px;");
-
-        this.setCenter(titleDas);
+        BorderPane layout = new BorderPane();
+        Text logoText = new Text("Property Pro");
+        Text overviewText = new Text("Overview");
+        Text revenueText = new Text("Revenue");
+        Text clientsText = new Text("Manage Clients");
+        Text propertyText = new Text("Manage Properties");
+        Text settingsText = new Text("Settings");
+        Text logoutText = new Text("Log Out");
     }
 }
