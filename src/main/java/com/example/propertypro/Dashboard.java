@@ -103,6 +103,7 @@ public class Dashboard extends BorderPane {
         HBox logOut = new HBox(20);
         logOut.getChildren().addAll(logOutIconBox, logoutText);
         logOut.setAlignment(Pos.CENTER_LEFT);
+        //
 
    }
 }
