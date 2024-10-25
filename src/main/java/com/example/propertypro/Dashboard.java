@@ -1,6 +1,9 @@
 package com.example.propertypro;
 
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import javafx.scene.image.Image;
@@ -67,5 +70,40 @@ public class Dashboard extends BorderPane {
         ImageView logOutIconBox = new ImageView(logOutIcon);
         logOutIconBox.setFitWidth(25);
         logOutIconBox.setFitHeight(25);
-    }
+
+
+        VBox navBar = new VBox(200);
+        VBox logBox = new VBox(80);
+        VBox mainNav = new VBox(30);
+        VBox settingsAndLogout = new VBox(150);
+
+        HBox logo = new HBox();
+        logo.getChildren().addAll(logoText);
+
+        HBox overview = new HBox(20);
+        overview.getChildren().addAll(overviewIconBox, overviewText);
+        overview.setAlignment(Pos.CENTER_LEFT);
+
+        HBox revenue = new HBox(20);
+        revenue.getChildren().addAll(revenueIconBox, revenueText);
+        revenue.setAlignment(Pos.CENTER_LEFT);
+
+        HBox clients = new HBox(20);
+        clients.getChildren().addAll(clientIconBox, clientsText);
+        clients.setAlignment(Pos.CENTER_LEFT);
+
+        HBox properties = new HBox(20);
+        properties.getChildren().addAll(propertyIconBox, propertyText);
+        properties.setAlignment(Pos.CENTER_LEFT);
+
+        HBox settings = new HBox(20);
+        settings.getChildren().addAll(settingsIconBox, settingsText);
+        settings.setAlignment(Pos.CENTER_LEFT);
+
+        HBox logOut = new HBox(20);
+        logOut.getChildren().addAll(logOutIconBox, logoutText);
+        logOut.setAlignment(Pos.CENTER_LEFT);
+        //
+
+   }
 }
