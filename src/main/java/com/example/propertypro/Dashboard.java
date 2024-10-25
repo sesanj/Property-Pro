@@ -103,7 +103,64 @@ public class Dashboard extends BorderPane {
         HBox logOut = new HBox(20);
         logOut.getChildren().addAll(logOutIconBox, logoutText);
         logOut.setAlignment(Pos.CENTER_LEFT);
-        //
 
+
+        //Navigation
+        logBox.getChildren().addAll(logo,mainNav);
+        mainNav.getChildren().addAll(overview,revenue, clients,properties);
+        settingsAndLogout.getChildren().addAll(settings,logOut);
+
+        navBar.getChildren().addAll(logBox, settingsAndLogout);
+        navBar.setMinWidth(280);
+        navBar.setStyle("-fx-background-color: #1a1b2e;" + "-fx-padding: 40px;");
+        navBar.setAlignment(Pos.CENTER_LEFT);
+
+        layout.setCenter(new Overview());
+        layout.setLeft(navBar);
+
+        revenue.setOnMouseClicked(e->{
+             layout.setCenter(new Revenue());
+             revenueText.setStyle(navActiveStyle);
+             overviewText.setStyle(navInactiveStyle);
+             clientsText.setStyle(navInactiveStyle);
+             propertyText.setStyle(navInactiveStyle);
+             settingsText.setStyle(navInactiveStyle);
+        });
+
+        overview.setOnMouseClicked(e->{
+             layout.setCenter(new Overview());
+             revenueText.setStyle(navInactiveStyle);
+             overviewText.setStyle(navActiveStyle);
+             clientsText.setStyle(navInactiveStyle);
+             propertyText.setStyle(navInactiveStyle);
+             settingsText.setStyle(navInactiveStyle);
+        });
+
+        clients.setOnMouseClicked(e->{
+             layout.setCenter(new Clients());
+             clientsText.setStyle(navActiveStyle);
+             revenueText.setStyle(navInactiveStyle);
+             overviewText.setStyle(navInactiveStyle);
+             propertyText.setStyle(navInactiveStyle);
+             settingsText.setStyle(navInactiveStyle);
+        });
+
+        properties.setOnMouseClicked(e->{
+             layout.setCenter(new Properties());
+             propertyText.setStyle(navActiveStyle);
+             revenueText.setStyle(navInactiveStyle);
+             overviewText.setStyle(navInactiveStyle);
+             clientsText.setStyle(navInactiveStyle);
+             settingsText.setStyle(navInactiveStyle);
+        });
+
+        settings.setOnMouseClicked(e->{
+             layout.setCenter(new Setting());
+             settingsText.setStyle(navActiveStyle);
+             revenueText.setStyle(navInactiveStyle);
+             overviewText.setStyle(navInactiveStyle);
+             clientsText.setStyle(navInactiveStyle);
+             propertyText.setStyle(navInactiveStyle);
+        });
    }
 }
