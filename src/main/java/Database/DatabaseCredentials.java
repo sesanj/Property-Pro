@@ -1,23 +1,32 @@
 package Database;
 
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+/**
+ * The DatabaseCredentials class provides methods to manage and retrieve database credentials.
+ * It allows reading credentials from a file, setting them directly from user input,
+ * and creating a credentials file.
+ */
 public class DatabaseCredentials{
         public static String DB_NAME;
         public static String DB_USER;
         public static String DB_PASS;
 
+        /**
+         * The getCredentialsFromFile() Method reads database credentials from a file and sets the values to the provided TextFields.
+         * If the credentials file exists, it reads and assigns the database name, user, and password.
+         *
+         * @param dbname      the TextField that takes the database name.
+         * @param dbuser      the TextField that takes the database user.
+         * @param dbpassword  the TextField that takes the database password.
+         */
         public static void getCredentialsFromFile(TextField dbname, TextField dbuser, TextField dbpassword){
-
                 File credentials = new File("credentials.txt");
 
                 if (credentials.exists()){
-
                         String[] allCredentials = new String[3];
                         int counter = 0;
 
@@ -45,15 +54,28 @@ public class DatabaseCredentials{
                 }
         }
 
+        /**
+         * The getCredentialsFromSignIn() Method sets database credentials from given input values.
+         *
+         * @param dataBaseName     the database name.
+         * @param dataBaseUser     the database user.
+         * @param databasePassword the database password.
+         */
         public static void getCredentialsFromSignIn(String dataBaseName, String dataBaseUser, String databasePassword){
-
                 DB_NAME = dataBaseName;
                 DB_USER = dataBaseUser;
                 DB_PASS = databasePassword;
         }
 
+        /**
+         * The createCredentials() Method creates a credentials file with the provided database name, user, and password.
+         * Writes the credentials into a file named "credentials.txt".
+         *
+         * @param dataBaseName     the database name.
+         * @param dataBaseUser     the database user.
+         * @param databasePassword the database password.
+         */
         public void createCredentials(String dataBaseName, String dataBaseUser, String databasePassword){
-
                 File credentials = new File("credentials.txt");
 
                 try{

@@ -102,6 +102,7 @@ public class LogIn extends BorderPane {
                 "-fx-font-weight: bold; -fx-padding: 10px 22px; -fx-font-family: 'Roboto';" +
                 "-fx-background-radius: 20px");
 
+        // Button to sign in after database connection is successful with styling for color, size, and font
         Button signIn = new Button("Click To Sign In");
         signIn.setStyle("-fx-background-color: #035b01; -fx-text-fill: white; -fx-font-size: 15px;" +
                 "-fx-font-weight: bold; -fx-padding: 10px 22px; -fx-font-family: 'Roboto';" +
@@ -122,20 +123,26 @@ public class LogIn extends BorderPane {
                 "-fx-background-position: center;");
 
 
+        // Set an action for the textConnection button to retrieve and set database credentials,
+        // establish a new database connection, and reload the sign-in form.
         textConnection.setOnAction(e -> {
-           DatabaseCredentials.getCredentialsFromSignIn(databaseName.getText(), username.getText(), password.getText());
 
-           Database.getNewDatabase();
+            DatabaseCredentials.getCredentialsFromSignIn(databaseName.getText(), username.getText(), password.getText());
 
-           reloadForm(signInContainer, titleContainer, formContainer, signIn, description);
+            Database.getNewDatabase();
 
+            reloadForm(signInContainer, titleContainer, formContainer, signIn, description);
         });
 
+        // Set an action for the signIn button to execute when clicked.
         signIn.setOnAction(e -> {
             System.out.println("Sign In Button Clicked");
         });
 
-        if(credentials.exists()){
+        // Check if credentials file exists, and if so, load credentials, connect to the database,
+        // and update the form UI to indicate a successful connection.
+        if (credentials.exists()) {
+
             DatabaseCredentials.getCredentialsFromFile(databaseName, username, password);
 
             Database.getNewDatabase();
@@ -147,6 +154,17 @@ public class LogIn extends BorderPane {
         this.setCenter(mainContainer);
     }
 
+    /**
+     * The reloadForm() method updates the provided VBox container to display the sign-in form upon a successful database connection.
+     * Clears any existing children in the container and adds the title, form, and button nodes.
+     * Updates the description text to indicate that the connection was established successfully.
+     *
+     * @param container   The main VBox container to be updated with the new form elements.
+     * @param title       The VBox containing the title of the form.
+     * @param form        The VBox containing the form input fields.
+     * @param button      The Button for form submission.
+     * @param description The Text element to display a message about the database connection status.
+     */
     public void reloadForm(VBox container, VBox title, VBox form, Button button, Text description){
 
         if(Database.connectionSuccessful()){
@@ -155,6 +173,9 @@ public class LogIn extends BorderPane {
 
             description.setText("Connection Established! Proceed To Sign In");
             description.setStyle("-fx-fill: #035b01; -fx-font-size: 17px; -fx-font-family: 'Arial'");
+        }else{
+            description.setText("Connection Not Successful! Please Text Connection");
+            description.setStyle("-fx-fill: #bd0505; -fx-font-size: 17px; -fx-font-family: 'Arial'");
         }
     }
 }
