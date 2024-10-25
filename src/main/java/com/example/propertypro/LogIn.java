@@ -12,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.File;
+
 /**
  * The LogIn class represents the UI for a login screen in a JavaFX application.
  * It extends the BorderPane and contains elements like logo, text fields for
@@ -25,6 +27,8 @@ public class LogIn extends BorderPane {
      * text fields for user input, and a sign-in button.
      */
     public LogIn(){
+
+        File credentials = new File("credentials.txt");
 
         // Main container for the login screen
         HBox mainContainer = new HBox();
@@ -98,6 +102,11 @@ public class LogIn extends BorderPane {
                 "-fx-font-weight: bold; -fx-padding: 10px 22px; -fx-font-family: 'Roboto';" +
                 "-fx-background-radius: 20px");
 
+        Button signIn = new Button("Click To Sign In");
+        signIn.setStyle("-fx-background-color: #035b01; -fx-text-fill: white; -fx-font-size: 15px;" +
+                "-fx-font-weight: bold; -fx-padding: 10px 22px; -fx-font-family: 'Roboto';" +
+                "-fx-background-radius: 20px");
+
 
         // Adding the title, form, and button to the sign-in container and centering it
         signInContainer.getChildren().addAll(titleContainer, formContainer, textConnection);
@@ -112,12 +121,40 @@ public class LogIn extends BorderPane {
                 "-fx-background-size: cover;" +
                 "-fx-background-position: center;");
 
+
         textConnection.setOnAction(e -> {
-           new DatabaseCredentials().getCredentials(databaseName.getText(), username.getText(), password.getText());
-           Database db = Database.getDatabase();
+           DatabaseCredentials.getCredentialsFromSignIn(databaseName.getText(), username.getText(), password.getText());
+
+           Database.getNewDatabase();
+
+           reloadForm(signInContainer, titleContainer, formContainer, signIn, description);
+
         });
+
+        signIn.setOnAction(e -> {
+            System.out.println("Sign In Button Clicked");
+        });
+
+        if(credentials.exists()){
+            DatabaseCredentials.getCredentialsFromFile(databaseName, username, password);
+
+            Database.getNewDatabase();
+
+            reloadForm(signInContainer, titleContainer, formContainer, signIn, description);
+        }
 
         // Setting the main container in the center of the BorderPane
         this.setCenter(mainContainer);
+    }
+
+    public void reloadForm(VBox container, VBox title, VBox form, Button button, Text description){
+
+        if(Database.connectionSuccessful()){
+            container.getChildren().clear();
+            container.getChildren().addAll(title, form, button);
+
+            description.setText("Connection Established! Proceed To Sign In");
+            description.setStyle("-fx-fill: #035b01; -fx-font-size: 17px; -fx-font-family: 'Arial'");
+        }
     }
 }

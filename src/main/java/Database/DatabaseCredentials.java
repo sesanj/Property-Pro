@@ -1,5 +1,8 @@
 package Database;
 
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
@@ -9,7 +12,7 @@ public class DatabaseCredentials{
         public static String DB_USER;
         public static String DB_PASS;
 
-        public void getCredentials(String dataBaseName, String dataBaseUser, String databasePassword){
+        public static void getCredentialsFromFile(TextField dbname, TextField dbuser, TextField dbpassword){
 
                 File credentials = new File("credentials.txt");
 
@@ -35,11 +38,18 @@ public class DatabaseCredentials{
                         DB_PASS = allCredentials[2];
 
                         System.out.println("All Credentials Read From File Successfully!");
-                }else{
-                        DB_NAME = dataBaseName;
-                        DB_USER = dataBaseUser;
-                        DB_PASS = databasePassword;
+
+                        dbname.setText(allCredentials[0]);
+                        dbuser.setText(allCredentials[1]);
+                        dbpassword.setText(allCredentials[2]);
                 }
+        }
+
+        public static void getCredentialsFromSignIn(String dataBaseName, String dataBaseUser, String databasePassword){
+
+                DB_NAME = dataBaseName;
+                DB_USER = dataBaseUser;
+                DB_PASS = databasePassword;
         }
 
         public void createCredentials(String dataBaseName, String dataBaseUser, String databasePassword){

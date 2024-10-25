@@ -10,6 +10,7 @@ public class Database {
 
     private static Database instance;
     private static boolean crateInstance = true;
+    private static boolean connectionSuccessful = false;
     private Connection connection = null;
 
     private Database() {
@@ -28,6 +29,8 @@ public class Database {
                 new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
             }
 
+            connectionSuccessful = true;
+
         }catch (Exception e){
 
             crateInstance = false;
@@ -35,7 +38,7 @@ public class Database {
         }
     }
 
-    public static Database getDatabase() {
+    public static Database getNewDatabase() {
 
         if(instance == null){
             instance = new Database();
@@ -45,5 +48,9 @@ public class Database {
         }
 
         return instance;
+    }
+
+    public static boolean connectionSuccessful(){
+        return connectionSuccessful;
     }
 }
