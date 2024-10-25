@@ -24,10 +24,10 @@ public class PropertyPro extends Application {
         StackPane root = new StackPane();
 
         // Create an instance of the LogIn screen to be displayed in the application
-        LogIn logIn = new LogIn();
+        LogIn login = new LogIn();
 
         // Add the LogIn component to the root container
-        root.getChildren().add(logIn);
+        root.getChildren().add(login);
 
         // Create a scene with the root container, setting the width and height of the window
         Scene scene = new Scene(root, 1400, 800);

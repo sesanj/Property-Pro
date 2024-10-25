@@ -8,6 +8,9 @@
 # Log file
 *.log
 
+# DataBase Credentials
+credentials.txt
+
 # BlueJ files
 *.ctxt
 

@@ -1,5 +1,7 @@
 package com.example.propertypro;
 
+import Database.Database;
+import Database.DatabaseCredentials;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -91,13 +93,14 @@ public class LogIn extends BorderPane {
         formContainer.setAlignment(Pos.CENTER);
 
         // Button to test connection with styling for color, size, and font
-        Button signIn = new Button("Test Connection");
-        signIn.setStyle("-fx-background-color: #202469; -fx-text-fill: white; -fx-font-size: 15px;" +
+        Button textConnection = new Button("Test Connection");
+        textConnection.setStyle("-fx-background-color: #202469; -fx-text-fill: white; -fx-font-size: 15px;" +
                 "-fx-font-weight: bold; -fx-padding: 10px 22px; -fx-font-family: 'Roboto';" +
                 "-fx-background-radius: 20px");
 
+
         // Adding the title, form, and button to the sign-in container and centering it
-        signInContainer.getChildren().addAll(titleContainer, formContainer, signIn);
+        signInContainer.getChildren().addAll(titleContainer, formContainer, textConnection);
         signInContainer.setAlignment(Pos.CENTER);
 
         // Adding the logo and sign-in containers to the main container and centering it
@@ -108,6 +111,11 @@ public class LogIn extends BorderPane {
         mainContainer.setStyle("-fx-background-image: url('/back.jpg');" +
                 "-fx-background-size: cover;" +
                 "-fx-background-position: center;");
+
+        textConnection.setOnAction(e -> {
+           new DatabaseCredentials().getCredentials(databaseName.getText(), username.getText(), password.getText());
+           Database db = Database.getDatabase();
+        });
 
         // Setting the main container in the center of the BorderPane
         this.setCenter(mainContainer);
