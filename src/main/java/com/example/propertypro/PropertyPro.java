@@ -1,5 +1,6 @@
 package com.example.propertypro;
 
+import Database.Database;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -11,6 +12,9 @@ import javafx.stage.Stage;
  */
 public class PropertyPro extends Application {
 
+    // Root container to hold the UI components
+    public static StackPane root = new StackPane();
+
     /**
      * The start method is the entry point of any JavaFX application.
      * It sets up the primary stage and scene, and initializes the UI by adding the LogIn component.
@@ -20,14 +24,12 @@ public class PropertyPro extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // Root container to hold the UI components
-        StackPane root = new StackPane();
-
         // Create an instance of the LogIn screen to be displayed in the application
-        LogIn logIn = new LogIn();
+        LogIn login = new LogIn();
+        Dashboard dashboard = new Dashboard();
 
         // Add the LogIn component to the root container
-        root.getChildren().add(logIn);
+        root.getChildren().add(login);
 
         // Create a scene with the root container, setting the width and height of the window
         Scene scene = new Scene(root, 1400, 800);
@@ -38,6 +40,11 @@ public class PropertyPro extends Application {
         // Set the scene for the primary stage and display it
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        if(Database.connectionSuccessful() && LogIn.credentials.exists()){
+            root.getChildren().clear();
+            root.getChildren().add(dashboard);
+        }
 
         // Request focus to the root container when the application starts
         root.requestFocus();
