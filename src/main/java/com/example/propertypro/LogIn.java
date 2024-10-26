@@ -4,11 +4,13 @@ import Database.Database;
 import Database.DatabaseCredentials;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -21,14 +23,14 @@ import java.io.File;
  */
 public class LogIn extends BorderPane {
 
+    public static File credentials = new File("credentials.txt");
+
     /**
      * Constructor for LogIn class.
      * Initializes and sets up the layout of the login screen, including a logo,
      * text fields for user input, and a sign-in button.
      */
     public LogIn(){
-
-        File credentials = new File("credentials.txt");
 
         // Main container for the login screen
         HBox mainContainer = new HBox();
@@ -69,24 +71,24 @@ public class LogIn extends BorderPane {
 
         // Style applied to the text fields for borders and rounded corners
         String formStyle = "-fx-border-color: #202469; -fx-border-width: 1px;" +
-                " -fx-border-radius: 20px; -fx-background-radius: 20px;";
+                " -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-font-size: 14px;";
 
         // TextField for the database name input
-        TextField databaseName = new TextField();
+        PasswordField databaseName = new PasswordField();
         databaseName.setPromptText("Database Name");
         databaseName.setStyle(formStyle);
         databaseName.setMaxWidth(300);
         databaseName.setMinHeight(35);
 
         // TextField for the username input
-        TextField username = new TextField();
+        PasswordField username = new PasswordField();
         username.setPromptText("Username");
         username.setStyle(formStyle);
         username.setMaxWidth(300);
         username.setMinHeight(35);
 
         // TextField for the password input
-        TextField password = new TextField();
+        PasswordField password = new PasswordField();
         password.setPromptText("Password");
         password.setStyle(formStyle);
         password.setMaxWidth(300);
@@ -136,6 +138,8 @@ public class LogIn extends BorderPane {
 
         // Set an action for the signIn button to execute when clicked.
         signIn.setOnAction(e -> {
+            PropertyPro.root.getChildren().clear();
+            PropertyPro.root.getChildren().add(new Dashboard());
             System.out.println("Sign In Button Clicked");
         });
 
