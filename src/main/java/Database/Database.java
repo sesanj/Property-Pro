@@ -69,4 +69,8 @@ public class Database {
     public static boolean connectionSuccessful(){
         return connectionSuccessful;
     }
+
+    public Connection getConnection(){
+        return connection;
+    }
 }
