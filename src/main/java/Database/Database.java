@@ -1,9 +1,10 @@
 package Database;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
+
 import static Database.DatabaseCredentials.*;
+import static Database.DatabaseTableConstants.*;
 
 /**
  * The Database class is a singleton responsible for creating and managing a database connection.
@@ -31,13 +32,20 @@ public class Database {
             connection = DriverManager.
                     getConnection("jdbc:mysql://localhost/" + DB_NAME + "?serverTimezone=UTC", DB_USER, DB_PASS);
 
-            System.out.println("Created Connection!");
-
             if(!credentials.exists()){
                 new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
             }
 
+            createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, connection);
+            createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, connection);
+            createTable(CITY_TABLE, CREATE_CITY_TABLE, connection);
+            createTable(PROPERTY_TYPE_TABLE, CREATE_PROPERTY_TYPE_TABLE, connection);
+            createTable(PROPERTY_TABLE, CREATE_PROPERTY_TABLE, connection);
+            createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, connection);
+
             connectionSuccessful = true;
+
+            System.out.println("Created Connection!");
 
         }catch (Exception e){
             createInstance = false;
@@ -72,5 +80,22 @@ public class Database {
 
     public Connection getConnection(){
         return connection;
+    }
+
+    public void createTable(String tableName, String SQLQuery, Connection connection) throws SQLException{
+
+        Statement createTable;
+        DatabaseMetaData metaData = connection.getMetaData();
+
+        ResultSet tableExist = metaData.getTables("spopooladb", null, tableName, null);
+
+        if(tableExist.next()){
+            System.out.println(tableName + " Table Already Exists!");
+        }
+        else{
+            createTable = connection.createStatement();
+            createTable.execute(SQLQuery);
+            System.out.println("The " + tableName + " Table Has Been Created Successfully!");
+        }
     }
 }
