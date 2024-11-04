@@ -51,7 +51,87 @@ public class DatabaseTableConstants {
 
     // Property Type Table
 
-    public static final String PROPERTY_TYPE = "property_type";
+    public static final String PROPERTY_TYPE_TABLE = "property_type";
     public static final String PROPERTY_TYPE_ID = "property_type_id";
     public static final String PROPERTY_TYPE_NAME = "property_type";
+
+
+
+
+    // CREATE TABLE STATEMENTS
+
+    // CREATE CLIENTS TABLE
+
+    public static final String CREATE_CLIENT_TABLE =
+            "CREATE TABLE " + CLIENT_TABLE + " (" +
+            CLIENT_ID + " INT NOT NULL AUTO_INCREMENT, " +
+            CLIENT_FIRST_NAME + " VARCHAR(50), " +
+            CLIENT_LAST_NAME + " VARCHAR(50), " +
+            CLIENT_PHONE_NUMBER + " VARCHAR(20), " +
+            CLIENT_EMAIL + " VARCHAR(100), " +
+            "PRIMARY KEY(" + CLIENT_ID + "));";
+
+
+
+    // CREATE PROPERTY TYPE TABLE
+
+    public static final String CREATE_PROPERTY_TYPE_TABLE =
+            "CREATE TABLE " + PROPERTY_TYPE_TABLE + " (" +
+            PROPERTY_TYPE_ID + " INT NOT NULL AUTO_INCREMENT, " +
+            PROPERTY_TYPE_NAME + " VARCHAR(50), " +
+            "PRIMARY KEY(" + PROPERTY_TYPE_ID + "));";
+
+
+    // CREATE PROVINCE TABLE
+
+    public static final String CREATE_PROVINCE_TABLE =
+            "CREATE TABLE " + PROVINCE_TABLE + " (" +
+            PROVINCE_ID + " INT NOT NULL AUTO_INCREMENT, " +
+            PROVINCE_NAME + " VARCHAR(50), " +
+            "PRIMARY KEY(" + PROVINCE_ID + "));";
+
+
+    // CREATE CITY TABLE
+
+    public static final String CREATE_CITY_TABLE =
+            "CREATE TABLE " + CITY_TABLE + " (" +
+            CITY_ID + " INT NOT NULL AUTO_INCREMENT, " +
+            CITY_NAME + " VARCHAR(25), " +
+            "PRIMARY KEY (" + CITY_ID + "));";
+
+
+
+    // CREATE TRANSACTION TABLE
+
+    public static final String CREATE_TRANSACTION_TABLE =
+            "CREATE TABLE " + TRANSACTION_TABLE + " (" +
+            TRANSACTION_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+            TRANSACTION_AMOUNT + " DECIMAL(10, 2), " +
+            TRANSACTION_CLIENT_ID + " INT, " +
+            TRANSACTION_PROPERTY_ID + " INT, " +
+            TRANSACTION_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
+            "FOREIGN KEY (" + TRANSACTION_CLIENT_ID + ")" +
+                    " REFERENCES " + CLIENT_TABLE + "(" + CLIENT_ID + "), " +
+            "FOREIGN KEY (" + TRANSACTION_PROPERTY_ID + ")" +
+                    " REFERENCES " + PROPERTY_TABLE + "(" + PROPERTY_ID + "));";
+
+
+    // CREATE PROPERTY TABLE
+
+    public static final String CREATE_PROPERTY_TABLE =
+            "CREATE TABLE " + PROPERTY_TABLE + " (" +
+            PROPERTY_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+            PROPERTY_NAME + " VARCHAR(50), " +
+            PROPERTY_PROPERTY_TYPE_ID + " INT, " +
+            PROPERTY_PROVINCE_ID + " INT, " +
+            PROPERTY_CITY_ID + " INT, " +
+            PROPERTY_STREET + " VARCHAR(100), " +
+            PROPERTY_POSTAL_CODE + " VARCHAR(10), " +
+            PROPERTY_AVAILABILITY + " INT(1), " +
+            "FOREIGN KEY (" + PROPERTY_PROPERTY_TYPE_ID + ")" +
+                    " REFERENCES " + PROPERTY_TYPE_TABLE + "(" + PROPERTY_TYPE_ID + "), " +
+            "FOREIGN KEY (" + PROPERTY_CITY_ID + ")" +
+                    " REFERENCES " + CITY_TABLE + "(" + CITY_ID + "), " +
+            "FOREIGN KEY (" + PROPERTY_PROVINCE_ID + ")" +
+                    " REFERENCES " + PROVINCE_TABLE + "(" + PROVINCE_ID + "));";
 }
