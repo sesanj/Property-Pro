@@ -37,12 +37,12 @@ public class Database {
                 new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
             }
 
-//            createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, INSERT_INTO_CLIENT_TABLE, connection);
-//            createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, INSERT_INTO_PROVINCE_TABLE, connection);
-//            createTable(CITY_TABLE, CREATE_CITY_TABLE, INSERT_INTO_CITY_TABLE, connection);
-//            createTable(PROPERTY_TYPE_TABLE, CREATE_PROPERTY_TYPE_TABLE, INSERT_INTO_PROPERTY_TYPE_TABLE, connection);
-//            createTable(PROPERTY_TABLE, CREATE_PROPERTY_TABLE, INSERT_INTO_PROPERTY_TABLE, connection);
-//            createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, INSERT_INTO_TRANSACTION_TABLE, connection);
+            createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, INSERT_INTO_CLIENT_TABLE, connection);
+            createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, INSERT_INTO_PROVINCE_TABLE, connection);
+            createTable(CITY_TABLE, CREATE_CITY_TABLE, INSERT_INTO_CITY_TABLE, connection);
+            createTable(PROPERTY_TYPE_TABLE, CREATE_PROPERTY_TYPE_TABLE, INSERT_INTO_PROPERTY_TYPE_TABLE, connection);
+            createTable(PROPERTY_TABLE, CREATE_PROPERTY_TABLE, INSERT_INTO_PROPERTY_TABLE, connection);
+            createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, INSERT_INTO_TRANSACTION_TABLE, connection);
 
             connectionSuccessful = true;
 
@@ -86,6 +86,7 @@ public class Database {
     public void createTable(String tableName, String createSQL, String[] insertSQL, Connection connection) throws SQLException{
 
         Statement createTable;
+        Statement insertIntoTable;
         DatabaseMetaData metaData = connection.getMetaData();
 
         ResultSet tableExist = metaData.getTables("spopooladb", null, tableName, null);
@@ -98,6 +99,13 @@ public class Database {
             createTable.execute(createSQL);
             System.out.println("The " + tableName + " Table Has Been Created Successfully!");
 
+            insertIntoTable = connection.createStatement();
+
+            for (String query : insertSQL) {
+                insertIntoTable.execute(query);
+            }
+            
+            System.out.println("Data Has Been Inserted Into The " + tableName + " Table Successfully!");
         }
     }
 }
