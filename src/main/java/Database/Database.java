@@ -5,6 +5,7 @@ import java.sql.*;
 
 import static Database.DatabaseCredentials.*;
 import static Database.DatabaseTableConstants.*;
+import static Database.DbTableInsertStatements.*;
 
 /**
  * The Database class is a singleton responsible for creating and managing a database connection.
@@ -36,12 +37,12 @@ public class Database {
                 new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
             }
 
-            createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, connection);
-            createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, connection);
-            createTable(CITY_TABLE, CREATE_CITY_TABLE, connection);
-            createTable(PROPERTY_TYPE_TABLE, CREATE_PROPERTY_TYPE_TABLE, connection);
-            createTable(PROPERTY_TABLE, CREATE_PROPERTY_TABLE, connection);
-            createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, connection);
+//            createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, INSERT_INTO_CLIENT_TABLE, connection);
+//            createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, INSERT_INTO_PROVINCE_TABLE, connection);
+//            createTable(CITY_TABLE, CREATE_CITY_TABLE, INSERT_INTO_CITY_TABLE, connection);
+//            createTable(PROPERTY_TYPE_TABLE, CREATE_PROPERTY_TYPE_TABLE, INSERT_INTO_PROPERTY_TYPE_TABLE, connection);
+//            createTable(PROPERTY_TABLE, CREATE_PROPERTY_TABLE, INSERT_INTO_PROPERTY_TABLE, connection);
+//            createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, INSERT_INTO_TRANSACTION_TABLE, connection);
 
             connectionSuccessful = true;
 
@@ -82,7 +83,7 @@ public class Database {
         return connection;
     }
 
-    public void createTable(String tableName, String SQLQuery, Connection connection) throws SQLException{
+    public void createTable(String tableName, String createSQL, String[] insertSQL, Connection connection) throws SQLException{
 
         Statement createTable;
         DatabaseMetaData metaData = connection.getMetaData();
@@ -94,8 +95,9 @@ public class Database {
         }
         else{
             createTable = connection.createStatement();
-            createTable.execute(SQLQuery);
+            createTable.execute(createSQL);
             System.out.println("The " + tableName + " Table Has Been Created Successfully!");
+
         }
     }
 }
