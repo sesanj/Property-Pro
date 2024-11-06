@@ -1,9 +1,11 @@
 package Dao;
 
+import com.example.propertypro.Pojo.ProvincePOJO;
+
 import java.util.ArrayList;
 
-public interface ProvinceDAO {
-    public ArrayList<Province> getAllProvinces();
-    public Province getProvince(String ProvinceName );
+public interface ProvinceDAO{
+    public ArrayList<ProvincePOJO> getAllProvinces();
+    public ProvincePOJO getProvince(int province_id );
 
 }

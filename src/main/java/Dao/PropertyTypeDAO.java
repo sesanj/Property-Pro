@@ -1,10 +1,11 @@
 package Dao;
 
+import com.example.propertypro.Pojo.PropertyTypePOJO;
+
 import java.util.ArrayList;
 
 public interface PropertyTypeDAO {
-    public ArrayList<PropertyType> getAllPropertyTypes();
-    public PropertyType getTypeId(int type_id);
-    public PropertyType getTypeName(int type_name);
+    public ArrayList<PropertyTypePOJO> getAllPropertyTypes();
+    public PropertyTypePOJO getPropertyType(int property_type_id);
 
 }
