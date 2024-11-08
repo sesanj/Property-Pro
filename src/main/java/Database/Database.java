@@ -104,7 +104,7 @@ public class Database {
             for (String query : insertSQL) {
                 insertIntoTable.execute(query);
             }
-            
+
             System.out.println("Data Has Been Inserted Into The " + tableName + " Table Successfully!");
         }
     }
