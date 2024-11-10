@@ -1,18 +1,19 @@
 package Dao;
 
 import com.example.propertypro.Pojo.PropertyPOJO;
+import com.example.propertypro.Pojo.PropertyPOJORefined;
 
 import java.util.ArrayList;
 
 public interface PropertyDAO {
-    public ArrayList<PropertyPOJO> getAllProperty();
-    public PropertyPOJO getPropertyByID(int property_Id);
-    public PropertyPOJO getPropertyByName(String name);
-    public PropertyPOJO getPropertyByPropertyType(int property_type_id);
-    public PropertyPOJO getPropertyByProvince(int province_id );
-    public PropertyPOJO getPropertyByCity(int city_id);
-    public PropertyPOJO getPropertyByAvailability(int availability);
-    public PropertyPOJO getPropertyByPostalCode(String postal_code);
+    public ArrayList<PropertyPOJORefined> getAllProperty();
+    public PropertyPOJORefined getPropertyByID(int property_Id);
+    public PropertyPOJORefined getPropertyByName(String name);
+    public PropertyPOJORefined getPropertyByPropertyType(int property_type_id);
+    public PropertyPOJORefined getPropertyByProvince(int province_id );
+    public PropertyPOJORefined getPropertyByCity(int city_id);
+    public PropertyPOJORefined getPropertyByAvailability(int availability);
+    public PropertyPOJORefined getPropertyByPostalCode(String postal_code);
 
 
 

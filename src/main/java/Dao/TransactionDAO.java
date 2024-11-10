@@ -1,13 +1,16 @@
 package Dao;
 
 import com.example.propertypro.Pojo.TransactionPOJO;
+import com.example.propertypro.Pojo.TransactionPOJORefined;
 
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface TransactionDAO {
-    public ArrayList<TransactionPOJO> getAllTransactions();
-    public TransactionPOJO getTransactionById(int TransactionId);
-    public TransactionPOJO getTransactionByUser(int user_id);
-    public TransactionPOJO getTransactionByProperty(int property_Id);
-    public TransactionPOJO getTransactionByDate(String date);
+    public ArrayList<TransactionPOJORefined> getAllTransactions();
+    public TransactionPOJORefined getTransactionById(int TransactionId);
+    public TransactionPOJORefined getTransactionByUser(int user_id);
+    public TransactionPOJORefined getTransactionByProperty(int property_Id);
+    public TransactionPOJORefined getTransactionByDate(Timestamp date);
 }
