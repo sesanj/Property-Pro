@@ -240,4 +240,19 @@ public class PropertyTable implements PropertyDAO {
         }
         return null;
     }
+
+    @Override
+    public void deleteProperty(int property_Id) {
+
+    }
+
+    @Override
+    public void updateProperty(PropertyPOJO property) {
+
+    }
+
+    @Override
+    public void createProperty(PropertyPOJO property) {
+
+    }
 }

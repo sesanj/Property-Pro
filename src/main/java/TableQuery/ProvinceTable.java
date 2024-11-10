@@ -50,4 +50,19 @@ public class ProvinceTable implements ProvinceDAO {
         }
         return null;
     }
+
+    @Override
+    public void deleteProvince(int province_id) {
+
+    }
+
+    @Override
+    public void updateProvince(ProvincePOJO province) {
+
+    }
+
+    @Override
+    public void createProvince(ProvincePOJO province) {
+
+    }
 }
