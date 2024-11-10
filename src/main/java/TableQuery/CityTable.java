@@ -56,4 +56,19 @@ public class CityTable implements CityDAO {
 
         return null;
     }
+
+    @Override
+    public void deleteCity(int cityId) {
+
+    }
+
+    @Override
+    public void updateCity(CityPOJO city) {
+
+    }
+
+    @Override
+    public void createCity(CityPOJO city) {
+
+    }
 }

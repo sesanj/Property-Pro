@@ -50,4 +50,19 @@ public class PropertyTypeTable implements PropertyTypeDAO {
         }
         return null;
     }
+
+    @Override
+    public void deletePropertyType(int property_type_id) {
+
+    }
+
+    @Override
+    public void updatePropertyType(PropertyTypePOJO propertyType) {
+
+    }
+
+    @Override
+    public void createPropertyType(PropertyTypePOJO propertyType) {
+
+    }
 }

@@ -147,4 +147,19 @@ public class ClientTable implements ClientDAO {
         }
         return null;
     }
+
+    @Override
+    public void deleteClient(int user_id) {
+
+    }
+
+    @Override
+    public void updateClient(ClientPOJO client) {
+
+    }
+
+    @Override
+    public void createClient(ClientPOJO client) {
+
+    }
 }
