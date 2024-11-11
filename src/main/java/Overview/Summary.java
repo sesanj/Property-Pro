@@ -14,9 +14,9 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-public class Totals extends BorderPane {
+public class Summary extends BorderPane {
 
-    public Totals(){
+    public Summary(){
 
         TransactionTable transactionTable = new TransactionTable();
         ClientTable clientTable = new ClientTable();
@@ -32,27 +32,21 @@ public class Totals extends BorderPane {
         VBox clientBox = new VBox(10);
         VBox propertyBox = new VBox(10);
 
-        //String labelStyle = "-fx-fill: red; -fx-font-size: 14px;";
-
         Label revenueLabel = new Label("Total Revenue");
-        //revenueLabel.setStyle(labelStyle);
 
         Label transactionLabel = new Label("All Transactions");
-        //transactionLabel.setStyle(labelStyle);
 
         Label clientLabel = new Label("Current Clients");
-        //clientLabel.setStyle(labelStyle);
 
         Label propertyLabel = new Label("Properties");
-        //propertyLabel.setStyle(labelStyle);
 
         String style = "-fx-fill: #1a1b2e; -fx-font-size: 20px; -fx-font-weight: bold;";
 
         Text summary = new Text("Summary");
-        summary.setStyle("-fx-font-size: 25px; -fx-font-weight: bold;");
+        summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         Text totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 22px; -fx-fill: #202469; -fx-font-weight: bold;");
+        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: #202469; -fx-font-weight: bold;");
 
         Text totalTransactions = new Text();
         totalTransactions.setStyle(style);

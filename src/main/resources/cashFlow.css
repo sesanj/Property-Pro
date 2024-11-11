@@ -1,0 +1,98 @@
+/* Bar Chart Styling */
+.chart-bar {
+    -fx-bar-fill: #202469;
+    -fx-background-insets: 1;
+}
+
+/* Remove chart background */
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+
+/* Hover effect for bars */
+.chart-bar:hover {
+    -fx-bar-fill: #7c83fd;
+}
+
+.tooltip {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-color: #333;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+}
+
+/* Transition effect for bars */
+.chart-bar {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 2);
+    -fx-transition: -fx-bar-fill 0.3s ease-in-out;
+}
+
+
+/* Background grid styling */
+.chart-horizontal-grid-lines {
+    -fx-stroke: #cccccc;
+    -fx-stroke-dash-array: 5 5;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+    -fx-stroke-dash-array: 5 5;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 auto;
+    -fx-alignment: center-right;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1b2e;
+    -fx-underline: true;
+    -fx-padding: 5px;
+}
+
+/* Basic button style */
+.button {
+    -fx-background-color: #dadbe8;
+    -fx-text-fill: #1a1b2e;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Hover effect */
+.button:hover {
+    -fx-background-color: #c0c0cb;
+}
+
+
+/* Remove focus highlight */
+.button:focus {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Style for the line in a LineChart */
+.chart-series-line {
+    -fx-stroke: #3498db;
+    -fx-stroke-width: 2px;
+    -fx-stroke-line-cap: round;
+}
+
+/* Hover effect for line nodes (data points) */
+.default-color0.chart-line-symbol {
+    -fx-background-color: #3498db, white;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+}
+
+.default-color0.chart-line-symbol:hover {
+    -fx-background-color: #2980b9, white;
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+}

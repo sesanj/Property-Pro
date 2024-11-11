@@ -34,7 +34,7 @@ public class PropertyPro extends Application {
         // Create a scene with the root container, setting the width and height of the window
         Scene scene = new Scene(root, 1600, 900);
 
-        // Set the title of the primary stage (window)
+        // Set the title of the primary stage
         primaryStage.setTitle("Property Pro");
 
         // Set the scene for the primary stage and display it
