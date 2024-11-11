@@ -1,6 +1,7 @@
 package com.example.propertypro;
 
 import Database.Database;
+import Overview.Totals;
 import TableQuery.CityTable;
 import TableQuery.PropertyTable;
 import TableQuery.TransactionTable;
@@ -11,6 +12,7 @@ import com.example.propertypro.Pojo.TransactionPOJORefined;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -26,72 +28,31 @@ import static Database.DatabaseTableConstants.*;
 public class Overview extends BorderPane {
      Overview() {
 
-         ScrollPane layout = new ScrollPane();
+         GridPane layout = new GridPane();
 
-         Database db = Database.getNewDatabase();
+         Totals totalSectionOne = new Totals();
+         totalSectionOne.setPrefSize(650, 450);
+         totalSectionOne.setStyle("-fx-background-color: white;");
 
-         //CityTable city = new CityTable();
-         TransactionTable transactionTable = new TransactionTable();
+         Totals totalSectionTwo = new Totals();
+         totalSectionTwo.setPrefSize(650, 450);
+         totalSectionTwo.setStyle("-fx-border-color: black; -fx-background-color: white;");
 
-         //ArrayList<CityPOJO> allCities = city.getAllCities();
+         Totals totalSectionThree = new Totals();
+         totalSectionThree.setPrefSize(650, 450);
+         totalSectionThree.setStyle("-fx-border-color: black; -fx-background-color: white;");
 
-         ArrayList<TransactionPOJORefined> allTransactions = transactionTable.getAllTransactions();
+         Totals totalSectionFour = new Totals();
+         totalSectionFour.setPrefSize(650, 450);
+         totalSectionFour.setStyle("-fx-border-color: black; -fx-background-color: white;");
 
-         //CityPOJO cityById = city.getCityByID(5);
-
-
-         HBox dataBox = new HBox(20);
-         VBox allData = new VBox( 10);
-
-        Text ID = new Text();
-        Text Province = new Text();
-         Text name = new Text();
-         Text propertyCity = new Text();
-         Text type;
-         Text street = new Text();
-         Text postalCode = new Text();
-         Text Availability = new Text();
-        //ID.setStyle("-fx-font-size:22px;");
-
-         VBox propertyID = new VBox(20);
-         VBox propertyName = new VBox(20);
-         VBox cityBox = new VBox(20);
-         VBox typeBox = new VBox(20);
-         VBox streetBox = new VBox(20);
-         VBox postalBox = new VBox(20);
-         VBox availabilityBox = new VBox(20);
-         VBox provinceBox = new VBox(20);
-
-        for(TransactionPOJORefined transaction : allTransactions){
-
-            ID = new Text(transaction.getId() + "");
-            Province = new Text(transaction.getAmount() + "");
-            name = new Text(transaction.getClient_id());
-            propertyCity = new Text(transaction.getProperty_id());
-            type = new Text(transaction.getTimestamp() + "");
-//            street = new Text(property.getStreet());
-//            postalCode = new Text(property.getPostal_code());
-//            Availability = new Text(property.getAvailability() + "");
-
-            propertyID.getChildren().add(ID);
-            provinceBox.getChildren().add(Province);
-            propertyName.getChildren().add(name);
-            cityBox.getChildren().add(propertyCity);
-            typeBox.getChildren().add(type);
-//            streetBox.getChildren().add(street);
-//            postalBox.getChildren().add(postalCode);
-//            availabilityBox.getChildren().add(Availability);
-
-        }
-
-        dataBox.getChildren().addAll(propertyID, propertyName, cityBox, provinceBox, typeBox);
-
-        dataBox.setAlignment(Pos.TOP_CENTER);
+         layout.add(totalSectionOne, 0, 0);
+         layout.add(totalSectionTwo, 0, 1);
+         layout.add(totalSectionThree, 1, 0);
+         layout.add(totalSectionFour, 1, 1);
 
 
-
-
-         layout.setContent(dataBox);
+         layout.setAlignment(Pos.CENTER);
 
          this.setCenter(layout);
     }
