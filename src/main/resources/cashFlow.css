@@ -9,12 +9,6 @@
     -fx-background-color: transparent;
 }
 
-
-/* Hover effect for bars */
-.chart-bar:hover {
-    -fx-bar-fill: #7c83fd;
-}
-
 .tooltip {
     -fx-font-size: 12px;
     -fx-font-weight: bold;
@@ -57,7 +51,7 @@
 
 /* Basic button style */
 .button {
-    -fx-background-color: #dadbe8;
+    -fx-background-color: #e6e8ff;
     -fx-text-fill: #1a1b2e;
     -fx-font-size: 14px;
     -fx-padding: 5px 10px;

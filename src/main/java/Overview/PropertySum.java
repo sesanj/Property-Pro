@@ -33,7 +33,7 @@ public class PropertySum extends BorderPane {
         button.getStylesheets().add(getClass().getResource("/cashFlow.css").toExternalForm());
 
         analyticsBox.getChildren().addAll(title, button, pieChart);
-        analyticsBox.setStyle("-fx-padding: 30px 0px 50px 50px");
+        analyticsBox.setStyle("-fx-padding: 30px 50px 50px 50px");
 
         this.setCenter(analyticsBox);
 

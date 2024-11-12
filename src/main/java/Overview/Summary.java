@@ -46,7 +46,7 @@ public class Summary extends BorderPane {
         summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         Text totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 35px; -fx-fill: #202469; -fx-font-weight: bold;");
+        totalRevenueText.setStyle("-fx-font-size: 35px; -fx-fill: green; -fx-font-weight: bold;");
 
         Text totalTransactions = new Text();
         totalTransactions.setStyle(style);
