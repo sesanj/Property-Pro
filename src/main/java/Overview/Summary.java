@@ -27,10 +27,10 @@ public class Summary extends BorderPane {
         ArrayList<PropertyPOJORefined> allProperties = propertyTable.getAllProperty();
 
         VBox allContents = new VBox(30);
-        VBox revenueBox = new VBox(10);
-        VBox transactionBox = new VBox(10);
-        VBox clientBox = new VBox(10);
-        VBox propertyBox = new VBox(10);
+        VBox revenueBox = new VBox(6);
+        VBox transactionBox = new VBox(6);
+        VBox clientBox = new VBox(6);
+        VBox propertyBox = new VBox(6);
 
         Label revenueLabel = new Label("Total Revenue");
 
@@ -46,7 +46,7 @@ public class Summary extends BorderPane {
         summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         Text totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: #202469; -fx-font-weight: bold;");
+        totalRevenueText.setStyle("-fx-font-size: 35px; -fx-fill: #202469; -fx-font-weight: bold;");
 
         Text totalTransactions = new Text();
         totalTransactions.setStyle(style);
@@ -83,7 +83,7 @@ public class Summary extends BorderPane {
             figure = "B";
         }
 
-        totalRevenueText.setText("$" + formattedRevenue + figure);
+        totalRevenueText.setText("$" + formattedRevenue + figure + "+");
         totalTransactions.setText(formattedTransactionCount + "+");
         totalClients.setText(formattedClientCount + "+");
         totalProperties.setText(formattedPropertyCount + "+");

@@ -1,11 +1,7 @@
-package Overview.Tabs;
+package Overview.Charts;
 
 import Database.Database;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tab;
+import javafx.scene.chart.*;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.util.StringConverter;
@@ -15,9 +11,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
+import static Database.DatabaseTableConstants.TRANSACTION_TIMESTAMP;
 
-public class BarChartTab extends BorderPane {
-    public BarChartTab(Database db){
+public class LineChart extends BorderPane {
+
+    public LineChart(Database db){
 
         CategoryAxis xAxis = new CategoryAxis();
 
@@ -26,7 +24,7 @@ public class BarChartTab extends BorderPane {
         yAxis.setTickLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Number object) {
-                return String.format("$%,.0f", object); // Format with commas and the "$" sign
+                return String.format("$%,.0f", object);
             }
 
             @Override
@@ -35,11 +33,10 @@ public class BarChartTab extends BorderPane {
             }
         });
 
-        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Monthly Revenue for Last 12 Months");
+        javafx.scene.chart.LineChart<String, Number> lineChart = new javafx.scene.chart.LineChart<>(xAxis, yAxis);
+        lineChart.setTitle("Monthly Revenue for Last 12 Months");
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        //series.setName("Revenue");
 
 
         String query = "SELECT YEAR(" + TRANSACTION_TIMESTAMP  + ") AS year, " +
@@ -86,11 +83,11 @@ public class BarChartTab extends BorderPane {
             });
         }
 
-        barChart.getData().add(series);
-        barChart.getStylesheets().add(getClass().getResource("/cashFlow.css").toExternalForm());
-        barChart.setLegendVisible(false);
+        lineChart.getData().add(series);
+        lineChart.getStylesheets().add(getClass().getResource("/cashFlow.css").toExternalForm());
+        lineChart.setLegendVisible(false);
 
-        this.setCenter(barChart);
+        this.setCenter(lineChart);
 
     }
 }
