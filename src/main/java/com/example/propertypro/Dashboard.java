@@ -130,7 +130,7 @@ public class Dashboard extends BorderPane {
 
           // Set up the complete navigation bar layout
           navBar.getChildren().addAll(logoAndNavBox, settingsAndLogout);
-          navBar.setMinWidth(300);
+          navBar.setMinWidth(250);
           navBar.setStyle("-fx-background-color: #1a1b2e;" + "-fx-padding: 40px;");
           navBar.setAlignment(Pos.CENTER_LEFT);
 

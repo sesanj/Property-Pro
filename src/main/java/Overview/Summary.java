@@ -34,19 +34,19 @@ public class Summary extends BorderPane {
 
         Label revenueLabel = new Label("Total Revenue");
 
-        Label transactionLabel = new Label("All Transactions");
+        Label transactionLabel = new Label("Total Transactions");
 
         Label clientLabel = new Label("Current Clients");
 
         Label propertyLabel = new Label("Properties");
 
-        String style = "-fx-fill: #1a1b2e; -fx-font-size: 20px; -fx-font-weight: bold;";
+        String style = "-fx-fill: #1a1b2e; -fx-font-size: 25px; -fx-font-weight: bold;";
 
         Text summary = new Text("Summary");
         summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         Text totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 35px; -fx-fill: green; -fx-font-weight: bold;");
+        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: green; -fx-font-weight: bold;");
 
         Text totalTransactions = new Text();
         totalTransactions.setStyle(style);

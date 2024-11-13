@@ -30,12 +30,13 @@ public class Database {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.
-                    getConnection("jdbc:mysql://localhost/" + DB_NAME + "?serverTimezone=UTC", DB_USER, DB_PASS);
-
             if(!credentials.exists()){
                 new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
             }
+
+            connection = DriverManager.
+                    getConnection("jdbc:mysql://localhost/" + DB_NAME + "?serverTimezone=UTC", DB_USER, DB_PASS);
+
 
             createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, INSERT_INTO_CLIENT_TABLE, connection);
             createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, INSERT_INTO_PROVINCE_TABLE, connection);

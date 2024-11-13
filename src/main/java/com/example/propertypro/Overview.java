@@ -21,7 +21,7 @@ public class Overview extends BorderPane {
          summary.setStyle("-fx-background-color: #e9eaff;");
 
          CashFlow cashFlow = new CashFlow();
-         cashFlow.setPrefSize(750, 450);
+         cashFlow.setPrefSize(800, 450);
          cashFlow.setStyle("-fx-background-color: white;");
 
          PropertySum propertySum = new PropertySum();
@@ -29,7 +29,7 @@ public class Overview extends BorderPane {
          propertySum.setStyle("-fx-background-color: #e9eaff;");
 
          TopUsers topClients = new TopUsers();
-         topClients.setPrefSize(750, 450);
+         topClients.setPrefSize(800, 450);
          topClients.setStyle("-fx-background-color: white;");
 
          layout.add(summary, 0, 0);

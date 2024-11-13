@@ -50,7 +50,7 @@ public class CashFlow extends BorderPane {
         lineChartButton.getStylesheets().add(getClass().getResource("/cashFlow.css").toExternalForm());
 
         cashFlowBox.getChildren().addAll(cashFlow, buttons, chart);
-        cashFlowBox.setStyle("-fx-padding: 50px 50px 20px 50px");
+        cashFlowBox.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setCenter(cashFlowBox);
     }
