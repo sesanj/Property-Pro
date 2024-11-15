@@ -90,7 +90,7 @@ public class Database {
         Statement insertIntoTable;
         DatabaseMetaData metaData = connection.getMetaData();
 
-        ResultSet tableExist = metaData.getTables("spopooladb", null, tableName, null);
+        ResultSet tableExist = metaData.getTables(DB_NAME, null, tableName, null);
 
         if(tableExist.next()){
             System.out.println(tableName + " Table Already Exists!");
