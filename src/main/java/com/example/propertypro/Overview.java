@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 
 
 public class Overview extends BorderPane {
+
      Overview() {
 
          GridPane layout = new GridPane();
