@@ -30,10 +30,6 @@ public class Database {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            if(!credentials.exists()){
-                new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
-            }
-
             connection = DriverManager.
                     getConnection("jdbc:mysql://localhost/" + DB_NAME + "?serverTimezone=UTC", DB_USER, DB_PASS);
 
@@ -46,6 +42,10 @@ public class Database {
             createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, INSERT_INTO_TRANSACTION_TABLE, connection);
 
             connectionSuccessful = true;
+
+            if(!credentials.exists()){
+                new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
+            }
 
             System.out.println("Created Connection!");
 

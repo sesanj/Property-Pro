@@ -26,7 +26,7 @@ public class PropertyPro extends Application {
 
         // Create an instance of the LogIn screen to be displayed in the application
         LogIn login = new LogIn();
-        Dashboard dashboard = new Dashboard();
+
 
         // Add the LogIn component to the root container
         root.getChildren().add(login);
@@ -42,6 +42,7 @@ public class PropertyPro extends Application {
         primaryStage.show();
 
         if(Database.connectionSuccessful() && LogIn.credentials.exists()){
+            Dashboard dashboard = new Dashboard();
             root.getChildren().clear();
             root.getChildren().add(dashboard);
         }
