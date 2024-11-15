@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public interface PropertyDAO {
 
     public ArrayList<PropertyPOJORefined> getAllProperty();
+    public ArrayList<PropertyPOJO> getAllPropertyRaw();
     public PropertyPOJORefined getPropertyByID(int property_Id);
     public PropertyPOJORefined getPropertyByName(String name);
     public PropertyPOJORefined getPropertyByPropertyType(int property_type_id);

@@ -1,0 +1,83 @@
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+.table-cell {
+    -fx-padding: 12px 20px 12px 12px;
+    -fx-font-size: 14px;
+}
+
+
+/* Style the individual column headers */
+.table-view .column-header {
+    -fx-background-color: white;
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: grey;
+    -fx-font-weight: normal;
+    -fx-font-size: 14px;
+    -fx-alignment: left;
+    -fx-padding: 12px;
+}
+
+/* Style alternating rows in the TableView */
+.table-row-cell:odd {
+    /*-fx-background-color: #e6e8ff;*/
+    -fx-background-color: #e9eaff;
+}
+
+.table-row-cell:even {
+    -fx-background-color: white;
+}
+
+
+/* Hide the vertical scroll bar */
+.table-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+}
+
+/* Hide the horizontal scroll bar */
+.table-view .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-background-color: transparent;
+}
+
+
+.table-view .scroll-bar:vertical {
+    -fx-pref-width: 0;
+    -fx-min-width: 0;
+    -fx-max-width: 0;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+/* Remove borders from rows and cells */
+.table-view .table-row-cell,
+.table-view .table-cell {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+
+/* Add hover effect */
+.table-row-cell:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+
+/* Set the background color for selected rows only when focused */
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: green;
+}
+
+
+
