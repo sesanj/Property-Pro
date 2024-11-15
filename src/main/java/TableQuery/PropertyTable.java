@@ -2,6 +2,7 @@ package TableQuery;
 
 import Dao.PropertyDAO;
 import Database.Database;
+import com.example.propertypro.Pojo.CityPOJO;
 import com.example.propertypro.Pojo.ClientPOJO;
 import com.example.propertypro.Pojo.PropertyPOJO;
 import com.example.propertypro.Pojo.PropertyPOJORefined;
@@ -35,6 +36,29 @@ public class PropertyTable implements PropertyDAO {
             while(propertyData.next()){
 
                 properties.add(new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return properties;
+    }
+
+    @Override
+    public ArrayList<PropertyPOJO> getAllPropertyRaw() {
+
+        ArrayList<PropertyPOJO> properties = new ArrayList<>();
+
+        String query = "SELECT * FROM " + PROPERTY_TABLE;
+
+        try{
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
+
+            while(propertyData.next()){
+                properties.add(new PropertyPOJO(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getInt(PROPERTY_PROPERTY_TYPE_ID), propertyData.getInt(PROPERTY_PROVINCE_ID), propertyData.getInt(PROPERTY_CITY_ID), propertyData.getString(PROPERTY_STREET),
                         propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
             }
 

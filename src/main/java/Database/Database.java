@@ -33,9 +33,6 @@ public class Database {
             connection = DriverManager.
                     getConnection("jdbc:mysql://localhost/" + DB_NAME + "?serverTimezone=UTC", DB_USER, DB_PASS);
 
-            if(!credentials.exists()){
-                new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
-            }
 
             createTable(CLIENT_TABLE, CREATE_CLIENT_TABLE, INSERT_INTO_CLIENT_TABLE, connection);
             createTable(PROVINCE_TABLE, CREATE_PROVINCE_TABLE, INSERT_INTO_PROVINCE_TABLE, connection);
@@ -45,6 +42,10 @@ public class Database {
             createTable(TRANSACTION_TABLE, CREATE_TRANSACTION_TABLE, INSERT_INTO_TRANSACTION_TABLE, connection);
 
             connectionSuccessful = true;
+
+            if(!credentials.exists()){
+                new DatabaseCredentials().createCredentials(DB_NAME, DB_USER, DB_PASS);
+            }
 
             System.out.println("Created Connection!");
 
@@ -89,7 +90,7 @@ public class Database {
         Statement insertIntoTable;
         DatabaseMetaData metaData = connection.getMetaData();
 
-        ResultSet tableExist = metaData.getTables("spopooladb", null, tableName, null);
+        ResultSet tableExist = metaData.getTables(DB_NAME, null, tableName, null);
 
         if(tableExist.next()){
             System.out.println(tableName + " Table Already Exists!");
