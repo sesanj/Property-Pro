@@ -5,7 +5,9 @@ import Database.Database;
 import com.example.propertypro.Pojo.CityPOJO;
 import com.example.propertypro.Pojo.ClientPOJO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -150,16 +152,60 @@ public class ClientTable implements ClientDAO {
 
     @Override
     public void deleteClient(int user_id) {
+        String query = "DELETE FROM " + CLIENT_TABLE + " WHERE " + CLIENT_ID + " = ?";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setInt(1, user_id);
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Client with ID " + user_id + " deleted successfully.");
+            } else {
+                System.out.println("No client found with ID " + user_id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider logging this
+        }
 
     }
 
     @Override
-    public void updateClient(ClientPOJO client) {
+    public void updateClient(ClientPOJO client) {String query = "UPDATE " + CLIENT_TABLE + " SET " + CLIENT_FIRST_NAME + " = ?, " + CLIENT_LAST_NAME + " = ?, " + CLIENT_PHONE_NUMBER + " = ?, " + CLIENT_EMAIL + " = ? " +
+            "WHERE " + CLIENT_ID + " = ?";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, client.getFirst_name());
+            st.setString(2, client.getLast_name());
+            st.setString(3, client.getPhone_number());
+            st.setString(4, client.getEmail());
+            st.setInt(5, client.getClient_id());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Client with ID " + client.getClient_id() + " updated successfully.");
+            } else {
+                System.out.println("No client found with ID " + client.getClient_id());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
     @Override
-    public void createClient(ClientPOJO client) {
+    public void createClient(ClientPOJO client) {String query = "INSERT INTO " + CLIENT_TABLE + " (" +
+            CLIENT_FIRST_NAME + ", " + CLIENT_LAST_NAME + ", " + CLIENT_PHONE_NUMBER + ", " + CLIENT_EMAIL + ") " +
+            "VALUES (?, ?, ?, ?)";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, client.getFirst_name());
+            st.setString(2, client.getLast_name());
+            st.setString(3, client.getPhone_number());
+            st.setString(4, client.getEmail());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Client created successfully.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider logging this
+        }
+
 
     }
 }

@@ -7,7 +7,9 @@ import com.example.propertypro.Pojo.ClientPOJO;
 import com.example.propertypro.Pojo.PropertyPOJO;
 import com.example.propertypro.Pojo.PropertyPOJORefined;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -266,17 +268,69 @@ public class PropertyTable implements PropertyDAO {
     }
 
     @Override
-    public void deleteProperty(int property_Id) {
+    public void deleteProperty(int property_Id) {String query = "DELETE FROM " + PROPERTY_TABLE + " WHERE " + PROPERTY_ID + " = ?";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setInt(1, property_Id);
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property with ID " + property_Id + " deleted successfully.");
+            } else {
+                System.out.println("No property found with ID " + property_Id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
     @Override
-    public void updateProperty(PropertyPOJO property) {
+    public void updateProperty(PropertyPOJO property) {  String query = "UPDATE " + PROPERTY_TABLE + " SET " +
+            PROPERTY_NAME + " = ?, " + PROPERTY_PROPERTY_TYPE_ID + " = ?, " + PROPERTY_PROVINCE_ID + " = ?, " + PROPERTY_CITY_ID + " = ?, " + PROPERTY_STREET + " = ?, " + PROPERTY_POSTAL_CODE + " = ?, " + PROPERTY_AVAILABILITY + " = ? " + "WHERE " + PROPERTY_ID + " = ?";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, property.getName());
+            st.setInt(2, property.getProperty_id());
+            st.setInt(3, property.getProvince_id());
+            st.setInt(4, property.getCity_id());
+            st.setString(5, property.getStreet());
+            st.setString(6, property.getPostal_code());
+            st.setInt(7, property.getAvailability());
+            st.setInt(8, property.getProperty_id());
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property with ID " + property.getProperty_id() + " updated successfully.");
+            } else {
+                System.out.println("No property found with ID " + property.getProperty_id());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
     @Override
     public void createProperty(PropertyPOJO property) {
+        String query = "INSERT INTO " + PROPERTY_TABLE + " (" + PROPERTY_NAME + ", " + PROPERTY_PROPERTY_TYPE_ID + ", " + PROPERTY_PROVINCE_ID + ", " +
+                PROPERTY_CITY_ID + ", " + PROPERTY_STREET + ", " + PROPERTY_POSTAL_CODE + ", " + PROPERTY_AVAILABILITY + ") " + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, property.getName());
+            st.setInt(2, property.getProperty_type_id());
+            st.setInt(3, property.getProvince_id());
+            st.setInt(4, property.getCity_id());
+            st.setString(5, property.getStreet());
+            st.setString(6, property.getPostal_code());
+            st.setInt(7, property.getAvailability());
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property created successfully.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
