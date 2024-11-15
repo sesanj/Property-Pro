@@ -5,9 +5,7 @@ import Database.Database;
 import com.example.propertypro.Pojo.TransactionPOJO;
 import com.example.propertypro.Pojo.TransactionPOJORefined;
 
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
@@ -154,16 +152,62 @@ public class TransactionTable implements TransactionDAO {
 
     @Override
     public void deleteTransaction(int TransactionId) {
+        String query = "DELETE FROM " + TRANSACTION_TABLE + " WHERE " + TRANSACTION_ID + " = ?";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setInt(1, TransactionId);
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Transaction with ID " + TransactionId + " was deleted.");
+            } else {
+                System.out.println("No transaction found with ID " + TransactionId);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting transaction", e);
+        }
 
     }
 
     @Override
     public void updateTransaction(TransactionPOJO transaction) {
+        String query = "UPDATE " + TRANSACTION_TABLE +
+                " SET " + TRANSACTION_AMOUNT + " = ?, " + TRANSACTION_TIMESTAMP + " = ? " +
+                " WHERE " + TRANSACTION_ID + " = ?";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setDouble(1, transaction.getAmount());
+            st.setTimestamp(2, transaction.getTimestamp());
+            st.setInt(3, transaction.getId());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Transaction with ID " + transaction.getId() + " was updated.");
+            } else {
+                System.out.println("No transaction found with ID " + transaction.getId());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating transaction", e);
+        }
 
     }
 
     @Override
-    public void createTransaction(TransactionPOJO transaction) {
+    public void createTransaction(TransactionPOJO transaction) {String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
+            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ", " + TRANSACTION_TIMESTAMP + ") " +
+            "VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setDouble(1, transaction.getAmount());
+            st.setInt(2, transaction.getClient_id());
+            st.setInt(3, transaction.getProperty_id());
+            st.setTimestamp(4, transaction.getTimestamp());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Transaction with ID " + transaction.getId() + " was created.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating transaction", e);
+        }
+
 
     }
 }

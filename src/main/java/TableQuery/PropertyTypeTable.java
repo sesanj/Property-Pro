@@ -4,6 +4,7 @@ import Dao.PropertyTypeDAO;
 import Database.Database;
 import com.example.propertypro.Pojo.PropertyTypePOJO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,17 +53,57 @@ public class PropertyTypeTable implements PropertyTypeDAO {
     }
 
     @Override
-    public void deletePropertyType(int property_type_id) {
+    public void deletePropertyType(int property_type_id) {  String query = "DELETE FROM " + PROPERTY_TYPE_TABLE + " WHERE " + PROPERTY_TYPE_ID + " = ?";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setInt(1, property_type_id);
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property type with ID " + property_type_id + " was deleted.");
+            } else {
+                System.out.println("No property type found with ID " + property_type_id);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting property type", e);
+        }
+
 
     }
 
     @Override
     public void updatePropertyType(PropertyTypePOJO propertyType) {
+        String query = "UPDATE " + PROPERTY_TYPE_TABLE + " SET " + PROPERTY_TYPE_NAME + " = ? WHERE " + PROPERTY_TYPE_ID + " = ?";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, propertyType.getProperty_type());
+            st.setInt(2, propertyType.getPropertyType_id());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property type with ID " + propertyType.getPropertyType_id() + " was updated.");
+            } else {
+                System.out.println("No property type found with ID " + propertyType.getPropertyType_id());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating property type", e);
+        }
 
     }
 
     @Override
-    public void createPropertyType(PropertyTypePOJO propertyType) {
+    public void createPropertyType(PropertyTypePOJO propertyType) {  String query = "INSERT INTO " + PROPERTY_TYPE_TABLE + " (" + PROPERTY_TYPE_NAME + ") VALUES (?)";
+
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setString(1, propertyType.getProperty_type());
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property type created: " + propertyType.getProperty_type());
+            } else {
+                System.out.println("Failed to create property type.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating property type", e);
+        }
+
 
     }
 }
