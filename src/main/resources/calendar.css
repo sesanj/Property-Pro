@@ -1,0 +1,18 @@
+.date-picker:focused{
+
+    -fx-focus-color: #dbdbdb;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Change the background color of the selected date */
+.date-picker-popup .day-cell:focused {
+    -fx-background-color: #e6e8ff;
+    -fx-text-fill: black;
+}
+
+
+/* Change the hover color for the calendar cells */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #e6e8ff;
+    -fx-text-fill: black;
+}

@@ -8,8 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-//import java.security.Timestamp;
-
 
 public class Overview extends BorderPane {
 

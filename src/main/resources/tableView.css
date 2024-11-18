@@ -79,5 +79,12 @@
     -fx-background-color: green;
 }
 
+.table-row-cell:empty {
+    -fx-background-color: transparent; /* Removes background color for empty rows */
+}
+
+.table-row-cell:empty:hover {
+    -fx-background-color: transparent; /* Removes hover effect for empty rows */
+}
 
 

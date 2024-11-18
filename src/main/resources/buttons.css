@@ -1,0 +1,39 @@
+
+/* Basic button style */
+.button {
+    -fx-background-color: #e6e8ff;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    /*-fx-font-weight: bold;*/
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Hover effect */
+.button:hover {
+    -fx-background-color: #c0c0cb;
+    -fx-text-fill: black;
+}
+
+
+/* Remove focus highlight */
+.button:focus {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.deleteButton{
+    -fx-background-color: #ab0000;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.deleteButton:hover {
+    -fx-background-color: #ff3131;
+    -fx-text-fill: white;
+}

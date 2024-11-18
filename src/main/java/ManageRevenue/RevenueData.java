@@ -7,7 +7,6 @@ public class RevenueData extends BorderPane {
     public RevenueData(){
         Text title = new Text("Revenue Data");
 
-
         this.setCenter(title);
     }
 }

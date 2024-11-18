@@ -1,6 +1,7 @@
 package com.example.propertypro;
 
 import ManageProperties.*;
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -37,6 +38,8 @@ public class Properties extends BorderPane {
         layout.add(propertyForm, 0 , 1);
         layout.add(allProperties, 1, 0);
         layout.add(propertyData, 1, 1);
+
+        layout.setAlignment(Pos.CENTER);
 
         this.setCenter(layout);
 
