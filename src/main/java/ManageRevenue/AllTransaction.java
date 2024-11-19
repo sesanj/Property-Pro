@@ -1,5 +1,6 @@
 package ManageRevenue;
 
+import Database.Database;
 import Overview.TopClients;
 import TableQuery.TransactionTable;
 import com.example.propertypro.Pojo.TransactionPOJO;
@@ -16,11 +17,21 @@ import javafx.scene.text.Text;
 
 
 import java.security.PublicKey;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static Database.DatabaseTableConstants.*;
+import static Database.DatabaseTableConstants.TRANSACTION_TIMESTAMP;
+
 public class AllTransaction extends BorderPane {
+
+    private static Text title;
+    private static TableView allTransactions;
+    private static TransactionTable transactionTable;
+    private static Database db = Database.getNewDatabase();
 
 
     public AllTransaction(){
@@ -42,11 +53,11 @@ public class AllTransaction extends BorderPane {
         deleteButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
 
 
-        Text title = new Text();
+        title = new Text();
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
 
-        TransactionTable transactionTable = new TransactionTable();
+        transactionTable = new TransactionTable();
 
         DatePicker calendarStart = new DatePicker();
         calendarStart.setPromptText("Start Date");
@@ -62,7 +73,7 @@ public class AllTransaction extends BorderPane {
         //ArrayList<TransactionPOJORefined> transactions = transactionTable.getAllTransactions();
         title.setText(transactionTable.getAllTransactions().size() + " Transaction(s)");
 
-        TableView allTransactions = new TableView();
+        allTransactions = new TableView();
         allTransactions.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
@@ -83,7 +94,8 @@ public class AllTransaction extends BorderPane {
 
 
         allTransactions.getColumns().addAll(date, id, client, property, amount);
-        allTransactions.getItems().addAll(transactionTable.getAllTransactions());
+        getTransactionsByYear(RevenueChart.getAllYears().getLast());
+        //allTransactions.getItems().addAll(getTransactionsByYear(RevenueChart.getAllYears().getLast()));
         allTransactions.getStylesheets().add(getClass().getResource("/tableView.css").toExternalForm());
 
 
@@ -92,7 +104,7 @@ public class AllTransaction extends BorderPane {
 
         searchCalendar.setOnAction(e -> {
 
-            getCalendarTransaction(calendarStart, calendarEnd, transactionTable, allTransactions, title);
+            getCalendarTransaction(calendarStart, calendarEnd);
 
         });
 
@@ -111,14 +123,14 @@ public class AllTransaction extends BorderPane {
             if (selectedItem != null) {
 
                 transactionTable.deleteTransaction(selectedItem.getId());
+                allTransactions.getItems().remove(selectedItem);
+                allTransactions.refresh();
+
+                title.setText(allTransactions.getItems().size() + " Transaction(s)");
 
             } else {
                 System.out.println("Please Select A Transaction To Delete.");
             }
-
-            allTransactions.getItems().clear();
-            allTransactions.getItems().addAll(transactionTable.getAllTransactions());
-            title.setText(transactionTable.getAllTransactions().size() + " Transaction(s)");
         });
 
         deleteBox.getChildren().add(deleteButton);
@@ -143,13 +155,13 @@ public class AllTransaction extends BorderPane {
         this.setCenter(transactionBox);
     }
 
-    public void getCalendarTransaction(DatePicker calendarStart, DatePicker calendarEnd, TransactionTable transactionTable, TableView allTransactions, Text title){
+    public void getCalendarTransaction(DatePicker calendarStart, DatePicker calendarEnd){
 
         LocalDate startDate = calendarStart.getValue();
         LocalDate endDate = calendarEnd.getValue();
 
-        Timestamp startOfDay = null;
-        Timestamp endOfDay = null;
+        Timestamp startOfDay;
+        Timestamp endOfDay;
 
         if (startDate != null && endDate != null) {
             startOfDay = Timestamp.valueOf(startDate.atStartOfDay());
@@ -172,4 +184,73 @@ public class AllTransaction extends BorderPane {
         title.setText(calendarTransactions.size() + " Transaction(s)");
 
     }
+
+    public static void getTransactionsByYear(int selectedYear){
+
+        ArrayList<TransactionPOJORefined> yearlyTransactions = new ArrayList<>();
+
+        String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
+                ", t." + TRANSACTION_TIMESTAMP +
+                " FROM " + TRANSACTION_TABLE + " t " +
+                "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
+                " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
+                " WHERE EXTRACT(YEAR FROM " + TRANSACTION_TIMESTAMP + ") = " + selectedYear +
+                " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
+
+        try{
+
+            Statement statement = db.getConnection().createStatement();
+            ResultSet TransactionData = statement.executeQuery(query);
+
+            while(TransactionData.next()){
+
+                yearlyTransactions.add(new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        allTransactions.getItems().clear();
+        allTransactions.getItems().addAll(yearlyTransactions);
+
+        title.setText(yearlyTransactions.size() + " Transaction(s)");
+
+    }
+
+    public static void getTransactionsByMonth(String selectedMonth, int selectedYear){
+
+        ArrayList<TransactionPOJORefined> monthlyTransactions = new ArrayList<>();
+
+        String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
+                ", t." + TRANSACTION_TIMESTAMP +
+                " FROM " + TRANSACTION_TABLE + " t " +
+                "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
+                " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
+                " WHERE EXTRACT(YEAR FROM " + TRANSACTION_TIMESTAMP + ") = " + selectedYear + " " +
+                "AND TRIM(TO_CHAR(" + TRANSACTION_TIMESTAMP + ", 'Month')) = '" + selectedMonth + "' " +
+                "ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
+
+        try{
+
+            Statement statement = db.getConnection().createStatement();
+            ResultSet TransactionData = statement.executeQuery(query);
+
+            while(TransactionData.next()){
+
+                monthlyTransactions.add(new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        allTransactions.getItems().clear();
+        allTransactions.getItems().addAll(monthlyTransactions);
+
+        title.setText(monthlyTransactions.size() + " Transaction(s)");
+
+    }
+
+
 }

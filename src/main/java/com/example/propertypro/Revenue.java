@@ -16,32 +16,32 @@ public class Revenue extends BorderPane {
         GridPane layout = new GridPane();
 
         RevenueData revenueData = new RevenueData();
-        revenueData.setPrefSize(550, 400);
+        revenueData.setPrefSize(550, 425);
         revenueData.setStyle("-fx-background-color: blue;");
 
 
         RevenueForm revenueForm = new RevenueForm();
-        revenueForm.setPrefSize(800, 400);
+        revenueForm.setPrefSize(550, 475);
         revenueForm.setStyle("-fx-background-color: purple;");
 
 
         RevenueChart revenueChart=new RevenueChart();
-        revenueChart.setPrefSize(550, 500);
-        revenueChart.setStyle("-fx-background-color: red;");
+        revenueChart.setPrefSize(800, 425);
+        revenueChart.setStyle("-fx-background-color: white;");
 
 
         AllTransaction allTransaction=new AllTransaction();
-        allTransaction.setPrefSize(800, 500);
+        allTransaction.setPrefSize(800, 475);
         allTransaction.setStyle("-fx-background-color: white;");
 
         RevenueNav revenueNav = new RevenueNav();
 
 
-        this.setTop(revenueNav);
+        //this.setTop(revenueNav);
 
         layout.add(revenueData, 0, 0);
-        layout.add(revenueForm, 1, 0);
-        layout.add(revenueChart, 0 , 1);
+        layout.add(revenueChart, 1, 0);
+        layout.add(revenueForm, 0 , 1);
         layout.add(allTransaction, 1, 1);
 
         layout.setAlignment(Pos.CENTER);
