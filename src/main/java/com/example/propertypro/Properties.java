@@ -13,7 +13,7 @@ public class Properties extends BorderPane {
 
         AllProperties allProperties = new AllProperties();
         allProperties.setPrefSize(675, 450);
-        allProperties.setStyle("-fx-background-color: green; -fx-color: white;");
+        allProperties.setStyle("-fx-background-color: white;");
 
         PropertyData propertyData = new PropertyData();
         propertyData.setPrefSize(675, 450);
