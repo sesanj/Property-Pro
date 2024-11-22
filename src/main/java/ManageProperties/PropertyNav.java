@@ -29,15 +29,50 @@ public class PropertyNav extends HBox {
         allProvinces.setPromptText("Province");
 
 
+        allProvinces.setOnAction(e -> {
+
+            ProvincePOJO selectedProvince = allProvinces.getValue();
+
+            int provinceID = selectedProvince.getProvince_id();
+
+            AllProperties.getProvinceProperties(provinceID);
+
+        });
+
+
         ComboBox<CityPOJO> allCities = new ComboBox<>();
         allCities.setItems(FXCollections.observableList(cityTable.getAllCities()));
         //allCities.getSelectionModel().select(0);
         allCities.setPromptText("Cities");
 
+        allCities.setOnAction(e -> {
+
+            CityPOJO selectCity = allCities.getValue();
+
+            int cityID = selectCity.getCity_id();
+
+            AllProperties.getCityProperties(cityID);
+
+        });
+
+
         ComboBox<PropertyTypePOJO> allPropertyTypes = new ComboBox<>();
         allPropertyTypes.setItems(FXCollections.observableList(propertyTypeTable.getAllPropertyTypes()));
         //allPropertyTypes.getSelectionModel().select(0);
         allPropertyTypes.setPromptText("Property Type");
+
+
+        allPropertyTypes.setOnAction(e -> {
+
+            PropertyTypePOJO selectedPropertyType = allPropertyTypes.getValue();
+
+            int propertyTypeId = selectedPropertyType.getPropertyType_id();
+
+            AllProperties.getPropertyTypeProperties(propertyTypeId);
+        });
+
+
+
 
         this.getChildren().addAll(allProvinces, allCities, allPropertyTypes);
         this.setAlignment(Pos.CENTER);
