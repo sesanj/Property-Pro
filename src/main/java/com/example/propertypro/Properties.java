@@ -22,7 +22,7 @@ public class Properties extends BorderPane {
 
         PropertyDisplay propertyDisplay = new PropertyDisplay();
         propertyDisplay.setPrefSize(550, 450);
-        propertyDisplay.setStyle("-fx-background-color: blue; -fx-color: white;");
+        propertyDisplay.setStyle("-fx-background-color: white;");
 
         PropertyForm propertyForm = new PropertyForm();
         propertyForm.setPrefSize(550, 450);
