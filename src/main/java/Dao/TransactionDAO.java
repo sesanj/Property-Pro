@@ -1,6 +1,5 @@
 package Dao;
 
-import com.example.propertypro.Pojo.ProvincePOJO;
 import com.example.propertypro.Pojo.TransactionPOJO;
 import com.example.propertypro.Pojo.TransactionPOJORefined;
 
@@ -19,5 +18,7 @@ public interface TransactionDAO {
     public void deleteTransaction(int TransactionId);
     public void updateTransaction(TransactionPOJO transaction);
     public void createTransaction(TransactionPOJO transaction);
+
+    public ArrayList<TransactionPOJO> getAllTransactions2();
 }
 

@@ -210,4 +210,30 @@ public class TransactionTable implements TransactionDAO {
 
 
     }
+
+    @Override
+    public ArrayList<TransactionPOJO> getAllTransactions2() {
+        ArrayList<TransactionPOJO> transactions = new ArrayList<>();
+
+        String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + TRANSACTION_CLIENT_ID + ", c." + TRANSACTION_PROPERTY_ID + ", p." + TRANSACTION_TIMESTAMP +
+                " FROM " + TRANSACTION_TABLE + " t " +
+                " ORDER BY " + TRANSACTION_ID;
+
+        try{
+            Statement getTransaction = db.getConnection().createStatement();
+            ResultSet TransactionData = getTransaction.executeQuery(query);
+
+            while (TransactionData.next()) {
+
+                transactions.add(new TransactionPOJO(TransactionData.getInt(TRANSACTION_ID),TransactionData.getDouble(TRANSACTION_AMOUNT),TransactionData.getInt(TRANSACTION_CLIENT_ID),TransactionData.getInt(TRANSACTION_PROPERTY_ID),TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
+
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return transactions;
+
+
+    }
 }

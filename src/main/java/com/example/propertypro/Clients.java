@@ -14,24 +14,24 @@ public class Clients extends BorderPane {
 
         AllClients allClients=new AllClients();
         allClients.setPrefSize(675, 450);
-        allClients.setStyle("-fx-background-color: green; -fx-color: white;");
+        allClients.setStyle("-fx-background-color: #e9eaff;");
 
         ClientChart clientChart=new ClientChart();
         clientChart.setPrefSize(450, 450);
-        clientChart.setStyle("-fx-background-color: red; -fx-color: white;");
+       // clientChart.setStyle("-fx-background-color: red; -fx-color: white;");
 
 
         ClientData clientData = new ClientData();
         clientData.setPrefSize(450, 450);
-        clientData.setStyle("-fx-background-color: blue; -fx-color: white;");
+        //clientData.setStyle("-fx-background-color: blue; -fx-color: white;");
 
         ClientForm clientForm = new ClientForm();
         clientForm.setPrefSize(675, 450);
-        clientForm.setStyle("-fx-background-color: purple; -fx-color: white;");
+      //  clientForm.setStyle("-fx-background-color: purple; -fx-color: white;");
 
         ClientTransactions clientTransactions=new ClientTransactions();
         clientTransactions.setPrefSize(450, 450);
-        clientTransactions.setStyle("-fx-background-color: yellow; -fx-color: white;");
+      //  clientTransactions.setStyle("-fx-background-color: yellow; -fx-color: white;");
 
         layout.add(clientData, 0, 0);
         layout.add(clientChart, 1 , 0);
