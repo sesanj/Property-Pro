@@ -5,6 +5,7 @@ import TableQuery.PropertyTable;
 import TableQuery.PropertyTypeTable;
 import com.example.propertypro.Pojo.PropertyPOJO;
 import com.example.propertypro.Pojo.PropertyPOJORefined;
+import com.example.propertypro.Pojo.TransactionPOJORefined;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
@@ -60,6 +61,16 @@ public class AllProperties extends BorderPane {
 
         allProperties.getColumns().addAll(name, type, province, city);
         allProperties.getItems().addAll(propertyTable.getAllProperty());
+
+        allProperties.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+
+            if(newValue != null){
+
+                PropertyPOJORefined property = (PropertyPOJORefined) allProperties.getSelectionModel().getSelectedItem();
+
+                PropertyDisplay.getPropertyDetails(property);
+            }
+        });
 
         container.getChildren().addAll(title, allProperties);
         container.setAlignment(Pos.CENTER_LEFT);
