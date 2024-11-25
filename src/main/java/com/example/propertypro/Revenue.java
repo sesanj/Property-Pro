@@ -17,7 +17,7 @@ public class Revenue extends BorderPane {
 
         RevenueData revenueData = new RevenueData();
         revenueData.setPrefSize(550, 425);
-        revenueData.setStyle("-fx-background-color: blue;");
+        revenueData.setStyle("-fx-background-color: white;");
 
 
         RevenueForm revenueForm = new RevenueForm();

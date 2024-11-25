@@ -124,7 +124,7 @@ public class RevenueChart extends BorderPane {
         lineChart.setLegendVisible(false);
 
         content.getChildren().addAll(titleBox, lineChart);
-        content.setStyle("-fx-padding: 50px 50px 20px 50px");
+        content.setStyle("-fx-padding: 40px 50px 10px 50px");
 
         this.setCenter(content);
     }
@@ -155,6 +155,7 @@ public class RevenueChart extends BorderPane {
 
         ArrayList<String> month = new ArrayList<>();
         ArrayList<Double> amount = new ArrayList<>();
+        double totalRevenue = 0;
 
 
         String query = "SELECT EXTRACT(MONTH FROM " + TRANSACTION_TIMESTAMP + ") AS month, " +
@@ -175,15 +176,27 @@ public class RevenueChart extends BorderPane {
 
                 month.add(monthName);
                 amount.add(data.getDouble("amount"));
+
+                totalRevenue += data.getDouble("amount");
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
 
+        RevenueData.getRevenue(totalRevenue);
+
         for (int i = 0; i < month.size(); i++) {
             series.getData().add(new XYChart.Data<>(month.get(i), amount.get(i)));
         }
+
+        double highestRevenue = Collections.max(amount);
+        double lowestRevenue = Collections.min(amount);
+
+        String bestMonth = month.get(amount.indexOf(highestRevenue));
+        String worstMonth = month.get(amount.indexOf(lowestRevenue));
+
+        RevenueData.getBestAndWorst(highestRevenue, lowestRevenue, bestMonth, worstMonth);
 
     }
 
@@ -191,6 +204,7 @@ public class RevenueChart extends BorderPane {
 
         ArrayList<String> day = new ArrayList<>();
         ArrayList<Double> amount = new ArrayList<>();
+        double totalRevenue = 0;
 
         String query = "SELECT EXTRACT(DAY FROM " + TRANSACTION_TIMESTAMP + ") AS day, " +
                 "SUM(" + TRANSACTION_AMOUNT + ") AS amount " +
@@ -209,19 +223,31 @@ public class RevenueChart extends BorderPane {
 
                 day.add(data.getString("day"));
                 amount.add(data.getDouble("amount"));
+
+                totalRevenue += data.getDouble("amount");
+
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
 
+        RevenueData.getRevenue(totalRevenue);
+
 
         for (int i = 0; i < day.size(); i++) {
             series.getData().add(new XYChart.Data<>(day.get(i), amount.get(i)));
         }
 
-        System.out.println("Here's the data: Days - " + day.size() + " \n Amount - " + amount.size());
+        double highestRevenue = Collections.max(amount);
+        double lowestRevenue = Collections.min(amount);
+
+        String bestDay = day.get(amount.indexOf(highestRevenue));
+        String worstDay = day.get(amount.indexOf(lowestRevenue));
+
+        RevenueData.getBestAndWorst(highestRevenue, lowestRevenue, bestDay, worstDay);
     }
+
 
     public void getTooltip(XYChart.Series<String, Number> series){
 

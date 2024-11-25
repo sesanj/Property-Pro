@@ -71,7 +71,7 @@ public class AllTransaction extends BorderPane {
 
 
         //ArrayList<TransactionPOJORefined> transactions = transactionTable.getAllTransactions();
-        title.setText(transactionTable.getAllTransactions().size() + " Transaction(s)");
+        //title.setText(transactionTable.getAllTransactions().size() + " Transaction(s)");
 
         allTransactions = new TableView();
         allTransactions.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -95,6 +95,7 @@ public class AllTransaction extends BorderPane {
 
         allTransactions.getColumns().addAll(date, id, client, property, amount);
         getTransactionsByYear(RevenueChart.getAllYears().getLast());
+
         //allTransactions.getItems().addAll(getTransactionsByYear(RevenueChart.getAllYears().getLast()));
         allTransactions.getStylesheets().add(getClass().getResource("/tableView.css").toExternalForm());
 
@@ -127,6 +128,9 @@ public class AllTransaction extends BorderPane {
                 allTransactions.refresh();
 
                 title.setText(allTransactions.getItems().size() + " Transaction(s)");
+
+                RevenueData.updateRevenue(selectedItem.getAmount());
+                RevenueData.updateTotalTransaction();
 
             } else {
                 System.out.println("Please Select A Transaction To Delete.");
@@ -216,6 +220,8 @@ public class AllTransaction extends BorderPane {
 
         title.setText(yearlyTransactions.size() + " Transaction(s)");
 
+        RevenueData.setTotalTransactions(String.format("%,d", yearlyTransactions.size()), yearlyTransactions.size());
+
     }
 
     public static void getTransactionsByMonth(String selectedMonth, int selectedYear){
@@ -249,6 +255,8 @@ public class AllTransaction extends BorderPane {
         allTransactions.getItems().addAll(monthlyTransactions);
 
         title.setText(monthlyTransactions.size() + " Transaction(s)");
+
+        RevenueData.setTotalTransactions(String.format("%,d", monthlyTransactions.size()), monthlyTransactions.size());
 
     }
 
