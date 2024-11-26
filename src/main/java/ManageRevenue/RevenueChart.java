@@ -34,12 +34,14 @@ public class RevenueChart extends BorderPane {
         ComboBox<Integer> allYears = new ComboBox<>();
         allYears.getItems().addAll(getAllYears());
         allYears.setPromptText("Select A Year");
+        allYears.getStylesheets().add(getClass().getResource("/comboBox.css").toExternalForm());
 
         ComboBox<String> allMonths = new ComboBox<>();
         allMonths.getItems().addAll("Select A Month", "January", "February", "March", "April", "May", "June", "July", "August",
                 "September", "October", "November", "December");
         allMonths.getSelectionModel().select(0);
         allMonths.setPromptText("Select A Month");
+        allMonths.getStylesheets().add(getClass().getResource("/comboBox.css").toExternalForm());
 
         Text title = new Text(getAllYears().getLast() + " Revenue Chart");
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");

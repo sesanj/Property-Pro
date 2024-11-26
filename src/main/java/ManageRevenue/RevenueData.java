@@ -44,6 +44,7 @@ public class RevenueData extends BorderPane {
 
         Button allTime = new Button("All Time Stats");
         allTime.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+        allTime.getStyleClass().add("tabButton");
 
         TransactionTable transactionTable = new TransactionTable();
 
@@ -267,6 +268,15 @@ public class RevenueData extends BorderPane {
         totalRevenueText.setText("$" + formattedRevenue + RevenueFormatter(revenue));
     }
 
+    public static void addRevenue(double amount){
+
+        revenue = getTotalRevenue() + amount;
+
+        String formattedRevenue = String.format("%,.2f", getTotalRevenue());
+
+        totalRevenueText.setText("$" + formattedRevenue + RevenueFormatter(revenue));
+    }
+
 
     public static String RevenueFormatter(Double revenue){
 
@@ -290,16 +300,15 @@ public class RevenueData extends BorderPane {
         setTransactionCount(getTransactionCount() - 1);
     }
 
+    public static void addTransactionCount(){
+
+        totalTransactions.setText(String.format("%,d", getTransactionCount() + 1) + "+");
+
+        setTransactionCount(getTransactionCount() + 1);
+    }
+
     public static double getTotalRevenue() {
         return revenue;
-    }
-
-    public static void setTotalRevenue(double totalRevenue) {
-        RevenueData.revenue = totalRevenue;
-    }
-
-    public static Text getTotalTransactions() {
-        return totalTransactions;
     }
 
     public static void setTotalTransactions(String totalTransactions, int count) {

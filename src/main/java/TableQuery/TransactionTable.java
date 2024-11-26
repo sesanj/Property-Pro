@@ -181,19 +181,23 @@ public class TransactionTable implements TransactionDAO {
     @Override
     public void updateTransaction(TransactionPOJO transaction) {
         String query = "UPDATE " + TRANSACTION_TABLE +
-                " SET " + TRANSACTION_AMOUNT + " = ?, " + TRANSACTION_TIMESTAMP + " = ? " +
+                " SET " + TRANSACTION_AMOUNT + " = ?, " + TRANSACTION_CLIENT_ID + " = ?, " + TRANSACTION_PROPERTY_ID + " = ?" +
                 " WHERE " + TRANSACTION_ID + " = ?";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setDouble(1, transaction.getAmount());
-            st.setTimestamp(2, transaction.getTimestamp());
-            st.setInt(3, transaction.getId());
+            st.setInt(2, transaction.getClient_id());
+            st.setInt(3, transaction.getProperty_id());
+            st.setInt(4, transaction.getId());
+
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Transaction with ID " + transaction.getId() + " was updated.");
             } else {
                 System.out.println("No transaction found with ID " + transaction.getId());
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error updating transaction", e);
         }
@@ -201,16 +205,18 @@ public class TransactionTable implements TransactionDAO {
     }
 
     @Override
-    public void createTransaction(TransactionPOJO transaction) {String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
-            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ", " + TRANSACTION_TIMESTAMP + ") " +
-            "VALUES (?, ?, ?, ?)";
+    public void createTransaction(TransactionPOJO transaction) {
+
+            String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
+            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ") " +
+            "VALUES (?, ?, ?)";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setDouble(1, transaction.getAmount());
             st.setInt(2, transaction.getClient_id());
             st.setInt(3, transaction.getProperty_id());
-            st.setTimestamp(4, transaction.getTimestamp());
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Transaction with ID " + transaction.getId() + " was created.");
             }

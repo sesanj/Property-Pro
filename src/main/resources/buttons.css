@@ -6,8 +6,8 @@
     -fx-font-size: 14px;
     /*-fx-font-weight: bold;*/
     -fx-padding: 5px 10px;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
 }
 
 /* Hover effect */
@@ -28,9 +28,9 @@
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 5px 10px;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
 }
 
 .deleteButton:hover {
@@ -38,3 +38,32 @@
     -fx-text-fill: white;
 }
 
+.formButton{
+    -fx-background-color: #202469;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.formButton:hover {
+    -fx-background-color: #393d89;
+    -fx-text-fill: white;
+}
+
+.tabButton{
+    -fx-background-color: #202469;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    /*-fx-font-weight: bold;*/
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.tabButton:hover {
+    -fx-background-color: #c0c0cb;
+    -fx-text-fill: black;
+}

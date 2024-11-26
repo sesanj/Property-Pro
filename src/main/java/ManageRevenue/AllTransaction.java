@@ -28,8 +28,8 @@ import static Database.DatabaseTableConstants.TRANSACTION_TIMESTAMP;
 
 public class AllTransaction extends BorderPane {
 
-    private static Text title;
-    private static TableView allTransactions;
+    public static Text title;
+    public static TableView allTransactions;
     private static TransactionTable transactionTable;
     private static Database db = Database.getNewDatabase();
 
@@ -69,9 +69,6 @@ public class AllTransaction extends BorderPane {
         calendarEnd.setPrefWidth(120);
         calendarEnd.getStylesheets().add(getClass().getResource("/calendar.css").toExternalForm());
 
-
-        //ArrayList<TransactionPOJORefined> transactions = transactionTable.getAllTransactions();
-        //title.setText(transactionTable.getAllTransactions().size() + " Transaction(s)");
 
         allTransactions = new TableView();
         allTransactions.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -154,6 +151,18 @@ public class AllTransaction extends BorderPane {
         transactionBox.getChildren().addAll(titleBox, buttonBox, allTransactions);
         transactionBox.setAlignment(Pos.CENTER_LEFT);
         transactionBox.setStyle("-fx-padding: 30px 50px 30px 50px");
+
+
+        allTransactions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
+
+            if(newValue != null){
+
+                TransactionPOJORefined transaction = (TransactionPOJORefined) allTransactions.getSelectionModel().getSelectedItem();
+                RevenueForm.getTransactionDetails(transaction);
+
+                RevenueForm.setUpdatableTransactionID(((TransactionPOJORefined) allTransactions.getSelectionModel().getSelectedItem()).getId());
+            }
+        });
 
 
         this.setCenter(transactionBox);
