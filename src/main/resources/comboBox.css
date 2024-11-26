@@ -1,0 +1,80 @@
+.combo-box {
+    -fx-border-color: #202469; /* Border color */
+    -fx-border-width: 1;   /* Border thickness */
+    -fx-border-radius: 5; /* Rounded corners */
+    -fx-background-color: white; /* Background color */
+    -fx-font-family: "Arial"; /* Font family */
+    -fx-font-size: 14px;   /* Font size */
+}
+
+.combo-box:focused {
+    -fx-border-color: #202469; /* Same as default border */
+    -fx-background-color: white; /* Same as default background */
+}
+
+.combo-box .text {
+    -fx-fill: #202469; /* Color for prompt text */
+}
+
+.combo-box .arrow {
+    -fx-background-color:  #202469; /* Arrow background */
+}
+
+/* Target the entire dropdown button when editable */
+.combo-box:editable .arrow-button{
+    -fx-background-color: #202469; /* Background color for the dropdown button */
+    -fx-border: 0;         /* Border color */
+    -fx-border-radius: 5;           /* Rounded corners */
+    -fx-padding: 5;                 /* Padding around the button */
+}
+
+.combo-box:editable .arrow-button .arrow{
+    -fx-background-color:  white; /* Arrow background */
+}
+
+/* Change arrow color on hover */
+.combo-box:editable .arrow:hover {
+    -fx-background-color: darkgray; /* Background when hovered */
+}
+
+.combo-box .list-view {
+    -fx-background-color: white; /* Background color of the dropdown */
+    -fx-control-inner-background: white; /* Background for individual items */
+}
+
+.combo-box .list-view .cell {
+    -fx-font-family: "Arial"; /* Font for dropdown items */
+    -fx-font-size: 14px;
+    -fx-fill: red;
+    -fx-padding: 10; /* Padding for each item */
+}
+
+.combo-box .list-view .cell:selected, .combo-box .list-view .cell:hover {
+    -fx-background-color: #202469; /* Background color for selected item */
+}
+
+.combo-box .list-view .cell:hover .text, .combo-box .list-view .cell:selected .text{
+    -fx-fill: white; /* Text color for selected item */
+}
+
+.combo-box .text-field:focused{
+    -fx-background-color: white; /* Editor background remains normal */
+    -fx-border-color: transparent; /* Editor background remains normal */
+}
+
+.combo-box .scroll-bar {
+    -fx-background-color: transparent; /* Scroll bar background */
+    -fx-border-color: #e6e8ff; /* Scroll bar border */
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color: #202469; /* Scroll bar thumb */
+}
+
+
+
+/*Styles For Text Field*/
+.text-field:focused {
+    -fx-border-color: transparent;       /* Keep the border the same on focus */
+    -fx-background-color: white; /* Keep the background the same */
+}

@@ -22,7 +22,7 @@ public class TransactionTable implements TransactionDAO {
                 " FROM " + TRANSACTION_TABLE + " t " +
                 "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
                 " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
-                " ORDER BY " + TRANSACTION_ID;
+                " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
 
         try{
             Statement getTransaction = db.getConnection().createStatement();
@@ -76,7 +76,7 @@ public class TransactionTable implements TransactionDAO {
                 "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
                 " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
                 " WHERE " + TRANSACTION_CLIENT_ID + " = " + user_id +
-                " ORDER BY " + TRANSACTION_ID;
+                " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
 
         try {
             Statement getTransactionByUser = db.getConnection().createStatement();
@@ -124,30 +124,37 @@ public class TransactionTable implements TransactionDAO {
     }
 
     @Override
-    public TransactionPOJORefined getTransactionByDate(Timestamp date) {
+    public ArrayList<TransactionPOJORefined> getTransactionByDate(Timestamp startDate, Timestamp endDate) {
         String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
                 ", t." + TRANSACTION_TIMESTAMP +
                 " FROM " + TRANSACTION_TABLE + " t " +
                 "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
                 " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
-                " WHERE " + TRANSACTION_TIMESTAMP + " = " + date +
-                " ORDER BY " + TRANSACTION_ID;
+                " WHERE " + TRANSACTION_TIMESTAMP + " BETWEEN ? AND ? " +
+                " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
+
+        ArrayList<TransactionPOJORefined> transactions = new ArrayList<>();
 
         try {
-            Statement getTransactionByDate = db.getConnection().createStatement();
-            ResultSet TransactionData = getTransactionByDate.executeQuery(query);
+            PreparedStatement statement = db.getConnection().prepareStatement(query);
 
-            if (TransactionData.next()) {
+            statement.setTimestamp(1, startDate);
+            statement.setTimestamp(2, endDate);
+            //Statement getTransactionByDate = db.getConnection().createStatement();
+            ResultSet TransactionData = statement.executeQuery();
 
-                TransactionPOJORefined transaction = new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP));
+            while(TransactionData.next()) {
 
-                return transaction;
+                transactions.add(new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
+
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return null;
+        System.out.println(transactions.size());
+        return transactions;
+
     }
 
     @Override
@@ -155,8 +162,11 @@ public class TransactionTable implements TransactionDAO {
         String query = "DELETE FROM " + TRANSACTION_TABLE + " WHERE " + TRANSACTION_ID + " = ?";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+
             st.setInt(1, TransactionId);
+
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Transaction with ID " + TransactionId + " was deleted.");
             } else {
@@ -171,19 +181,23 @@ public class TransactionTable implements TransactionDAO {
     @Override
     public void updateTransaction(TransactionPOJO transaction) {
         String query = "UPDATE " + TRANSACTION_TABLE +
-                " SET " + TRANSACTION_AMOUNT + " = ?, " + TRANSACTION_TIMESTAMP + " = ? " +
+                " SET " + TRANSACTION_AMOUNT + " = ?, " + TRANSACTION_CLIENT_ID + " = ?, " + TRANSACTION_PROPERTY_ID + " = ?" +
                 " WHERE " + TRANSACTION_ID + " = ?";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setDouble(1, transaction.getAmount());
-            st.setTimestamp(2, transaction.getTimestamp());
-            st.setInt(3, transaction.getId());
+            st.setInt(2, transaction.getClient_id());
+            st.setInt(3, transaction.getProperty_id());
+            st.setInt(4, transaction.getId());
+
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Transaction with ID " + transaction.getId() + " was updated.");
             } else {
                 System.out.println("No transaction found with ID " + transaction.getId());
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error updating transaction", e);
         }
@@ -191,16 +205,18 @@ public class TransactionTable implements TransactionDAO {
     }
 
     @Override
-    public void createTransaction(TransactionPOJO transaction) {String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
-            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ", " + TRANSACTION_TIMESTAMP + ") " +
-            "VALUES (?, ?, ?, ?)";
+    public void createTransaction(TransactionPOJO transaction) {
+
+            String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
+            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ") " +
+            "VALUES (?, ?, ?)";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setDouble(1, transaction.getAmount());
             st.setInt(2, transaction.getClient_id());
             st.setInt(3, transaction.getProperty_id());
-            st.setTimestamp(4, transaction.getTimestamp());
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Transaction with ID " + transaction.getId() + " was created.");
             }

@@ -37,7 +37,6 @@ public class BarChart extends BorderPane {
         barChart.setTitle("Monthly Revenue for Last 12 Months");
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        //series.setName("Revenue");
 
 
         String query = "SELECT YEAR(" + TRANSACTION_TIMESTAMP  + ") AS year, " +
@@ -78,7 +77,7 @@ public class BarChart extends BorderPane {
                     Tooltip.install(newNode, tooltip);
 
                     // Optional: Change color on hover
-                    newNode.setOnMouseEntered(event -> newNode.setStyle("-fx-bar-fill: #ff9800;"));
+                    newNode.setOnMouseEntered(event -> newNode.setStyle("-fx-bar-fill: red;"));
                     newNode.setOnMouseExited(event -> newNode.setStyle(""));
                 }
             });
