@@ -11,7 +11,7 @@ public interface TransactionDAO {
 
     public ArrayList<TransactionPOJORefined> getAllTransactions();
     public TransactionPOJORefined getTransactionById(int TransactionId);
-    public TransactionPOJORefined getTransactionByUser(int user_id);
+    public ArrayList<TransactionPOJORefined> getTransactionByUser(int user_id);
     public TransactionPOJORefined getTransactionByProperty(int property_Id);
     public TransactionPOJORefined getTransactionByDate(Timestamp date);
 

@@ -21,9 +21,7 @@ import static Database.DatabaseTableConstants.CLIENT_PHONE_NUMBER;
 
 public class AllClients extends BorderPane {
 
-    private static Text name;
-
-
+    public static int clientId;
 
     public AllClients() {
 
@@ -40,7 +38,7 @@ public class AllClients extends BorderPane {
 
         VBox topClientsBox = new VBox(30);
 
-        Text title = new Text("Top 20 Clients");
+        Text title = new Text("All Clients");
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         TableView userTable = new TableView();
@@ -73,17 +71,17 @@ public class AllClients extends BorderPane {
         phoneNumber.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getPhone_number()));
 
 
-//        TableColumn<ClientPOJO, String> email = new TableColumn<>("Email");
-//        phoneNumber.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getEmail()));
+        TableColumn<ClientPOJO, String> email = new TableColumn<>("Email");
+        email.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getEmail()));
 
 
         //TableColumn<ClientPOJO, String> totalTransactions = new TableColumn<>("Transactions");
-       // totalTransactions.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getTotal_transactions() + ""));
+        // totalTransactions.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getTotal_transactions() + ""));
 
-       // TableColumn<ClientPOJO, String> amount = new TableColumn<>("Amount Spent");
+        // TableColumn<ClientPOJO, String> amount = new TableColumn<>("Amount Spent");
         //amount.setCellValueFactory(e -> new SimpleStringProperty("$" + String.format("%,.2f", e.getValue().getAmount())));
 
-        userTable.getColumns().addAll(firstName, lastName, phoneNumber);
+        userTable.getColumns().addAll(firstName, lastName, phoneNumber,email);
 
         ClientTable clientTable = new ClientTable();
 
@@ -93,7 +91,14 @@ public class AllClients extends BorderPane {
         userTable.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue)  ->{
             if (newValue != null){
                 ClientPOJO client = (ClientPOJO) userTable.getSelectionModel().getSelectedItem();
+
+//                setClientId(client.getClient_id());  // Assuming getClientId() is a method in ClientPOJO class
+
                 ClientData.getClientDetails(client);
+
+
+                ClientTransactions.getClientTransaction(client.getClient_id());
+
             }
         } );
 
@@ -103,12 +108,20 @@ public class AllClients extends BorderPane {
 
         this.setCenter(topClientsBox);
     }
-    public static class client{
-        private String first_name;
-        private  String last_name;
-        private String phone_number;
-        private String email;
+//    public static class client{
+//        private String first_name;
+//        private  String last_name;
+//        private String phone_number;
+//        private String email;
+//
+//
+//    }
 
+    public static int getClientId() {
+        return clientId;
+    }
 
+    public static void setClientId(int clientId) {
+        AllClients.clientId = clientId;
     }
 }

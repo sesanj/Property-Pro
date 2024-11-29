@@ -68,31 +68,39 @@ public class TransactionTable implements TransactionDAO {
     }
 
     @Override
-    public TransactionPOJORefined getTransactionByUser(int user_id) {
+    public ArrayList<TransactionPOJORefined> getTransactionByUser(int user_id) {
+
+        ArrayList<TransactionPOJORefined> allTransactions = new ArrayList<>();
 
         String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
                 ", t." + TRANSACTION_TIMESTAMP +
                 " FROM " + TRANSACTION_TABLE + " t " +
                 "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
                 " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
-                " WHERE " + TRANSACTION_CLIENT_ID + " = " + user_id +
+                " WHERE c." + TRANSACTION_CLIENT_ID + " = " + user_id +
                 " ORDER BY " + TRANSACTION_ID;
 
+        System.out.println("We're Here 1");
+
         try {
-            Statement getTransactionByUser = db.getConnection().createStatement();
-            ResultSet TransactionData = getTransactionByUser.executeQuery(query);
+            Statement getTransaction = db.getConnection().createStatement();
+            ResultSet TransactionData = getTransaction.executeQuery(query);
 
-            if (TransactionData.next()) {
+            System.out.println("We're Here 2");
 
-                TransactionPOJORefined transaction = new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP));
+            while (TransactionData.next()) {
 
-                return transaction;
+                allTransactions.add(new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
+
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return null;
+
+        System.out.println(allTransactions.size());
+
+        return allTransactions;
     }
 
     @Override
