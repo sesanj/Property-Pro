@@ -34,7 +34,7 @@ public class PropertyForm extends BorderPane {
 
     public static TextField propertyAddress;
     public static TextField postalCode;
-//    public static int updatableTransactionID;
+    public static int updatablePropertyID;
     public static boolean updateFormClicked = false;
     public static Text prompt;
 //    public static PropertyTable propertyTable = new PropertyTable();
@@ -151,38 +151,46 @@ public class PropertyForm extends BorderPane {
         });
 
 
-//        updateTransactionButton.setOnAction(e ->{
-//
-//            if(!amount.getText().isEmpty() && !allClients.getEditor().getText().isEmpty() && allProperties.getSelectionModel().getSelectedItem() != null ){
-//
-//                double amountEntered = Double.parseDouble(amount.getText().trim());
-//
-//                for (ClientPOJO client : clientTable.getAllClient()){
-//
-//                    String name = client.getFirst_name() + " " + client.getLast_name();
-//                    String selectedName = allClients.getEditor().getText();
-//
-//                    if(name.equals(selectedName)){
-//
-//                        TransactionPOJO newTransaction = new TransactionPOJO(getUpdatableTransactionID(), amountEntered,
-//                                client.getClient_id(),
-//                                allProperties.getSelectionModel().getSelectedItem().getProperty_id(),
-//                                new Timestamp(System.currentTimeMillis()));
-//
-//                        TransactionTable transactionTable = new TransactionTable();
-//                        transactionTable.updateTransaction(newTransaction);
-//                    }
-//                }
-//
-//                prompt.setText("Your Transaction Has Been Updated Successfully!");
-//                prompt.setStyle("-fx-fill: green; -fx-font-size: 14px; -fx-font-style: italic;");
-//            }
-//            else{
-//                prompt.setText("Can't Update Transaction, Try Again, Fields Cannot Be Empty!");
-//                prompt.setStyle("-fx-fill: #860a0a; -fx-font-size: 14px; -fx-font-style: italic;");
-//            }
-//
-//        });
+        updateTransactionButton.setOnAction(e ->{
+
+            if(!propertyName.getText().isEmpty() && !propertyAddress.getText().isEmpty() && !postalCode.getText().isEmpty() &&
+                    propertyProvince.getSelectionModel().getSelectedItem() != null &&
+                    propertyCity.getSelectionModel().getSelectedItem() != null &&
+                    propertyType.getSelectionModel().getSelectedItem() != null){
+
+
+                int available;
+
+                if(availability.getSelectionModel().getSelectedItem().equals("Available")){
+                    available = 1;
+                }else{
+                    available = 0;
+                }
+
+                PropertyTable propertyTable = new PropertyTable();
+
+
+                PropertyPOJO newProperty = new PropertyPOJO(getUpdatablePropertyID(), propertyName.getText(),
+                        propertyType.getSelectionModel().getSelectedItem().getPropertyType_id(),
+                        propertyProvince.getSelectionModel().getSelectedItem().getProvince_id(),
+                        propertyCity.getSelectionModel().getSelectedItem().getCity_id(),
+                        propertyAddress.getText(), postalCode.getText().toUpperCase(), available);
+
+
+                propertyTable.updateProperty(newProperty);
+
+
+
+
+                prompt.setText("Your Transaction Has Been Updated Successfully!");
+                prompt.setStyle("-fx-fill: green; -fx-font-size: 14px; -fx-font-style: italic;");
+            }
+            else{
+                prompt.setText("Can't Update Transaction, Try Again, Fields Cannot Be Empty!");
+                prompt.setStyle("-fx-fill: #860a0a; -fx-font-size: 14px; -fx-font-style: italic;");
+            }
+
+        });
 
 
 
@@ -288,46 +296,37 @@ public class PropertyForm extends BorderPane {
 
     }
 
-//    public static void getTransactionDetails(TransactionPOJORefined transaction){
-//
-//        if (updateFormClicked){
-//
-//            amount.setText(transaction.getAmount() + "");
-//
-//            ClientPOJO updatableClient = null;
-//            PropertyPOJO updatableProperty = null;
-//
-//
-//            for (ClientPOJO client : clientTable.getAllClient()){
-//                String name = client.getFirst_name() + " " + client.getLast_name();
-//                String selectedName = transaction.getClient_id();
-//
-//                if(name.equals(selectedName)){
-//                    updatableClient = client;
-//                }
-//            }
-//
-//            for (PropertyPOJO property : propertyTable.getAllPropertyRaw()){
-//
-//                String name = property.getName();
-//                String selectedName = transaction.getProperty_id();
-//
-//                if(name.equals(selectedName)){
-//                    updatableProperty = property;
-//                }
-//            }
-//
-//            allClients.getSelectionModel().select(updatableClient);
-//            allProperties.getSelectionModel().select(updatableProperty);
-//
-//        }
-//    }
+    public static void getPropertyDetails(PropertyPOJO property){
 
-//    public static int getUpdatableTransactionID() {
-//        return updatableTransactionID;
-//    }
-//
-//    public static void setUpdatableTransactionID(int updatableTransactionID) {
-//        RevenueForm.updatableTransactionID = updatableTransactionID;
-//    }
+        if (updateFormClicked){
+
+            String available = "";
+
+            if(property.getAvailability() == 1){
+                available = "Available";
+            }else {
+                available = "Not Available";
+            }
+
+            propertyName.setText(property.getName());
+            propertyAddress.setText(property.getStreet());
+            postalCode.setText(property.getPostal_code());
+            propertyType.getSelectionModel().select(propertyTypeTable.getPropertyType(property.getProperty_type_id()));
+            propertyProvince.getSelectionModel().select(provinceTable.getProvince(property.getProvince_id()));
+            propertyCity.getSelectionModel().select(cityTable.getCityByID(property.getCity_id()));
+            availability.getSelectionModel().select(available);
+
+            setUpdatablePropertyID(property.getProperty_id());
+
+            System.out.println("The Property ID IS: " + getUpdatablePropertyID());
+        }
+    }
+
+    public static int getUpdatablePropertyID() {
+        return updatablePropertyID;
+    }
+
+    public static void setUpdatablePropertyID(int updatablePropertyID) {
+        PropertyForm.updatablePropertyID = updatablePropertyID;
+    }
 }

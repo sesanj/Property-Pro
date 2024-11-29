@@ -79,6 +79,7 @@ public class AllProperties extends BorderPane {
                 PropertyPOJORefined property = (PropertyPOJORefined) allProperties.getSelectionModel().getSelectedItem();
 
                 PropertyDisplay.getPropertyDetails(property);
+                PropertyForm.getPropertyDetails(propertyTable.getPropertyRaw(property.getProperty_id()));
             }
         });
 
