@@ -27,12 +27,18 @@ public class AllProperties extends BorderPane {
 
         VBox container = new VBox(30);
 
+        Button deleteProperty = new Button("Delete Property");
+        deleteProperty.getStyleClass().add("deleteButton");
+        deleteProperty.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+
         Button viewAll = new Button("View All");
         viewAll.getStyleClass().add("tabButton");
         viewAll.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
-        HBox viewAllBox = new HBox();
-        viewAllBox.getChildren().add(viewAll);
+        HBox viewAllBox = new HBox(20);
+        viewAllBox.getChildren().addAll(deleteProperty, viewAll);
         viewAllBox.setAlignment(Pos.CENTER_RIGHT);
+
+
 
 
         PropertyTable propertyTable = new PropertyTable();
@@ -81,6 +87,11 @@ public class AllProperties extends BorderPane {
             allProperties.getItems().clear();
             allProperties.getItems().addAll(propertyTable.getAllProperty());
             title.setText(propertyTable.getAllProperty().size() + " Total Properties");
+        });
+
+        deleteProperty.setOnAction(e -> {
+            PropertyPOJORefined selectedProperty = (PropertyPOJORefined) allProperties.getSelectionModel().getSelectedItem();
+            propertyTable.deleteProperty(selectedProperty.getProperty_id());
         });
 
         container.getChildren().addAll(titleBox, allProperties);
