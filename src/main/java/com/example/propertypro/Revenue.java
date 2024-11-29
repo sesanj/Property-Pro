@@ -34,11 +34,6 @@ public class Revenue extends BorderPane {
         allTransaction.setPrefSize(800, 460);
         allTransaction.setStyle("-fx-background-color: white;");
 
-        RevenueNav revenueNav = new RevenueNav();
-
-
-        //this.setTop(revenueNav);
-
         layout.add(revenueData, 0, 0);
         layout.add(revenueChart, 1, 0);
         layout.add(revenueForm, 0 , 1);
