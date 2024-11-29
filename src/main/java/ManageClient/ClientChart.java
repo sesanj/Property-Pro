@@ -1,7 +1,6 @@
 package ManageClient;
 
 import ManageClient.Graph.ClientPieChar;
-import ManageClient.Graph.ClientPieChart;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;

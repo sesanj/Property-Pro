@@ -27,7 +27,7 @@ public class AllClients extends BorderPane {
 
         Database db = Database.getNewDatabase();
 
-        String query = "SELECT c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", c." + CLIENT_EMAIL + ", "+
+        String query = "SELECT c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", " +
                 "SUM(t." + TRANSACTION_AMOUNT + ") AS amountSpent, " +
                 "COUNT(t." + TRANSACTION_ID + ") AS totalTransactions " +
                 "FROM " + CLIENT_TABLE + " c " +

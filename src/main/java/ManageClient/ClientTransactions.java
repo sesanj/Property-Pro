@@ -50,16 +50,16 @@ public class ClientTransactions extends BorderPane {
         TableColumn<TransactionPOJORefined, String> timestamp = new TableColumn<>("Timestamp");
 
 
-//        timestamp.setCellValueFactory(e -> {
-//            // Format the timestamp to a more readable format
-//            Timestamp ts = e.getValue().getTimestamp();
-//            if (ts != null) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                return new SimpleStringProperty(sdf.format(ts));
-//            } else {
-//                return new SimpleStringProperty("N/A");
-//            }
-//        });
+        timestamp.setCellValueFactory(e -> {
+            // Format the timestamp to a more readable format
+            Timestamp ts = e.getValue().getTimestamp();
+            if (ts != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                return new SimpleStringProperty(sdf.format(ts));
+            } else {
+                return new SimpleStringProperty("N/A");
+            }
+        });
 
         // Add columns to the TableView
         userTable.getColumns().addAll(id, client, property, amount, timestamp);

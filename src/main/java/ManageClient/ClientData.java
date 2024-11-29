@@ -20,6 +20,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
+import static TableQuery.ClientTable.getTopClient;
 
 public class ClientData extends BorderPane {
 
@@ -36,7 +37,7 @@ public class ClientData extends BorderPane {
 
 
         ArrayList<TransactionPOJORefined> allTransactions = transactionTable.getAllTransactions();
-        ArrayList<ClientPOJO> allClients = clientTable.getAllClient();
+        ClientPOJO topClients = clientTable.getTopClient();
         ArrayList<PropertyPOJORefined> allProperties = propertyTable.getAllProperty();
 
 
@@ -44,15 +45,14 @@ public class ClientData extends BorderPane {
         VBox NameBox = new VBox(6);
         VBox PhoneBox = new VBox(6);
         VBox EmailBox = new VBox(6);
-       // VBox ExpenseBox = new VBox(6);
+       VBox ExpenseBox = new VBox(6);
         //VBox RankBox = new VBox(6);
 
-
+        Label total_revenue_Label = new Label("Amount Spent");
         Label name_Label = new Label("Name");
         Label phone_Label = new Label("Phone");
         Label email_Label = new Label("Email");
-       // Label total_revenue_Label = new Label("Amount Spent");
-      //  Label rank_label = new Label("Rank");
+
 
         // Styling for the text
         String style = "-fx-fill: #1a1b2e; -fx-font-size: 25px; -fx-font-weight: bold;";
@@ -62,14 +62,12 @@ public class ClientData extends BorderPane {
         summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
 
-        totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: green; -fx-font-weight: bold;");
 
 
 
 
 
-        allContents.getChildren().addAll(summary, totalRevenueText);
+        //allContents.getChildren().addAll(summary, totalRevenueText);
 
         name = new Text();
         name.setStyle(style);
@@ -80,23 +78,38 @@ public class ClientData extends BorderPane {
         email = new Text();
         email.setStyle(style);
 
+        totalRevenueText = new Text();
+        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: green; -fx-font-weight: bold;");
 
 
+
+
+        ExpenseBox.getChildren().addAll(total_revenue_Label,totalRevenueText);
         NameBox.getChildren().addAll(name_Label, name);
         PhoneBox.getChildren().addAll(phone_Label, phone);
         EmailBox.getChildren().addAll(email_Label, email);
 
 
-        allContents.getChildren().addAll(NameBox, PhoneBox, EmailBox);
+        allContents.getChildren().addAll(summary,ExpenseBox,NameBox, PhoneBox, EmailBox);
 
 
         allContents.setAlignment(Pos.CENTER_LEFT);
         allContents.setStyle("-fx-padding: 50px");
 
 
+
         this.setCenter(allContents);
+       ClientPOJO topClient = getTopClient();
+        if (topClient != null) {
+            getClientDetails(topClient);
+        }
+
+
 
     }
+
+
+
     public static double getClientRevenue(int client_id){
         Database db =Database.getNewDatabase();
         String query = "SELECT c." +CLIENT_FIRST_NAME + ", " +
@@ -126,7 +139,6 @@ public class ClientData extends BorderPane {
         name.setText(clientDetails.getFirst_name() + " " + clientDetails.getLast_name());
         phone.setText(clientDetails.getPhone_number());
         email.setText(clientDetails.getEmail());
-
         totalRevenueText.setText("$" + String.format("%,.2f", getClientRevenue(clientDetails.getClient_id())));
 
 
