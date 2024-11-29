@@ -218,7 +218,9 @@ public class ClientTable implements ClientDAO {
     }
 
     @Override
-    public void createClient(ClientPOJO client) {String query = "INSERT INTO " + CLIENT_TABLE + " (" +
+    public void createClient(ClientPOJO client) {
+
+        String query = "INSERT INTO " + CLIENT_TABLE + " (" +
             CLIENT_FIRST_NAME + ", " + CLIENT_LAST_NAME + ", " + CLIENT_PHONE_NUMBER + ", " + CLIENT_EMAIL + ") " +
             "VALUES (?, ?, ?, ?)";
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {

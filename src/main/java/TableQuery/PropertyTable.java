@@ -99,6 +99,29 @@ public class PropertyTable implements PropertyDAO {
         return null;
     }
 
+    public PropertyPOJO getPropertyRaw(int propertyId) {
+
+        String query = "SELECT * FROM " + PROPERTY_TABLE + " WHERE " + PROPERTY_ID + " = " + propertyId;
+
+        try{
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
+
+            if(propertyData.next()){
+
+                PropertyPOJO  property = new PropertyPOJO(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getInt(PROPERTY_PROPERTY_TYPE_ID), propertyData.getInt(PROPERTY_PROVINCE_ID), propertyData.getInt(PROPERTY_CITY_ID), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
+
+                return property;
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public PropertyPOJORefined getPropertyByName(String name) {
 
@@ -128,87 +151,90 @@ public class PropertyTable implements PropertyDAO {
     }
 
     @Override
-    public PropertyPOJORefined getPropertyByPropertyType(int property_type_id) {
+    public ArrayList<PropertyPOJORefined> getPropertyByPropertyType(int property_type_id) {
+
+        ArrayList<PropertyPOJORefined> allProperties = new ArrayList<>();
 
         String query = "SELECT p." + PROPERTY_ID + ", p." + PROPERTY_NAME + ", t." + PROPERTY_TYPE_NAME + ", v." + PROVINCE_NAME + ", c." + CITY_NAME +
                 ", p." + PROPERTY_STREET + ", p." + PROPERTY_POSTAL_CODE + ", p." + PROPERTY_AVAILABILITY + " FROM " + PROPERTY_TABLE + " p " +
                 "JOIN " + PROPERTY_TYPE_TABLE + " t ON p." + PROPERTY_PROPERTY_TYPE_ID + " = t." + PROPERTY_TYPE_ID +
                 " JOIN " + PROVINCE_TABLE + " v ON p." + PROPERTY_PROVINCE_ID + " = v." + PROVINCE_ID +
                 " JOIN " + CITY_TABLE + " c ON p." + PROPERTY_CITY_ID + " = c." + CITY_ID +
-                " WHERE " + PROPERTY_PROPERTY_TYPE_ID + " = " + property_type_id;
+                " WHERE p." + PROPERTY_PROPERTY_TYPE_ID + " = " + property_type_id;
 
         try{
-            Statement getPropertyByType = db.getConnection().createStatement();
-            ResultSet propertyData = getPropertyByType.executeQuery(query);
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
 
-            if(propertyData.next()){
+            while(propertyData.next()){
 
-                PropertyPOJORefined  property = new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
-                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
-
-                return property;
+                allProperties.add(new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+
+        return allProperties;
     }
 
     @Override
-    public PropertyPOJORefined getPropertyByProvince(int province_id) {
+    public ArrayList<PropertyPOJORefined> getPropertyByProvince(int province_id){
+
+        ArrayList<PropertyPOJORefined> allProperties = new ArrayList<>();
 
         String query = "SELECT p." + PROPERTY_ID + ", p." + PROPERTY_NAME + ", t." + PROPERTY_TYPE_NAME + ", v." + PROVINCE_NAME + ", c." + CITY_NAME +
                 ", p." + PROPERTY_STREET + ", p." + PROPERTY_POSTAL_CODE + ", p." + PROPERTY_AVAILABILITY + " FROM " + PROPERTY_TABLE + " p " +
                 "JOIN " + PROPERTY_TYPE_TABLE + " t ON p." + PROPERTY_PROPERTY_TYPE_ID + " = t." + PROPERTY_TYPE_ID +
                 " JOIN " + PROVINCE_TABLE + " v ON p." + PROPERTY_PROVINCE_ID + " = v." + PROVINCE_ID +
                 " JOIN " + CITY_TABLE + " c ON p." + PROPERTY_CITY_ID + " = c." + CITY_ID +
-                " WHERE " + PROPERTY_PROVINCE_ID + " = " + province_id;
+                " WHERE p." + PROPERTY_PROVINCE_ID + " = " + province_id;
 
         try{
-            Statement getPropertyByProvince = db.getConnection().createStatement();
-            ResultSet propertyData = getPropertyByProvince.executeQuery(query);
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
 
-            if(propertyData.next()){
+            while(propertyData.next()){
 
-                PropertyPOJORefined  property = new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
-                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
-
-                return property;
+                allProperties.add(new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+
+        return allProperties;
     }
 
     @Override
-    public PropertyPOJORefined getPropertyByCity(int city_id) {
+    public ArrayList<PropertyPOJORefined> getPropertyByCity(int city_id) {
+
+        ArrayList<PropertyPOJORefined> allProperties = new ArrayList<>();
 
         String query = "SELECT p." + PROPERTY_ID + ", p." + PROPERTY_NAME + ", t." + PROPERTY_TYPE_NAME + ", v." + PROVINCE_NAME + ", c." + CITY_NAME +
                 ", p." + PROPERTY_STREET + ", p." + PROPERTY_POSTAL_CODE + ", p." + PROPERTY_AVAILABILITY + " FROM " + PROPERTY_TABLE + " p " +
                 "JOIN " + PROPERTY_TYPE_TABLE + " t ON p." + PROPERTY_PROPERTY_TYPE_ID + " = t." + PROPERTY_TYPE_ID +
                 " JOIN " + PROVINCE_TABLE + " v ON p." + PROPERTY_PROVINCE_ID + " = v." + PROVINCE_ID +
                 " JOIN " + CITY_TABLE + " c ON p." + PROPERTY_CITY_ID + " = c." + CITY_ID +
-                " WHERE " + PROPERTY_CITY_ID + " = " + city_id;
+                " WHERE p." + PROPERTY_CITY_ID + " = " + city_id;
 
         try{
-            Statement getPropertyByCity = db.getConnection().createStatement();
-            ResultSet propertyData = getPropertyByCity.executeQuery(query);
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
 
-            if(propertyData.next()){
+            while(propertyData.next()){
 
-                PropertyPOJORefined  property = new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
-                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
-
-                return property;
+                allProperties.add(new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+
+        return allProperties;
     }
 
     @Override

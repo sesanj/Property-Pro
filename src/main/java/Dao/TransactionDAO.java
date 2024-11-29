@@ -13,7 +13,7 @@ public interface TransactionDAO {
     public TransactionPOJORefined getTransactionById(int TransactionId);
     public ArrayList<TransactionPOJORefined> getTransactionByUser(int user_id);
     public TransactionPOJORefined getTransactionByProperty(int property_Id);
-    public TransactionPOJORefined getTransactionByDate(Timestamp date);
+    public ArrayList<TransactionPOJORefined> getTransactionByDate(Timestamp startDate, Timestamp endDate);
 
     public void deleteTransaction(int TransactionId);
     public void updateTransaction(TransactionPOJO transaction);
