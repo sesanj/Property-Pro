@@ -99,6 +99,29 @@ public class PropertyTable implements PropertyDAO {
         return null;
     }
 
+    public PropertyPOJO getPropertyRaw(int propertyId) {
+
+        String query = "SELECT * FROM " + PROPERTY_TABLE + " WHERE " + PROPERTY_ID + " = " + propertyId;
+
+        try{
+            Statement getProperties = db.getConnection().createStatement();
+            ResultSet propertyData = getProperties.executeQuery(query);
+
+            if(propertyData.next()){
+
+                PropertyPOJO  property = new PropertyPOJO(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getInt(PROPERTY_PROPERTY_TYPE_ID), propertyData.getInt(PROPERTY_PROVINCE_ID), propertyData.getInt(PROPERTY_CITY_ID), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
+
+                return property;
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @Override
     public PropertyPOJORefined getPropertyByName(String name) {
 
