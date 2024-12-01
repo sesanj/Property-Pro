@@ -48,7 +48,7 @@ public class RevenueData extends BorderPane {
 
         TransactionTable transactionTable = new TransactionTable();
 
-        VBox allContents = new VBox(40);
+        VBox allContents = new VBox(30);
         VBox revenueBox = new VBox(6);
         VBox transactionBox = new VBox(6);
         HBox titleBox = new HBox(6);
@@ -143,7 +143,7 @@ public class RevenueData extends BorderPane {
 
         allContents.getChildren().addAll(titleBox, revenueBox, transactionBox, bestAndWorstContainer);
         allContents.setAlignment(Pos.CENTER_LEFT);
-        allContents.setStyle("-fx-padding: 40px 50px 10px 50px");
+        allContents.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setTop(allContents);
     }

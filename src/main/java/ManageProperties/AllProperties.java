@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
@@ -21,35 +22,32 @@ public class AllProperties extends BorderPane {
 
     public static TableView allProperties;
     public static Text title;
+    public static PropertyTable propertyTable = new PropertyTable();
 
 
     public AllProperties() {
 
         VBox container = new VBox(30);
 
-        Button deleteProperty = new Button("Delete Property");
-        deleteProperty.getStyleClass().add("deleteButton");
-        deleteProperty.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+        ToggleButton toggleButton = new ToggleButton("Available");
+        toggleButton.getStyleClass().add("toggleButton");
+        toggleButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
 
         Button viewAll = new Button("View All");
         viewAll.getStyleClass().add("tabButton");
         viewAll.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
-        HBox viewAllBox = new HBox(20);
-        viewAllBox.getChildren().addAll(deleteProperty, viewAll);
-        viewAllBox.setAlignment(Pos.CENTER_RIGHT);
+        HBox buttonBox = new HBox(20);
+        buttonBox.getChildren().addAll(toggleButton, viewAll);
+        buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
-
-
-
-        PropertyTable propertyTable = new PropertyTable();
 
 
         title = new Text(propertyTable.getAllProperty().size() + " Total Properties");
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         HBox titleBox = new HBox();
-        titleBox.getChildren().addAll(title, viewAllBox);
-        HBox.setHgrow(viewAllBox, Priority.ALWAYS);
+        titleBox.getChildren().addAll(title, buttonBox);
+        HBox.setHgrow(buttonBox, Priority.ALWAYS);
 
         allProperties = new TableView();
         allProperties.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -72,6 +70,7 @@ public class AllProperties extends BorderPane {
         allProperties.getColumns().addAll(name, type, province, city);
         allProperties.getItems().addAll(propertyTable.getAllProperty());
 
+
         allProperties.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->{
 
             if(newValue != null){
@@ -80,6 +79,7 @@ public class AllProperties extends BorderPane {
 
                 PropertyDisplay.getPropertyDetails(property);
                 PropertyForm.getPropertyDetails(propertyTable.getPropertyRaw(property.getProperty_id()));
+
             }
         });
 
@@ -90,14 +90,25 @@ public class AllProperties extends BorderPane {
             title.setText(propertyTable.getAllProperty().size() + " Total Properties");
         });
 
-        deleteProperty.setOnAction(e -> {
-            PropertyPOJORefined selectedProperty = (PropertyPOJORefined) allProperties.getSelectionModel().getSelectedItem();
-            propertyTable.deleteProperty(selectedProperty.getProperty_id());
+
+        toggleButton.setOnAction(e ->{
+            if(toggleButton.isSelected()){
+                allProperties.getItems().clear();
+                allProperties.getItems().addAll(propertyTable.getPropertyByAvailability(1));
+                title.setText(allProperties.getItems().size() + " Total Properties Available");
+                toggleButton.setText("Not Available");
+            }else{
+                allProperties.getItems().clear();
+                allProperties.getItems().addAll(propertyTable.getPropertyByAvailability(0));
+                title.setText(allProperties.getItems().size()  + " Total Properties Unavailable");
+                toggleButton.setText("Available");
+            }
+
         });
 
         container.getChildren().addAll(titleBox, allProperties);
         container.setAlignment(Pos.CENTER_LEFT);
-        container.setStyle("-fx-padding: 10px 50px 40px 50px");
+        container.setStyle("-fx-padding: 20px 50px 40px 40px");
 
         this.setCenter(container);
     }
@@ -142,6 +153,13 @@ public class AllProperties extends BorderPane {
 
         title.setText(properties.size() + " " + propertyType);
 
+    }
+
+    public static void refreshPropertyTable(){
+        allProperties.getItems().clear();
+        allProperties.getItems().addAll(propertyTable.getAllProperty());
+
+        title.setText(allProperties.getItems().size() + "Total Properties");
     }
 
 }

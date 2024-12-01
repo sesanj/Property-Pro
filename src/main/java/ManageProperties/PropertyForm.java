@@ -97,7 +97,7 @@ public class PropertyForm extends BorderPane {
 
         newPropertyTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(titleBox, transactionForm(), addTransaction);
+            layout.getChildren().addAll(titleBox, propertyForm(), addTransaction);
             updateFormClicked = false;
 
             prompt.setText("");
@@ -105,7 +105,7 @@ public class PropertyForm extends BorderPane {
 
         updatePropertyTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(titleBox, transactionForm(), updateTransactionButton);
+            layout.getChildren().addAll(titleBox, propertyForm(), updateTransactionButton);
             updateFormClicked = true;
 
             prompt.setText("Click On A Transaction To Update");
@@ -136,13 +136,12 @@ public class PropertyForm extends BorderPane {
                 PropertyTable propertyTable = new PropertyTable();
 
                 propertyTable.createProperty(newProperty);
-//
                 AllProperties.title.setText(AllProperties.allProperties.getItems().size() + 1 + " Property");
-//                RevenueData.addRevenue(amountEntered);
-//                RevenueData.addTransactionCount();
-//
+
                 prompt.setText("New Property Added Successfully!");
                 prompt.setStyle("-fx-fill: green; -fx-font-size: 14px; -fx-font-style: italic;");
+
+                AllProperties.refreshPropertyTable();
             }
             else{
                 prompt.setText("Can't Add New Property, Try Again, Fields Cannot Be Empty!");
@@ -179,11 +178,11 @@ public class PropertyForm extends BorderPane {
 
                 propertyTable.updateProperty(newProperty);
 
-
-
-
                 prompt.setText("Your Transaction Has Been Updated Successfully!");
                 prompt.setStyle("-fx-fill: green; -fx-font-size: 14px; -fx-font-style: italic;");
+
+                AllProperties.refreshPropertyTable();
+
             }
             else{
                 prompt.setText("Can't Update Transaction, Try Again, Fields Cannot Be Empty!");
@@ -196,13 +195,13 @@ public class PropertyForm extends BorderPane {
 
 
 
-        layout.getChildren().addAll(titleBox, transactionForm(), addTransaction);
+        layout.getChildren().addAll(titleBox, propertyForm(), addTransaction);
         this.setCenter(layout);
 
-        layout.setStyle("-fx-padding: 10px 50px 40px 50px");
+        layout.setStyle("-fx-padding: 20px 40px 40px 50px");
     }
 
-    public static VBox transactionForm(){
+    public static VBox propertyForm(){
 
         propertyType.getSelectionModel().clearSelection();
         propertyCity.getSelectionModel().clearSelection();
@@ -210,7 +209,6 @@ public class PropertyForm extends BorderPane {
         propertyName.setText("");
         postalCode.setText("");
         propertyAddress.setText("");
-
 
         VBox containerBox = new VBox();
         VBox formBox = new VBox(15);
@@ -317,8 +315,6 @@ public class PropertyForm extends BorderPane {
             availability.getSelectionModel().select(available);
 
             setUpdatablePropertyID(property.getProperty_id());
-
-            System.out.println("The Property ID IS: " + getUpdatablePropertyID());
         }
     }
 

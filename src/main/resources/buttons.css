@@ -67,3 +67,18 @@
     -fx-background-color: #c0c0cb;
     -fx-text-fill: black;
 }
+
+.toggleButton{
+    -fx-background-color: #e6e8ff;
+    -fx-text-fill: black;
+    -fx-font-size: 13px;
+    -fx-padding: 5px 14px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+}
+
+.toggleButton:hover {
+    -fx-background-color: #c0c0cb;
+    -fx-text-fill: black;
+}
+

@@ -238,7 +238,9 @@ public class PropertyTable implements PropertyDAO {
     }
 
     @Override
-    public PropertyPOJORefined getPropertyByAvailability(int availability) {
+    public ArrayList<PropertyPOJORefined> getPropertyByAvailability(int availability) {
+
+        ArrayList<PropertyPOJORefined> allProperties = new ArrayList<>();
 
         String query = "SELECT p." + PROPERTY_ID + ", p." + PROPERTY_NAME + ", t." + PROPERTY_TYPE_NAME + ", v." + PROVINCE_NAME + ", c." + CITY_NAME +
                 ", p." + PROPERTY_STREET + ", p." + PROPERTY_POSTAL_CODE + ", p." + PROPERTY_AVAILABILITY + " FROM " + PROPERTY_TABLE + " p " +
@@ -251,18 +253,16 @@ public class PropertyTable implements PropertyDAO {
             Statement getPropertyByAvailability = db.getConnection().createStatement();
             ResultSet propertyData = getPropertyByAvailability.executeQuery(query);
 
-            if(propertyData.next()){
+            while(propertyData.next()){
 
-                PropertyPOJORefined  property = new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
-                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY));
-
-                return property;
+                allProperties.add(new PropertyPOJORefined(propertyData.getInt(PROPERTY_ID), propertyData.getString(PROPERTY_NAME), propertyData.getString(PROPERTY_TYPE_NAME), propertyData.getString(PROVINCE_NAME), propertyData.getString(CITY_NAME), propertyData.getString(PROPERTY_STREET),
+                        propertyData.getString(PROPERTY_POSTAL_CODE), propertyData.getInt(PROPERTY_AVAILABILITY)));
             }
 
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+        return allProperties;
     }
 
     @Override
@@ -315,7 +315,7 @@ public class PropertyTable implements PropertyDAO {
             PROPERTY_NAME + " = ?, " + PROPERTY_PROPERTY_TYPE_ID + " = ?, " + PROPERTY_PROVINCE_ID + " = ?, " + PROPERTY_CITY_ID + " = ?, " + PROPERTY_STREET + " = ?, " + PROPERTY_POSTAL_CODE + " = ?, " + PROPERTY_AVAILABILITY + " = ? " + "WHERE " + PROPERTY_ID + " = ?";
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setString(1, property.getName());
-            st.setInt(2, property.getProperty_id());
+            st.setInt(2, property.getProperty_type_id());
             st.setInt(3, property.getProvince_id());
             st.setInt(4, property.getCity_id());
             st.setString(5, property.getStreet());
@@ -324,10 +324,31 @@ public class PropertyTable implements PropertyDAO {
             st.setInt(8, property.getProperty_id());
 
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 System.out.println("Property with ID " + property.getProperty_id() + " updated successfully.");
             } else {
                 System.out.println("No property found with ID " + property.getProperty_id());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void updateAvailability(int availability, int property_id) {
+        String query = "UPDATE " + PROPERTY_TABLE + " SET " +
+            PROPERTY_AVAILABILITY + " = ? " + "WHERE " + PROPERTY_ID + " = ?";
+        try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
+            st.setInt(1, availability);
+            st.setInt(2, property_id);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Property with ID " + property_id + " updated successfully.");
+            } else {
+                System.out.println("No property found with ID " + property_id);
             }
         } catch (SQLException e) {
             e.printStackTrace();

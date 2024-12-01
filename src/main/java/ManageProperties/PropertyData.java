@@ -24,6 +24,7 @@ public class PropertyData extends BorderPane {
     public PropertyData(){
 
         pieChart = new PieChart();
+        pieChart.setLegendVisible(false);
 
         defaultPieChart();
 
@@ -43,7 +44,7 @@ public class PropertyData extends BorderPane {
 
         container.getChildren().addAll(headerBox, pieChart);
         container.setAlignment(Pos.TOP_LEFT);
-        container.setStyle("-fx-padding: 50px 50px 20px 50px");
+        container.setStyle("-fx-padding: 50px 50px 50px 50px");
 
         this.setCenter(container);
     }
