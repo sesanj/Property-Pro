@@ -2,7 +2,7 @@ package com.example.propertypro;
 
 import Settings.City;
 import Settings.Credits;
-import Settings.PropertyType;
+import Settings.Help_Support;
 import Settings.Province;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -13,12 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import static ManageProperties.PropertyForm.propertyType;
+
 public class Setting extends BorderPane {
 
     Setting() {
 // Text labels for navigation items
         Text creditText = new Text("Credits");
-        Text propertyTypeText = new Text("Property Type");
+        Text help_SupportText = new Text("Help & Support");
         Text provinceText = new Text("Province");
         Text cityText = new Text("City");
 
@@ -29,7 +31,7 @@ public class Setting extends BorderPane {
 
         // Set inactive style for all text labels initially
         creditText.setStyle(navInactiveStyle);
-        propertyTypeText.setStyle(navInactiveStyle);
+        help_SupportText.setStyle(navInactiveStyle);
         provinceText.setStyle(navInactiveStyle);
         cityText.setStyle(navInactiveStyle);
 
@@ -49,9 +51,9 @@ public class Setting extends BorderPane {
         credit.setAlignment(Pos.CENTER_LEFT);
 
         // Clients navigation item
-        HBox propertyType = new HBox(20);
-        propertyType.getChildren().addAll(propertyTypeText);
-        propertyType.setAlignment(Pos.CENTER_LEFT);
+        HBox help_support = new HBox(20);
+        help_support.getChildren().addAll(help_SupportText);
+        help_support.setAlignment(Pos.CENTER_LEFT);
 
         // Properties navigation item
         HBox province = new HBox(20);
@@ -67,7 +69,7 @@ public class Setting extends BorderPane {
 
         // Add navigation elements to VBox containers for positioning
         logoAndNavBox.getChildren().addAll( mainNav);
-        mainNav.getChildren().addAll(credit,propertyType,province,city);
+        mainNav.getChildren().addAll(credit,help_support,province,city);
 
         // Set up the complete navigation bar layout
         navBar.getChildren().addAll(logoAndNavBox, settingsAndLogout);
@@ -85,12 +87,12 @@ public class Setting extends BorderPane {
             creditText.setStyle(navActiveStyle);
             cityText.setStyle(navInactiveStyle);
             provinceText.setStyle(navInactiveStyle);
-            propertyTypeText.setStyle(navInactiveStyle);
+            help_SupportText.setStyle(navInactiveStyle);
         });
 
-        propertyType.setOnMouseClicked(e -> {
-            this.setCenter(new PropertyType());
-            propertyTypeText.setStyle(navActiveStyle);
+        help_support.setOnMouseClicked(e -> {
+            this.setCenter(new Help_Support());
+            help_SupportText.setStyle(navActiveStyle);
             cityText.setStyle(navInactiveStyle);
             provinceText.setStyle(navInactiveStyle);
             creditText.setStyle(navInactiveStyle);
@@ -101,7 +103,7 @@ public class Setting extends BorderPane {
             provinceText.setStyle(navActiveStyle);
             cityText.setStyle(navInactiveStyle);
             creditText.setStyle(navInactiveStyle);
-            propertyTypeText.setStyle(navInactiveStyle);
+            help_SupportText.setStyle(navInactiveStyle);
         });
 
         city.setOnMouseClicked(e -> {
@@ -109,7 +111,7 @@ public class Setting extends BorderPane {
             cityText.setStyle(navActiveStyle);
             creditText.setStyle(navInactiveStyle);
             provinceText.setStyle(navInactiveStyle);
-            propertyTypeText.setStyle(navInactiveStyle);
+            help_SupportText.setStyle(navInactiveStyle);
         });
 
 
