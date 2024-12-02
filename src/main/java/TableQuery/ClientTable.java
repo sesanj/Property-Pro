@@ -2,7 +2,6 @@ package TableQuery;
 
 import Dao.ClientDAO;
 import Database.Database;
-import com.example.propertypro.Pojo.CityPOJO;
 import com.example.propertypro.Pojo.ClientPOJO;
 
 import java.sql.PreparedStatement;
@@ -162,9 +161,8 @@ public class ClientTable implements ClientDAO {
                 System.out.println("No client found with ID " + user_id);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Consider logging this
+            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -185,8 +183,6 @@ public class ClientTable implements ClientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -205,9 +201,7 @@ public class ClientTable implements ClientDAO {
                 System.out.println("Client created successfully.");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Consider logging this
+            e.printStackTrace();
         }
-
-
     }
 }

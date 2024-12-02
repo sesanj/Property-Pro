@@ -15,7 +15,7 @@ public class Overview extends BorderPane {
 
          GridPane layout = new GridPane();
 
-         Summary summary = new Summary();
+         Summary summary = new Summary( );
          summary.setPrefSize(550, 450);
          summary.setStyle("-fx-background-color: #e9eaff;");
 
