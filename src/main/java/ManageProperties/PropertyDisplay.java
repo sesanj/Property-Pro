@@ -3,11 +3,13 @@ package ManageProperties;
 import Database.Database;
 import Overview.TopClients;
 import TableQuery.PropertyTable;
+import com.example.propertypro.Pojo.PropertyPOJO;
 import com.example.propertypro.Pojo.PropertyPOJORefined;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,6 +31,12 @@ public class PropertyDisplay extends BorderPane {
     private static Text revenue;
     private static Text title;
     private static Text bookings;
+    private static ToggleButton toggleButton;
+
+    private static PropertyTable propertyTable = new PropertyTable();
+
+    public static Image house;
+    public static ImageView houseImage = new ImageView();
 
      public PropertyDisplay(){
 
@@ -37,6 +45,15 @@ public class PropertyDisplay extends BorderPane {
 
         HBox imageBox = new HBox();
         VBox detailsBox = new VBox(18);
+
+        toggleButton = new ToggleButton();
+        toggleButton.getStyleClass().add("toggleButton");
+        toggleButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+        HBox toggleBox = new HBox(30);
+
+        HBox toggleButtonBox = new HBox();
+        toggleButtonBox.getChildren().add(toggleButton);
+        toggleButtonBox.setAlignment(Pos.CENTER_RIGHT);
 
         VBox nameBox = new VBox(6);
         VBox addressBox = new VBox(6);
@@ -85,14 +102,13 @@ public class PropertyDisplay extends BorderPane {
         revenue = new Text();
         revenue.setStyle("-fx-fill: green; -fx-font-size: 20px; -fx-font-weight: bold;");
 
-        Image house = new Image(getClass().getResourceAsStream("/back2.jpg"));
-        ImageView houseImage = new ImageView(house);
-        houseImage.setFitHeight(150);
-        houseImage.setFitWidth(150);
+
+        toggleBox.getChildren().addAll(availability, toggleButtonBox);
+        HBox.setHgrow(toggleButtonBox, Priority.ALWAYS);
 
         nameBox.getChildren().addAll(nameLabel, name);
         addressBox.getChildren().addAll(addressLabel, address);
-        availabilityBox.getChildren().addAll(availabilityLabel, availability);
+        availabilityBox.getChildren().addAll(availabilityLabel, toggleBox);
         revenueBox.getChildren().addAll(revenueLabel, revenue);
         cityBox.getChildren().addAll(cityProvinceLabel, city);
 
@@ -102,16 +118,13 @@ public class PropertyDisplay extends BorderPane {
         bookingBox.getChildren().addAll(totalBookings, bookings);
         bookingBox.setAlignment(Pos.CENTER);
 
-
-        imageBox.getChildren().add(houseImage);
-
         detailsBox.getChildren().addAll(nameBox, addressBox, cityBox, availabilityBox, revenueAndBooking);
 
         contentBox.getChildren().addAll(imageBox, detailsBox);
 
         container.getChildren().addAll(titleBox, contentBox);
         container.setAlignment(Pos.TOP_LEFT);
-        container.setStyle("-fx-padding: 50px 50px 50px 50px");
+        container.setStyle("-fx-padding: 50px 40px 50px 50px");
 
         getBestPerformer();
 
@@ -119,6 +132,7 @@ public class PropertyDisplay extends BorderPane {
             getBestPerformer();
         });
 
+        imageBox.getChildren().add(houseImage);
 
         this.setCenter(container);
     }
@@ -129,17 +143,55 @@ public class PropertyDisplay extends BorderPane {
         address.setText(property.getStreet() + " - " + property.getPostal_code());
         city.setText(property.getCity() + ", " + property.getProvince());
 
+
         if (property.getAvailability() == 1){
             availability.setText("Available");
             availability.setStyle("-fx-fill: green; -fx-font-size: 18px; -fx-font-weight: bold;");
+
+            toggleButton.setText("Turn Off");
+            toggleButton.setSelected(true);
+
         }else{
             availability.setText("Not Available");
             availability.setStyle("-fx-fill: red; -fx-font-size: 18px; -fx-font-weight: bold;");
 
+            toggleButton.setText("Turn On");
+            toggleButton.setSelected(false);
         }
 
         revenue.setText("$" + String.format("%,.2f", getPropertyRevenue(property.getProperty_id())));
         title.setText("Property Info");
+
+        toggleButton.setOnAction(e ->{
+            int available;
+
+            PropertyPOJO selectedProperty = propertyTable.getPropertyRaw(property.getProperty_id());
+
+            if (selectedProperty.getAvailability() == 1){
+
+                toggleButton.setText("Turn On");
+                available = 0;
+                availability.setText("Not Available");
+                availability.setStyle("-fx-fill: red; -fx-font-size: 18px; -fx-font-weight: bold;");
+
+            }else{
+                availability.setText("Available");
+                toggleButton.setText("Turn Off");
+                availability.setStyle("-fx-fill: green; -fx-font-size: 18px; -fx-font-weight: bold;");
+                available = 1;
+            }
+
+            propertyTable.updateAvailability(available, property.getProperty_id());
+
+            AllProperties.refreshPropertyTable();
+
+        });
+        houseImage.setImage(null);
+
+        house = new Image(PropertyDisplay.class.getResourceAsStream("/" + property.getProperty_type() + ".jpg"));
+        houseImage.setImage(house);
+        houseImage.setFitHeight(180);
+        houseImage.setFitWidth(180);
     }
 
     public static double getPropertyRevenue(int propertyID){

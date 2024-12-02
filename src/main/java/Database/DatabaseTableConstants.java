@@ -107,13 +107,13 @@ public class DatabaseTableConstants {
             "CREATE TABLE " + TRANSACTION_TABLE + " (" +
             TRANSACTION_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
             TRANSACTION_AMOUNT + " DECIMAL(10, 2), " +
-            TRANSACTION_CLIENT_ID + " INT NULL, " +
-            TRANSACTION_PROPERTY_ID + " INT NULL, " +
+            TRANSACTION_CLIENT_ID + " INT, " +
+            TRANSACTION_PROPERTY_ID + " INT, " +
             TRANSACTION_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
             "FOREIGN KEY (" + TRANSACTION_CLIENT_ID + ")" +
-                    " REFERENCES " + CLIENT_TABLE + "(" + CLIENT_ID + ") ON DELETE SET NULL, " +
+                    " REFERENCES " + CLIENT_TABLE + "(" + CLIENT_ID + ")," +
             "FOREIGN KEY (" + TRANSACTION_PROPERTY_ID + ")" +
-                    " REFERENCES " + PROPERTY_TABLE + "(" + PROPERTY_ID + ") ON DELETE SET NULL);";
+                    " REFERENCES " + PROPERTY_TABLE + "(" + PROPERTY_ID + "));";
 
 
     // CREATE PROPERTY TABLE
@@ -122,16 +122,16 @@ public class DatabaseTableConstants {
             "CREATE TABLE " + PROPERTY_TABLE + " (" +
             PROPERTY_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
             PROPERTY_NAME + " VARCHAR(50), " +
-            PROPERTY_PROPERTY_TYPE_ID + " INT NULL, " +
-            PROPERTY_PROVINCE_ID + " INT NULL, " +
-            PROPERTY_CITY_ID + " INT NULL, " +
+            PROPERTY_PROPERTY_TYPE_ID + " INT, " +
+            PROPERTY_PROVINCE_ID + " INT, " +
+            PROPERTY_CITY_ID + " INT, " +
             PROPERTY_STREET + " VARCHAR(100), " +
             PROPERTY_POSTAL_CODE + " VARCHAR(10), " +
             PROPERTY_AVAILABILITY + " INT(1), " +
             "FOREIGN KEY (" + PROPERTY_PROPERTY_TYPE_ID + ")" +
-                    " REFERENCES " + PROPERTY_TYPE_TABLE + "(" + PROPERTY_TYPE_ID + ") ON DELETE SET NULL, " +
+                    " REFERENCES " + PROPERTY_TYPE_TABLE + "(" + PROPERTY_TYPE_ID + "), " +
             "FOREIGN KEY (" + PROPERTY_CITY_ID + ")" +
-                    " REFERENCES " + CITY_TABLE + "(" + CITY_ID + ") ON DELETE SET NULL, " +
+                    " REFERENCES " + CITY_TABLE + "(" + CITY_ID + "), " +
             "FOREIGN KEY (" + PROPERTY_PROVINCE_ID + ")" +
-                    " REFERENCES " + PROVINCE_TABLE + "(" + PROVINCE_ID + ") ON DELETE SET NULL);";
+                    " REFERENCES " + PROVINCE_TABLE + "(" + PROVINCE_ID + "));";
 }

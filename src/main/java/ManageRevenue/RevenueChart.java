@@ -126,7 +126,7 @@ public class RevenueChart extends BorderPane {
         lineChart.setLegendVisible(false);
 
         content.getChildren().addAll(titleBox, lineChart);
-        content.setStyle("-fx-padding: 40px 50px 10px 50px");
+        content.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setCenter(content);
     }

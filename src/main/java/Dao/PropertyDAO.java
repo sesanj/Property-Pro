@@ -15,7 +15,7 @@ public interface PropertyDAO {
     public ArrayList<PropertyPOJORefined> getPropertyByPropertyType(int property_type_id);
     public ArrayList<PropertyPOJORefined> getPropertyByProvince(int province_id );
     public ArrayList<PropertyPOJORefined> getPropertyByCity(int city_id);
-    public PropertyPOJORefined getPropertyByAvailability(int availability);
+    public ArrayList<PropertyPOJORefined> getPropertyByAvailability(int availability);
     public PropertyPOJORefined getPropertyByPostalCode(String postal_code);
 
     public void deleteProperty(int property_Id );

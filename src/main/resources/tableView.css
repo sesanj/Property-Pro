@@ -20,7 +20,7 @@
     -fx-text-fill: grey;
     -fx-font-weight: normal;
     -fx-font-size: 14px;
-    -fx-alignment: left;
+    -fx-alignment: CENTER_LEFT;
     -fx-padding: 12px;
 }
 
