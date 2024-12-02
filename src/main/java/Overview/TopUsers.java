@@ -26,7 +26,7 @@ public class TopUsers extends BorderPane {
 
         Database db = Database.getNewDatabase();
 
-        String query = "SELECT c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", " +
+        String query = "SELECT c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", c." + CLIENT_EMAIL + ", c." + CLIENT_ID + ", " +
                 "SUM(t." + TRANSACTION_AMOUNT + ") AS amountSpent, " +
                 "COUNT(t." + TRANSACTION_ID + ") AS totalTransactions " +
                 "FROM " + CLIENT_TABLE + " c " +
@@ -51,7 +51,7 @@ public class TopUsers extends BorderPane {
 
             while(data.next()){
 
-                topClients.add(new TopClients(data.getString(CLIENT_FIRST_NAME), data.getString(CLIENT_LAST_NAME), data.getInt("totalTransactions"), data.getString(CLIENT_PHONE_NUMBER), data.getDouble("amountSpent")));
+                topClients.add(new TopClients(data.getInt(CLIENT_ID), data.getString(CLIENT_FIRST_NAME), data.getString(CLIENT_LAST_NAME), data.getInt("totalTransactions"), data.getString(CLIENT_PHONE_NUMBER), data.getDouble("amountSpent"), data.getString(CLIENT_EMAIL)));
 
             }
 

@@ -111,7 +111,7 @@ public class DatabaseTableConstants {
             TRANSACTION_PROPERTY_ID + " INT, " +
             TRANSACTION_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
             "FOREIGN KEY (" + TRANSACTION_CLIENT_ID + ")" +
-                    " REFERENCES " + CLIENT_TABLE + "(" + CLIENT_ID + "), " +
+                    " REFERENCES " + CLIENT_TABLE + "(" + CLIENT_ID + ")," +
             "FOREIGN KEY (" + TRANSACTION_PROPERTY_ID + ")" +
                     " REFERENCES " + PROPERTY_TABLE + "(" + PROPERTY_ID + "));";
 

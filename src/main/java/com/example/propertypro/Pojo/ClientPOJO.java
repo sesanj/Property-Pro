@@ -15,6 +15,11 @@ public class ClientPOJO {
         this.email = email;
     }
 
+    public ClientPOJO() {
+
+    }
+
+
     public int getClient_id() {
         return client_id;
     }

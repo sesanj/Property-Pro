@@ -13,31 +13,25 @@ public class Properties extends BorderPane {
         GridPane layout = new GridPane();
 
         AllProperties allProperties = new AllProperties();
-        allProperties.setPrefSize(800, 450);
+        allProperties.setPrefSize(780, 450);
         allProperties.setStyle("-fx-background-color: white;");
 
         PropertyData propertyData = new PropertyData();
-        propertyData.setPrefSize(800, 450);
-        propertyData.setStyle("-fx-background-color: red; -fx-color: white;");
-
+        propertyData.setPrefSize(780, 450);
+        propertyData.setStyle("-fx-background-color: white;");
 
         PropertyDisplay propertyDisplay = new PropertyDisplay();
-        propertyDisplay.setPrefSize(550, 450);
+        propertyDisplay.setPrefSize(570, 450);
         propertyDisplay.setStyle("-fx-background-color: white;");
 
         PropertyForm propertyForm = new PropertyForm();
-        propertyForm.setPrefSize(550, 450);
-        propertyForm.setStyle("-fx-background-color: purple; -fx-color: white;");
-
-        PropertyNav propertyNav = new PropertyNav();
-
-
-        this.setTop(propertyNav);
+        propertyForm.setPrefSize(570, 450);
+        propertyForm.setStyle("-fx-background-color: white;");
 
         layout.add(propertyDisplay, 0, 0);
         layout.add(propertyForm, 0 , 1);
-        layout.add(allProperties, 1, 0);
-        layout.add(propertyData, 1, 1);
+        layout.add(propertyData, 1, 0);
+        layout.add(allProperties, 1, 1);
 
         layout.setAlignment(Pos.CENTER);
 
