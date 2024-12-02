@@ -52,6 +52,7 @@ public class Help_Support extends BorderPane {
                 new Text("Email: aabrahamofficial@gmail.com"),
                 new Text("Phone: 226-611-6917"),
                 new Text("For urgent issues, please email us directly."),
+                //new commit
                 new Text("Version: 1.0.0")
 
         );
