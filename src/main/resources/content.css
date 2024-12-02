@@ -18,7 +18,7 @@
     -fx-pref-width: 300px;
 }
 #credit-pane{
- -fx-padding: 20px;
+    -fx-padding: 20px;
     -fx-spacing: 10px;
     -fx-background-color: #DCDCDC;
     -fx-border-radius: 5px;
@@ -27,7 +27,7 @@
 }
 
 .version-info {
-      -fx-font-size: 5px;
+      -fx-font-size: 15px;
       -fx-text-fill: #f0f0f0;
      /*-fx-text-alignment: center;*/
   }

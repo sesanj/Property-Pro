@@ -55,7 +55,7 @@ public class Help_Support extends BorderPane {
         phoneText.setTextAlignment(TextAlignment.CENTER);
 
         Text urgentText = new Text("For urgent issues, please email us directly.\n");
-        urgentText.setStyle("-fx-text-fill: #f0f0f0-fx-font-size: 16px; -fx-font-style: italic;");
+        urgentText.setStyle("-fx-text-fill: #f0f0f0-fx-font-size: 25px; -fx-font-style: italic;");
         urgentText.setTextAlignment(TextAlignment.CENTER);
 
         Text versionText = new Text("\nVersion: 1.0.0");

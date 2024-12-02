@@ -68,9 +68,7 @@ public class TransactionTable implements TransactionDAO {
     }
 
     @Override
-    public ArrayList<TransactionPOJORefined> getTransactionByUser(int user_id) {
-
-        ArrayList<TransactionPOJORefined> allTransactions = new ArrayList<>();
+    public TransactionPOJORefined getTransactionByUser(int user_id) {
 
         String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
                 ", t." + TRANSACTION_TIMESTAMP +
@@ -80,27 +78,21 @@ public class TransactionTable implements TransactionDAO {
                 " WHERE " + TRANSACTION_CLIENT_ID + " = " + user_id +
                 " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
 
-        System.out.println("We're Here 1");
-
         try {
-            Statement getTransaction = db.getConnection().createStatement();
-            ResultSet TransactionData = getTransaction.executeQuery(query);
+            Statement getTransactionByUser = db.getConnection().createStatement();
+            ResultSet TransactionData = getTransactionByUser.executeQuery(query);
 
-            System.out.println("We're Here 2");
+            if (TransactionData.next()) {
 
-            while (TransactionData.next()) {
+                TransactionPOJORefined transaction = new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP));
 
-                allTransactions.add(new TransactionPOJORefined(TransactionData.getInt(TRANSACTION_ID),TransactionData.getString(CLIENT_FIRST_NAME) + " " + TransactionData.getString(CLIENT_LAST_NAME),TransactionData.getString(PROPERTY_NAME), TransactionData.getDouble(TRANSACTION_AMOUNT), TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
-
+                return transaction;
             }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(allTransactions.size());
-
-        return allTransactions;
+        return null;
     }
 
     @Override
@@ -231,32 +223,6 @@ public class TransactionTable implements TransactionDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating transaction", e);
         }
-
-
-    }
-
-    @Override
-    public ArrayList<TransactionPOJO> getAllTransactions2() {
-        ArrayList<TransactionPOJO> transactions = new ArrayList<>();
-
-        String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + TRANSACTION_CLIENT_ID + ", c." + TRANSACTION_PROPERTY_ID + ", p." + TRANSACTION_TIMESTAMP +
-                " FROM " + TRANSACTION_TABLE + " t " +
-                " ORDER BY " + TRANSACTION_ID;
-
-        try{
-            Statement getTransaction = db.getConnection().createStatement();
-            ResultSet TransactionData = getTransaction.executeQuery(query);
-
-            while (TransactionData.next()) {
-
-                transactions.add(new TransactionPOJO(TransactionData.getInt(TRANSACTION_ID),TransactionData.getDouble(TRANSACTION_AMOUNT),TransactionData.getInt(TRANSACTION_CLIENT_ID),TransactionData.getInt(TRANSACTION_PROPERTY_ID),TransactionData.getTimestamp(TRANSACTION_TIMESTAMP)));
-
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return transactions;
 
 
     }
