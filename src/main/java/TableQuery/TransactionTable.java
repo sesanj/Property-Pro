@@ -77,13 +77,8 @@ public class TransactionTable implements TransactionDAO {
                 " FROM " + TRANSACTION_TABLE + " t " +
                 "JOIN " + CLIENT_TABLE + " c ON t." + TRANSACTION_CLIENT_ID + " = c." + CLIENT_ID +
                 " JOIN " + PROPERTY_TABLE + " p ON t." + TRANSACTION_PROPERTY_ID + " = p." + PROPERTY_ID +
-<<<<<<< HEAD
-                " WHERE c." + TRANSACTION_CLIENT_ID + " = " + user_id +
-                " ORDER BY " + TRANSACTION_ID;
-=======
                 " WHERE " + TRANSACTION_CLIENT_ID + " = " + user_id +
                 " ORDER BY " + TRANSACTION_TIMESTAMP + " DESC";
->>>>>>> development
 
         System.out.println("We're Here 1");
 
