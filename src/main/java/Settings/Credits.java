@@ -13,6 +13,11 @@ import javafx.util.Duration;
 public class Credits extends BorderPane {
     public Credits() {
 
+        // StackPane to hold the content that will change when a button is clicked
+        StackPane contentPane = new StackPane();
+        contentPane.getStylesheets().add(getClass().getResource("/content.css").toExternalForm());
+        contentPane.setId("credit-pane");
+
         VBox creditsBox = new VBox(20);
         creditsBox.setAlignment(Pos.CENTER);
 
@@ -67,16 +72,14 @@ public class Credits extends BorderPane {
         creditsBox.getChildren().addAll(title, credit1, credit2, credit3, credit4 ,credit5,credit6,credit7,credit8,credit9,credit10,credit11,credit12,credit13,credit14,credit15);
 
 
-        ScrollPane scrollPane = new ScrollPane(creditsBox);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
 
-        StackPane centerPane = new StackPane();
-        centerPane.getChildren().add(scrollPane);
+
+       contentPane.getChildren().addAll(creditsBox);
 
 
-        this.setCenter(centerPane);
+
+        this.setCenter(contentPane);
 
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(20), creditsBox);

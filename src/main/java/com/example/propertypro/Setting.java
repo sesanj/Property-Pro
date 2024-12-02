@@ -3,25 +3,20 @@ package com.example.propertypro;
 import Settings.City;
 import Settings.Credits;
 import Settings.Help_Support;
-import Settings.Province;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import static ManageProperties.PropertyForm.propertyType;
-
 public class Setting extends BorderPane {
 
     Setting() {
+
 // Text labels for navigation items
         Text creditText = new Text("Credits");
         Text help_SupportText = new Text("Help & Support");
-        Text provinceText = new Text("Province");
+
         Text cityText = new Text("City");
 
 
@@ -32,7 +27,6 @@ public class Setting extends BorderPane {
         // Set inactive style for all text labels initially
         creditText.setStyle(navInactiveStyle);
         help_SupportText.setStyle(navInactiveStyle);
-        provinceText.setStyle(navInactiveStyle);
         cityText.setStyle(navInactiveStyle);
 
 
@@ -45,22 +39,17 @@ public class Setting extends BorderPane {
 
 //
 
-        // Revenue navigation item
+
         HBox credit = new HBox(20);
         credit.getChildren().add( creditText);
         credit.setAlignment(Pos.CENTER_LEFT);
 
-        // Clients navigation item
+
         HBox help_support = new HBox(20);
         help_support.getChildren().addAll(help_SupportText);
         help_support.setAlignment(Pos.CENTER_LEFT);
 
-        // Properties navigation item
-        HBox province = new HBox(20);
-        province.getChildren().addAll(provinceText);
-        province.setAlignment(Pos.CENTER_LEFT);
 
-        // Settings navigation item
         HBox city = new HBox(20);
         city.getChildren().addAll(cityText);
         city.setAlignment(Pos.CENTER_LEFT);
@@ -69,7 +58,7 @@ public class Setting extends BorderPane {
 
         // Add navigation elements to VBox containers for positioning
         logoAndNavBox.getChildren().addAll( mainNav);
-        mainNav.getChildren().addAll(credit,help_support,province,city);
+        mainNav.getChildren().addAll(credit,help_support,city);
 
         // Set up the complete navigation bar layout
         navBar.getChildren().addAll(logoAndNavBox, settingsAndLogout);
@@ -86,7 +75,6 @@ public class Setting extends BorderPane {
             this.setCenter(new Credits());
             creditText.setStyle(navActiveStyle);
             cityText.setStyle(navInactiveStyle);
-            provinceText.setStyle(navInactiveStyle);
             help_SupportText.setStyle(navInactiveStyle);
         });
 
@@ -94,23 +82,15 @@ public class Setting extends BorderPane {
             this.setCenter(new Help_Support());
             help_SupportText.setStyle(navActiveStyle);
             cityText.setStyle(navInactiveStyle);
-            provinceText.setStyle(navInactiveStyle);
             creditText.setStyle(navInactiveStyle);
         });
 
-        province.setOnMouseClicked(e -> {
-            this.setCenter(new Province());
-            provinceText.setStyle(navActiveStyle);
-            cityText.setStyle(navInactiveStyle);
-            creditText.setStyle(navInactiveStyle);
-            help_SupportText.setStyle(navInactiveStyle);
-        });
+
 
         city.setOnMouseClicked(e -> {
             this.setCenter(new City());
             cityText.setStyle(navActiveStyle);
             creditText.setStyle(navInactiveStyle);
-            provinceText.setStyle(navInactiveStyle);
             help_SupportText.setStyle(navInactiveStyle);
         });
 
