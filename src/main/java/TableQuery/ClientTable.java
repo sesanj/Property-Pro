@@ -149,35 +149,6 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
-    public static ClientPOJO getTopClient() {
-        Database db = Database.getNewDatabase();
-        String query = "SELECT c." + CLIENT_ID + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", c." + CLIENT_EMAIL + ", " +
-                "SUM(t." + TRANSACTION_AMOUNT + ") AS revenue " +
-                "FROM " + CLIENT_TABLE + " c " +
-                "JOIN " + TRANSACTION_TABLE + " t ON c." + CLIENT_ID + " = t." + CLIENT_ID +
-                " GROUP BY c." + CLIENT_ID +
-                " ORDER BY revenue DESC LIMIT 1"; // Get the client with the highest revenue
-
-        ClientPOJO topClient = null;
-
-        try {
-            Statement stmt = db.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                topClient = new ClientPOJO();
-                topClient.setClient_id(rs.getInt(CLIENT_ID));
-                topClient.setFirst_name(rs.getString(CLIENT_FIRST_NAME));
-                topClient.setLast_name(rs.getString(CLIENT_LAST_NAME));
-                topClient.setPhone_number(rs.getString(CLIENT_PHONE_NUMBER));
-                topClient.setEmail(rs.getString(CLIENT_EMAIL));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return topClient;
-    }
-
-
     @Override
     public void deleteClient(int user_id) {
         String query = "DELETE FROM " + CLIENT_TABLE + " WHERE " + CLIENT_ID + " = ?";
@@ -190,9 +161,8 @@ public class ClientTable implements ClientDAO {
                 System.out.println("No client found with ID " + user_id);
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Consider logging this
+            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -213,8 +183,6 @@ public class ClientTable implements ClientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -233,14 +201,7 @@ public class ClientTable implements ClientDAO {
                 System.out.println("Client created successfully.");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Consider logging this
+            e.printStackTrace();
         }
-
-
     }
-
-
-
-
-
 }

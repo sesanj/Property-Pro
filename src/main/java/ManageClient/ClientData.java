@@ -2,12 +2,6 @@ package ManageClient;
 
 import Database.Database;
 import Overview.TopClients;
-import TableQuery.ClientTable;
-import TableQuery.PropertyTable;
-import TableQuery.TransactionTable;
-import com.example.propertypro.Pojo.ClientPOJO;
-import com.example.propertypro.Pojo.PropertyPOJORefined;
-import com.example.propertypro.Pojo.TransactionPOJORefined;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -17,10 +11,8 @@ import javafx.scene.text.Text;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
-import static TableQuery.ClientTable.getTopClient;
 
 public class ClientData extends BorderPane {
 
@@ -28,46 +20,32 @@ public class ClientData extends BorderPane {
     private static Text phone;
     private static Text email;
     private static Text totalRevenueText;
+    private static Text title;
+    private static TopClients topClient;
 
     public ClientData() {
-       
-        TransactionTable transactionTable = new TransactionTable();
-        ClientTable clientTable = new ClientTable();
-        PropertyTable propertyTable = new PropertyTable();
 
 
-        ArrayList<TransactionPOJORefined> allTransactions = transactionTable.getAllTransactions();
-        ClientPOJO topClients = clientTable.getTopClient();
-        ArrayList<PropertyPOJORefined> allProperties = propertyTable.getAllProperty();
-
-
-        VBox allContents = new VBox(30);
+        VBox allContents = new VBox(40);
         VBox NameBox = new VBox(6);
         VBox PhoneBox = new VBox(6);
         VBox EmailBox = new VBox(6);
-       VBox ExpenseBox = new VBox(6);
+        VBox ExpenseBox = new VBox(6);
         //VBox RankBox = new VBox(6);
 
-        Label total_revenue_Label = new Label("Amount Spent");
+        Label total_revenue_Label = new Label("Revenue");
         Label name_Label = new Label("Name");
-        Label phone_Label = new Label("Phone");
-        Label email_Label = new Label("Email");
+        Label phone_Label = new Label("Phone Number");
+        Label email_Label = new Label("Email Address");
 
 
         // Styling for the text
-        String style = "-fx-fill: #1a1b2e; -fx-font-size: 25px; -fx-font-weight: bold;";
+        String style = "-fx-fill: #1a1b2e; -fx-font-size: 18px; -fx-font-weight: bold;";
 
         // Summary text
-        Text summary = new Text("Summary");
-        summary.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
+        title = new Text("Client Information");
+        title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
-
-
-
-
-
-
-        //allContents.getChildren().addAll(summary, totalRevenueText);
 
         name = new Text();
         name.setStyle(style);
@@ -79,9 +57,7 @@ public class ClientData extends BorderPane {
         email.setStyle(style);
 
         totalRevenueText = new Text();
-        totalRevenueText.setStyle("-fx-font-size: 30px; -fx-fill: green; -fx-font-weight: bold;");
-
-
+        totalRevenueText.setStyle("-fx-font-size: 25px; -fx-fill: green; -fx-font-weight: bold;");
 
 
         ExpenseBox.getChildren().addAll(total_revenue_Label,totalRevenueText);
@@ -89,23 +65,15 @@ public class ClientData extends BorderPane {
         PhoneBox.getChildren().addAll(phone_Label, phone);
         EmailBox.getChildren().addAll(email_Label, email);
 
+        allContents.getChildren().addAll(title,NameBox, PhoneBox, EmailBox, ExpenseBox);
 
-        allContents.getChildren().addAll(summary,ExpenseBox,NameBox, PhoneBox, EmailBox);
 
-
-        allContents.setAlignment(Pos.CENTER_LEFT);
+        allContents.setAlignment(Pos.TOP_LEFT);
         allContents.setStyle("-fx-padding: 50px");
 
-
-
         this.setCenter(allContents);
-       ClientPOJO topClient = getTopClient();
-        if (topClient != null) {
-            getClientDetails(topClient);
-        }
 
-
-
+        getClientDetails(AllClients.topClients.getFirst());
     }
 
 
@@ -134,13 +102,11 @@ public class ClientData extends BorderPane {
     }
 
 
-    public static void getClientDetails(ClientPOJO clientDetails){
+    public static void getClientDetails(TopClients clientDetails){
 
         name.setText(clientDetails.getFirst_name() + " " + clientDetails.getLast_name());
         phone.setText(clientDetails.getPhone_number());
         email.setText(clientDetails.getEmail());
-        totalRevenueText.setText("$" + String.format("%,.2f", getClientRevenue(clientDetails.getClient_id())));
-
-
+        totalRevenueText.setText("$" + String.format("%,.2f", getClientRevenue(clientDetails.getId())));
     }
 }

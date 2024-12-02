@@ -81,13 +81,13 @@ public class PropertyForm extends BorderPane {
         updatePropertyTab.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
         updatePropertyTab.getStyleClass().add("tabButton");
 
-        Button addTransaction = new Button("Add Property");
-        addTransaction.getStyleClass().add("formButton");
-        addTransaction.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+        Button addPropertyButton = new Button("Add Property");
+        addPropertyButton.getStyleClass().add("formButton");
+        addPropertyButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
 
-        Button updateTransactionButton = new Button("Update Property");
-        updateTransactionButton.getStyleClass().add("formButton");
-        updateTransactionButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
+        Button updatePropertyButton = new Button("Update Property");
+        updatePropertyButton.getStyleClass().add("formButton");
+        updatePropertyButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
 
         tabBox.getChildren().addAll(newPropertyTab, updatePropertyTab);
         tabBox.setAlignment(Pos.CENTER_RIGHT);
@@ -97,7 +97,7 @@ public class PropertyForm extends BorderPane {
 
         newPropertyTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(titleBox, propertyForm(), addTransaction);
+            layout.getChildren().addAll(titleBox, propertyForm(), addPropertyButton);
             updateFormClicked = false;
 
             prompt.setText("");
@@ -105,14 +105,14 @@ public class PropertyForm extends BorderPane {
 
         updatePropertyTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(titleBox, propertyForm(), updateTransactionButton);
+            layout.getChildren().addAll(titleBox, propertyForm(), updatePropertyButton);
             updateFormClicked = true;
 
             prompt.setText("Click On A Transaction To Update");
         });
 
 
-        addTransaction.setOnAction(e ->{
+        addPropertyButton.setOnAction(e ->{
 
             if(!propertyName.getText().isEmpty() && !propertyAddress.getText().isEmpty() && !postalCode.getText().isEmpty() &&
                     propertyProvince.getSelectionModel().getSelectedItem() != null &&
@@ -150,7 +150,7 @@ public class PropertyForm extends BorderPane {
         });
 
 
-        updateTransactionButton.setOnAction(e ->{
+        updatePropertyButton.setOnAction(e ->{
 
             if(!propertyName.getText().isEmpty() && !propertyAddress.getText().isEmpty() && !postalCode.getText().isEmpty() &&
                     propertyProvince.getSelectionModel().getSelectedItem() != null &&
@@ -195,7 +195,7 @@ public class PropertyForm extends BorderPane {
 
 
 
-        layout.getChildren().addAll(titleBox, propertyForm(), addTransaction);
+        layout.getChildren().addAll(titleBox, propertyForm(), addPropertyButton);
         this.setCenter(layout);
 
         layout.setStyle("-fx-padding: 20px 40px 40px 50px");
@@ -206,6 +206,7 @@ public class PropertyForm extends BorderPane {
         propertyType.getSelectionModel().clearSelection();
         propertyCity.getSelectionModel().clearSelection();
         propertyProvince.getSelectionModel().clearSelection();
+        availability.getItems().clear();
         propertyName.setText("");
         postalCode.setText("");
         propertyAddress.setText("");

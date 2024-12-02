@@ -24,11 +24,15 @@ public class ClientTransactions extends BorderPane {
 
     // Class-level TableView declaration
     private static TableView<TransactionPOJORefined> userTable;
+    public static Text title;
 
     public ClientTransactions() {
         // Initialize the TableView and columns
         userTable = new TableView<>();
         userTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        title = new Text("Clients Transactions");
+        title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
         // Column for Transaction ID
         TableColumn<TransactionPOJORefined, String> id = new TableColumn<>("Id");
@@ -44,13 +48,13 @@ public class ClientTransactions extends BorderPane {
 
         // Column for Amount
         TableColumn<TransactionPOJORefined, String> amount = new TableColumn<>("Amount");
-        amount.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getAmount())));
+        amount.setCellValueFactory(e -> new SimpleStringProperty("$" + String.format("%,.2f", e.getValue().getAmount())));
 
         // Column for Timestamp with proper formatting
-        TableColumn<TransactionPOJORefined, String> timestamp = new TableColumn<>("Timestamp");
+        TableColumn<TransactionPOJORefined, String> date = new TableColumn<>("Date");
 
 
-        timestamp.setCellValueFactory(e -> {
+        date.setCellValueFactory(e -> {
             // Format the timestamp to a more readable format
             Timestamp ts = e.getValue().getTimestamp();
             if (ts != null) {
@@ -62,24 +66,29 @@ public class ClientTransactions extends BorderPane {
         });
 
         // Add columns to the TableView
-        userTable.getColumns().addAll(id, client, property, amount, timestamp);
+        userTable.getColumns().addAll(date, id, client, property, amount);
         userTable.getStylesheets().add(getClass().getResource("/tableView.css").toExternalForm());
+
+        userTable.getItems().addAll(transactionTable.getTransactionByUser(AllClients.topClients.getFirst().getId()));
+
+        title.setText(AllClients.topClients.getFirst().getFirst_name() + " "  +
+                AllClients.topClients.getFirst().getLast_name() + "'s Transactions");
 
         // Add table to the layout
         VBox transactionBox = new VBox(30);
-        Text title = new Text("All Transactions");
-        title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
         transactionBox.getChildren().addAll(title, userTable);
-        transactionBox.setAlignment(Pos.CENTER_LEFT);
-        transactionBox.setStyle("-fx-padding: 30px 50px 50px 50px");
+        transactionBox.setAlignment(Pos.TOP_LEFT);
+        transactionBox.setStyle("-fx-padding: 50px 50px 50px 50px");
 
         this.setCenter(transactionBox);
     }
 
-    public static void getClientTransaction(int clientID) {
+    public static void getClientTransaction(int clientID, String clientName) {
 
         userTable.getItems().clear();
         userTable.getItems().addAll(transactionTable.getTransactionByUser(clientID));
+
+        title.setText(clientName + "'s Transactions");
 
     }
 }
