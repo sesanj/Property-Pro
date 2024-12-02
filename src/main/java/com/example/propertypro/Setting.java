@@ -1,6 +1,5 @@
 package com.example.propertypro;
 
-import Settings.City;
 import Settings.Credits;
 import Settings.Help_Support;
 import javafx.geometry.Pos;
@@ -17,7 +16,7 @@ public class Setting extends BorderPane {
         Text creditText = new Text("Credits");
         Text help_SupportText = new Text("Help & Support");
 
-        Text cityText = new Text("City");
+
 
 
         // Styles for active and inactive navigation items
@@ -27,7 +26,7 @@ public class Setting extends BorderPane {
         // Set inactive style for all text labels initially
         creditText.setStyle(navInactiveStyle);
         help_SupportText.setStyle(navInactiveStyle);
-        cityText.setStyle(navInactiveStyle);
+
 
 
 
@@ -51,8 +50,8 @@ public class Setting extends BorderPane {
 
 
         HBox city = new HBox(20);
-        city.getChildren().addAll(cityText);
-        city.setAlignment(Pos.CENTER_LEFT);
+
+
 
 
 
@@ -74,25 +73,16 @@ public class Setting extends BorderPane {
         credit.setOnMouseClicked(e -> {
             this.setCenter(new Credits());
             creditText.setStyle(navActiveStyle);
-            cityText.setStyle(navInactiveStyle);
+
             help_SupportText.setStyle(navInactiveStyle);
         });
 
         help_support.setOnMouseClicked(e -> {
             this.setCenter(new Help_Support());
             help_SupportText.setStyle(navActiveStyle);
-            cityText.setStyle(navInactiveStyle);
             creditText.setStyle(navInactiveStyle);
         });
 
-
-
-        city.setOnMouseClicked(e -> {
-            this.setCenter(new City());
-            cityText.setStyle(navActiveStyle);
-            creditText.setStyle(navInactiveStyle);
-            help_SupportText.setStyle(navInactiveStyle);
-        });
 
 
     }
