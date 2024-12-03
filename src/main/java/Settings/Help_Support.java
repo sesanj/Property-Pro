@@ -1,5 +1,6 @@
 package Settings;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -20,9 +21,15 @@ public class Help_Support extends BorderPane {
 
     public Help_Support() {
 
+
         Text title = new Text("Help and Support");
         title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold;");
-        title.setTextAlignment(TextAlignment.CENTER);
+        title.setTextAlignment(TextAlignment.JUSTIFY);
+
+        HBox title1 = new HBox();
+        title1.setAlignment(Pos.TOP_LEFT);
+        title1.setPadding(new Insets(0,0,30,0));
+
 
         HBox bottomBox = new HBox(20);
         bottomBox.setAlignment(Pos.CENTER);
@@ -100,16 +107,16 @@ public class Help_Support extends BorderPane {
         sendFeedbackButton.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
 
         feedbackSection.getChildren().addAll(feedbackField, sendFeedbackButton);
-
+        title1.getChildren().add(title);
         contentPane.getChildren().add(feedbackSection);
 
         bottomBox.getChildren().addAll(contactSupport);
 
-        this.setTop(title);
+        this.setTop(title1);
         this.setCenter(contentPane);
         this.setBottom(bottomBox);
 
-        this.setStyle("-fx-padding: 20px;");
+        this.setStyle("-fx-padding: 50px;");
     }
 
     private void saveFeedbackToFile(String feedback) {
