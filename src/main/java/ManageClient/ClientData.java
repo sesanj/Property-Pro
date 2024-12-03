@@ -1,5 +1,6 @@
 package ManageClient;
 
+import Animations.Animations;
 import Database.Database;
 import Overview.TopClients;
 import javafx.geometry.Pos;
@@ -21,16 +22,19 @@ public class ClientData extends BorderPane {
     private static Text email;
     private static Text totalRevenueText;
     private static Text title;
-    private static TopClients topClient;
+    private static VBox NameBox;
+    private static VBox PhoneBox;
+    private static VBox EmailBox;
+    private static VBox ExpenseBox;
 
     public ClientData() {
 
 
         VBox allContents = new VBox(40);
-        VBox NameBox = new VBox(6);
-        VBox PhoneBox = new VBox(6);
-        VBox EmailBox = new VBox(6);
-        VBox ExpenseBox = new VBox(6);
+        NameBox = new VBox(6);
+        PhoneBox = new VBox(6);
+        EmailBox = new VBox(6);
+        ExpenseBox = new VBox(6);
         //VBox RankBox = new VBox(6);
 
         Label total_revenue_Label = new Label("Revenue");
@@ -74,6 +78,8 @@ public class ClientData extends BorderPane {
         this.setCenter(allContents);
 
         getClientDetails(AllClients.topClients.getFirst());
+
+        animate();
     }
 
 
@@ -108,5 +114,13 @@ public class ClientData extends BorderPane {
         phone.setText(clientDetails.getPhone_number());
         email.setText(clientDetails.getEmail());
         totalRevenueText.setText("$" + String.format("%,.2f", getClientRevenue(clientDetails.getId())));
+    }
+
+    public static void animate(){
+
+        Animations.translate(NameBox, 600);
+        Animations.translate(EmailBox, 800);
+        Animations.translate(PhoneBox, 1000);
+        Animations.translate(ExpenseBox, 1200);
     }
 }

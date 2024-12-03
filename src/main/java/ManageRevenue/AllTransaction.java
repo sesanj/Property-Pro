@@ -1,5 +1,6 @@
 package ManageRevenue;
 
+import Animations.Animations;
 import Database.Database;
 import Overview.TopClients;
 import TableQuery.TransactionTable;
@@ -166,6 +167,9 @@ public class AllTransaction extends BorderPane {
 
 
         this.setCenter(transactionBox);
+
+        Animations.translate(buttonBox, 600);
+        Animations.translate(allTransactions, 800);
     }
 
     public void getCalendarTransaction(DatePicker calendarStart, DatePicker calendarEnd){

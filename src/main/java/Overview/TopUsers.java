@@ -1,10 +1,12 @@
 package Overview;
 
+import Animations.Animations;
 import Database.Database;
 import TableQuery.ClientTable;
 import TableQuery.TransactionTable;
 import com.example.propertypro.Pojo.ClientPOJO;
 import com.example.propertypro.Pojo.TransactionPOJO;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
@@ -12,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -85,5 +88,7 @@ public class TopUsers extends BorderPane {
         topClientsBox.setStyle("-fx-padding: 30px 50px 50px 50px");
 
         this.setCenter(topClientsBox);
+
+        Animations.translate(userTable, 800);
     }
 }

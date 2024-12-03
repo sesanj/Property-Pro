@@ -1,5 +1,6 @@
 package ManageProperties;
 
+import Animations.Animations;
 import ManageRevenue.AllTransaction;
 import ManageRevenue.RevenueData;
 import ManageRevenue.RevenueForm;
@@ -7,6 +8,7 @@ import TableQuery.*;
 import com.example.propertypro.Pojo.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -101,6 +103,7 @@ public class PropertyForm extends BorderPane {
             updateFormClicked = false;
 
             prompt.setText("");
+            Animations.translate(addPropertyButton, 1300);
         });
 
         updatePropertyTab.setOnAction(e -> {
@@ -109,6 +112,7 @@ public class PropertyForm extends BorderPane {
             updateFormClicked = true;
 
             prompt.setText("Click On A Transaction To Update");
+            Animations.translate(updatePropertyButton, 1300);
         });
 
 
@@ -190,9 +194,6 @@ public class PropertyForm extends BorderPane {
             }
 
         });
-
-
-
 
 
         layout.getChildren().addAll(titleBox, propertyForm(), addPropertyButton);
@@ -291,6 +292,8 @@ public class PropertyForm extends BorderPane {
         containerBox.getChildren().addAll(formBox);
         containerBox.setAlignment(Pos.TOP_LEFT);
 
+        animate(nameBox, streetAndPostalCodeBox, provinceAndCityBox, typeAndAvailabilityBox);
+
         return containerBox;
 
     }
@@ -325,5 +328,13 @@ public class PropertyForm extends BorderPane {
 
     public static void setUpdatablePropertyID(int updatablePropertyID) {
         PropertyForm.updatablePropertyID = updatablePropertyID;
+    }
+
+    public static void animate(Node node1, Node node2, Node node3, Node node4){
+
+        Animations.translate(node1, 500);
+        Animations.translate(node2, 600);
+        Animations.translate(node3, 700);
+        Animations.translate(node4, 800);
     }
 }

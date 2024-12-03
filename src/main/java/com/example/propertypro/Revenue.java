@@ -4,7 +4,6 @@ import ManageRevenue.AllTransaction;
 import ManageRevenue.RevenueChart;
 import ManageRevenue.RevenueData;
 import ManageRevenue.RevenueForm;
-import ManageRevenue.RevenueNav;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;

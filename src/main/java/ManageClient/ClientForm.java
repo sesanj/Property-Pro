@@ -1,5 +1,6 @@
 package ManageClient;
 
+import Animations.Animations;
 import ManageProperties.AllProperties;
 import ManageProperties.PropertyForm;
 import Overview.TopClients;
@@ -7,6 +8,7 @@ import TableQuery.*;
 import com.example.propertypro.Pojo.*;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -73,18 +75,22 @@ public class ClientForm extends BorderPane {
 
         newClientTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(title, tabBox, propertyForm(), addClient);
+            layout.getChildren().addAll(title, tabBox, clientForm(), addClient);
             updateFormClicked = false;
 
             prompt.setText("");
+
+            Animations.translate(addClient, 1200);
         });
 
         updateClientTab.setOnAction(e -> {
             layout.getChildren().clear();
-            layout.getChildren().addAll(title, tabBox, propertyForm(), updateClient);
+            layout.getChildren().addAll(title, tabBox, clientForm(), updateClient);
             updateFormClicked = true;
 
             prompt.setText("Click On A Client To Update");
+
+            Animations.translate(updateClient, 1200);
         });
 
 
@@ -144,14 +150,17 @@ public class ClientForm extends BorderPane {
 
         });
 
-        layout.getChildren().addAll(title, tabBox, propertyForm(), addClient);
+        layout.getChildren().addAll(title, tabBox, clientForm(), addClient);
         layout.setAlignment(Pos.TOP_LEFT);
         layout.setStyle("-fx-padding: 50px 50px 50px 50px");
 
         this.setCenter(layout);
+
+        Animations.translate(tabBox, 600);
+        Animations.translate(addClient, 1200);
     }
 
-    public static VBox propertyForm(){
+    public static VBox clientForm(){
 
         firstName.setText("");
         phoneNumber.setText("");
@@ -210,6 +219,8 @@ public class ClientForm extends BorderPane {
         containerBox.getChildren().addAll(formBox);
         containerBox.setAlignment(Pos.TOP_LEFT);
 
+        animate(nameBox, phoneAndEmailBox);
+
         return containerBox;
     }
 
@@ -224,6 +235,12 @@ public class ClientForm extends BorderPane {
 
             setUpdatableClientID(client.getId());
         }
+    }
+
+    public static void animate(Node revenue, Node transaction){
+
+        Animations.translate(revenue, 600);
+        Animations.translate(transaction, 800);
     }
 
     public static int getUpdatableClientID() {

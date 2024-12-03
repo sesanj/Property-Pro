@@ -1,5 +1,6 @@
 package ManageRevenue;
 
+import Animations.Animations;
 import Database.Database;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -80,7 +81,6 @@ public class RevenueChart extends BorderPane {
 
             allMonths.getSelectionModel().clearSelection();
             allMonths.getSelectionModel().select(0);
-
         });
 
         allMonths.setOnAction(e -> {
@@ -129,6 +129,7 @@ public class RevenueChart extends BorderPane {
         content.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setCenter(content);
+        Animations.translate(lineChart, 800);
     }
 
     public static ArrayList<Integer> getAllYears(){

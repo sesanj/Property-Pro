@@ -1,5 +1,6 @@
 package ManageClient;
 
+import Animations.Animations;
 import Database.Database;
 import TableQuery.TransactionTable;
 import com.example.propertypro.Pojo.TransactionPOJORefined;
@@ -81,6 +82,8 @@ public class ClientTransactions extends BorderPane {
         transactionBox.setStyle("-fx-padding: 50px 50px 50px 50px");
 
         this.setCenter(transactionBox);
+
+        Animations.translate(userTable, 800);
     }
 
     public static void getClientTransaction(int clientID, String clientName) {
