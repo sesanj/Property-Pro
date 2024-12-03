@@ -1,5 +1,6 @@
 package ManageProperties;
 
+import Animations.Animations;
 import Database.Database;
 import Overview.TopClients;
 import TableQuery.PropertyTable;
@@ -37,6 +38,11 @@ public class PropertyDisplay extends BorderPane {
 
     public static Image house;
     public static ImageView houseImage = new ImageView();
+    public static VBox nameBox;
+    public static VBox addressBox;
+    public static VBox availabilityBox;
+    public static VBox cityBox;
+    public static HBox revenueAndBooking;
 
      public PropertyDisplay(){
 
@@ -55,14 +61,14 @@ public class PropertyDisplay extends BorderPane {
         toggleButtonBox.getChildren().add(toggleButton);
         toggleButtonBox.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox nameBox = new VBox(6);
-        VBox addressBox = new VBox(6);
-        VBox availabilityBox = new VBox(6);
+        nameBox = new VBox(6);
+        addressBox = new VBox(6);
+        availabilityBox = new VBox(6);
         VBox revenueBox = new VBox(6);
         VBox bookingBox = new VBox(6);
-        VBox cityBox = new VBox(6);
+        cityBox = new VBox(6);
 
-        HBox revenueAndBooking = new HBox(40);
+        revenueAndBooking = new HBox(40);
         revenueAndBooking.getChildren().addAll(revenueBox, bookingBox);
 
         HBox titleBox = new HBox();
@@ -135,6 +141,8 @@ public class PropertyDisplay extends BorderPane {
         imageBox.getChildren().add(houseImage);
 
         this.setCenter(container);
+
+        animate();
     }
 
     public static void getPropertyDetails(PropertyPOJORefined property){
@@ -258,5 +266,15 @@ public class PropertyDisplay extends BorderPane {
         revenue.setText("$" + String.format("%,.2f", amount.getFirst()));
 
         title.setText("Best Performing Property");
+    }
+
+    public static void animate(){
+
+        Animations.translate(nameBox, 500);
+        Animations.translate(addressBox, 700);
+        Animations.translate(cityBox, 900);
+        Animations.translate(availabilityBox, 1100);
+        Animations.translate(revenueAndBooking, 1300);
+        Animations.translate(houseImage, 800);
     }
 }

@@ -1,5 +1,6 @@
 package ManageProperties;
 
+import Animations.Animations;
 import Overview.TopClients;
 import TableQuery.PropertyTable;
 import TableQuery.PropertyTypeTable;
@@ -111,6 +112,8 @@ public class AllProperties extends BorderPane {
         container.setStyle("-fx-padding: 20px 50px 40px 40px");
 
         this.setCenter(container);
+
+        Animations.translate(allProperties, 800);
     }
 
     public static void getProvinceProperties(int provinceId, String provinceName){

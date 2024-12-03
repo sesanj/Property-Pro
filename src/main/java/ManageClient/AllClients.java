@@ -1,5 +1,6 @@
 package ManageClient;
 
+import Animations.Animations;
 import Database.Database;
 import Overview.TopClients;
 import TableQuery.ClientTable;
@@ -124,6 +125,8 @@ public class AllClients extends BorderPane {
         topClientsBox.setStyle("-fx-padding: 50px 50px 20px 50px");
 
         this.setCenter(topClientsBox);
+
+        Animations.translate(userTable, 800);
     }
 
     public static ArrayList<TopClients> getAllClients(){

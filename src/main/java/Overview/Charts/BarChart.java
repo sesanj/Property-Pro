@@ -77,7 +77,7 @@ public class BarChart extends BorderPane {
                     Tooltip.install(newNode, tooltip);
 
                     // Optional: Change color on hover
-                    newNode.setOnMouseEntered(event -> newNode.setStyle("-fx-bar-fill: red;"));
+                    newNode.setOnMouseEntered(event -> newNode.setStyle("-fx-bar-fill: #3e4284;"));
                     newNode.setOnMouseExited(event -> newNode.setStyle(""));
                 }
             });

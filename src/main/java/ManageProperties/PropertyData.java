@@ -1,5 +1,6 @@
 package ManageProperties;
 
+import Animations.Animations;
 import TableQuery.CityTable;
 import TableQuery.PropertyTable;
 import TableQuery.PropertyTypeTable;
@@ -47,6 +48,9 @@ public class PropertyData extends BorderPane {
         container.setStyle("-fx-padding: 50px 50px 50px 50px");
 
         this.setCenter(container);
+
+        Animations.translate(pieChart, 800);
+
     }
 
     public static void defaultPieChart(){
