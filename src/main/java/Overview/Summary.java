@@ -1,5 +1,6 @@
 package Overview;
 
+import Animations.Animations;
 import TableQuery.ClientTable;
 import TableQuery.PropertyTable;
 import TableQuery.TransactionTable;
@@ -98,6 +99,23 @@ public class Summary extends BorderPane {
         allContents.setStyle("-fx-padding: 50px");
 
         this.setCenter(allContents);
+
+        animate(totalRevenueText, totalClients, totalProperties, totalTransactions, revenueLabel, clientLabel, propertyLabel, transactionLabel);
+
+    }
+
+    public static void animate(Text revenue, Text client, Text property, Text transaction, Label revenueLabel,
+                               Label clientLabel, Label propertyLabel, Label transactionLabel){
+
+        Animations.translate(revenue, 600);
+        Animations.translate(client, 800);
+        Animations.translate(property, 1000);
+        Animations.translate(transaction, 1200);
+
+        Animations.translate(revenueLabel, 600);
+        Animations.translate(clientLabel, 800);
+        Animations.translate(propertyLabel, 1000);
+        Animations.translate(transactionLabel, 1200);
 
     }
 }

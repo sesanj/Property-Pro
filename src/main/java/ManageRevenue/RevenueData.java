@@ -1,5 +1,6 @@
 package ManageRevenue;
 
+import Animations.Animations;
 import Database.Database;
 import TableQuery.TransactionTable;
 import com.example.propertypro.Pojo.TransactionPOJORefined;
@@ -35,6 +36,11 @@ public class RevenueData extends BorderPane {
     public static Label worstLabel;
     public static double revenue;
     public static int transactionCount;
+    public static VBox bestBox;
+    public static VBox worstBox;
+    public static VBox chartBox;
+    public static VBox revenueBox;
+    public static VBox transactionBox;
 
     private static Database db = Database.getNewDatabase();
 
@@ -49,14 +55,14 @@ public class RevenueData extends BorderPane {
         TransactionTable transactionTable = new TransactionTable();
 
         VBox allContents = new VBox(30);
-        VBox revenueBox = new VBox(6);
-        VBox transactionBox = new VBox(6);
+        revenueBox = new VBox(6);
+        transactionBox = new VBox(6);
         HBox titleBox = new HBox(6);
         HBox buttonBox = new HBox();
 
-        VBox bestBox = new VBox(6);
-        VBox worstBox = new VBox(6);
-        VBox chartBox = new VBox(0);
+        bestBox = new VBox(6);
+        worstBox = new VBox(6);
+        chartBox = new VBox(0);
 
         HBox bestAndWorstContainer = new HBox(30);
 
@@ -146,6 +152,8 @@ public class RevenueData extends BorderPane {
         allContents.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setTop(allContents);
+
+        animate();
     }
 
     public static void getRevenue(double totalRevenue){
@@ -316,6 +324,15 @@ public class RevenueData extends BorderPane {
         RevenueData.totalTransactions.setText(totalTransactions + "+");
 
         setTransactionCount(count);
+    }
+
+    public static void animate(){
+
+        Animations.translate(revenueBox, 900);
+        Animations.translate(transactionBox, 1000);
+        Animations.translate(bestBox, 1000);
+        Animations.translate(worstBox, 1200);
+        Animations.translate(chartBox, 1400);
     }
 
     public static int getTransactionCount() {

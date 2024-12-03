@@ -1,5 +1,6 @@
 package Overview;
 
+import Animations.Animations;
 import Database.Database;
 import Overview.Charts.BarChart;
 import Overview.Charts.LineChart;
@@ -34,11 +35,13 @@ public class CashFlow extends BorderPane {
         barchartButton.setOnAction(e->{
             chart.getChildren().clear();
             chart.getChildren().add(barChart);
+            Animations.translate(barChart, 800);
         });
 
         lineChartButton.setOnAction(e->{
             chart.getChildren().clear();
             chart.getChildren().add(lineChart);
+            Animations.translate(lineChart, 800);
         });
 
         HBox buttons = new HBox(10);
@@ -53,5 +56,6 @@ public class CashFlow extends BorderPane {
         cashFlowBox.setStyle("-fx-padding: 50px 50px 10px 50px");
 
         this.setCenter(cashFlowBox);
+        Animations.translate(chart, 800);
     }
 }

@@ -1,5 +1,6 @@
 package ManageRevenue;
 
+import Animations.Animations;
 import TableQuery.ClientTable;
 import TableQuery.PropertyTable;
 import TableQuery.TransactionTable;
@@ -9,6 +10,7 @@ import com.example.propertypro.Pojo.TransactionPOJO;
 import com.example.propertypro.Pojo.TransactionPOJORefined;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -75,6 +77,7 @@ public class RevenueForm extends BorderPane {
             updateFormClicked = false;
 
             prompt.setText("");
+            Animations.translate(addTransaction, 1000);
         });
 
         updateTransaction.setOnAction(e -> {
@@ -83,6 +86,7 @@ public class RevenueForm extends BorderPane {
             updateFormClicked = true;
 
             prompt.setText("Click On A Transaction To Update");
+            Animations.translate(updateTransactionButton, 1000);
         });
 
 
@@ -164,6 +168,9 @@ public class RevenueForm extends BorderPane {
         this.setCenter(layout);
 
         layout.setStyle("-fx-padding: 30px 50px 30px 50px");
+
+        Animations.translate(buttonBox, 600);
+        Animations.translate(addTransaction, 1200);
     }
 
     public static VBox transactionForm(){
@@ -222,8 +229,9 @@ public class RevenueForm extends BorderPane {
         containerBox.getChildren().addAll(formBox);
         containerBox.setAlignment(Pos.TOP_LEFT);
 
-        return containerBox;
+         animate(amountBox, clientBox, propertyBox);
 
+        return containerBox;
     }
 
     public static void getTransactionDetails(TransactionPOJORefined transaction){
@@ -259,6 +267,14 @@ public class RevenueForm extends BorderPane {
             allProperties.getSelectionModel().select(updatableProperty);
 
         }
+    }
+
+    public static void animate(Node revenue, Node transaction, Node best){
+
+        Animations.translate(revenue, 600);
+        Animations.translate(transaction, 750);
+        Animations.translate(best, 900);
+
     }
 
     public static int getUpdatableTransactionID() {
