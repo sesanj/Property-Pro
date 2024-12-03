@@ -210,9 +210,9 @@ public class TransactionTable implements TransactionDAO {
     @Override
     public void createTransaction(TransactionPOJO transaction) {
 
-            String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
-            TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ") " +
-            "VALUES (?, ?, ?)";
+        String query = "INSERT INTO " + TRANSACTION_TABLE + " (" +
+                TRANSACTION_AMOUNT + ", " + TRANSACTION_CLIENT_ID + ", " + TRANSACTION_PROPERTY_ID + ") " +
+                "VALUES (?, ?, ?)";
 
         try (PreparedStatement st = db.getConnection().prepareStatement(query)) {
             st.setDouble(1, transaction.getAmount());
