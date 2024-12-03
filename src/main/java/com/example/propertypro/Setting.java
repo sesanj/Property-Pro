@@ -21,7 +21,7 @@ public class Setting extends BorderPane {
 
         // Styles for active and inactive navigation items
         String navInactiveStyle = "-fx-font-size: 16px;" + "-fx-fill: black;" + "-fx-font-family: Ariel;";
-        String navActiveStyle = "-fx-font-size: 16px;" + "-fx-fill: #8dd9ff;" + "-fx-font-family: Ariel;";
+        String navActiveStyle = "-fx-font-size: 16px;" + "-fx-fill: #202469;" + "-fx-font-family: Ariel;";
 
         // Set inactive style for all text labels initially
         creditText.setStyle(navInactiveStyle);
@@ -49,15 +49,10 @@ public class Setting extends BorderPane {
         help_support.setAlignment(Pos.CENTER_LEFT);
 
 
-        HBox city = new HBox(20);
-
-
-
-
 
         // Add navigation elements to VBox containers for positioning
         logoAndNavBox.getChildren().addAll( mainNav);
-        mainNav.getChildren().addAll(credit,help_support,city);
+        mainNav.getChildren().addAll(help_support,credit);
 
         // Set up the complete navigation bar layout
         navBar.getChildren().addAll(logoAndNavBox, settingsAndLogout);
@@ -66,7 +61,7 @@ public class Setting extends BorderPane {
         navBar.setAlignment(Pos.CENTER_LEFT);
 
         // Set default view to "Overview" section in center pane
-        this.setCenter(new Credits());
+        this.setCenter(new Help_Support());
         this.setLeft(navBar);
 
         // Click event handlers for each navigation item

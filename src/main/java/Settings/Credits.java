@@ -38,10 +38,10 @@ public class Credits extends BorderPane {
         Text credit5 = new Text("Irene Eweka");
         credit5.setStyle("-fx-font-size: 24px;");
 
-        Text credit6 = new Text("Emilin Syju");
+        Text credit6 = new Text("Emilin Syju \n");
         credit6.setStyle("-fx-font-size: 24px;");
 
-        Text credit7 = new Text("Sources :-");
+        Text credit7 = new Text("Sources :-\n");
         credit7.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
         Text credit8 = new Text("Condo Image by tikisada");
@@ -114,14 +114,14 @@ public class Credits extends BorderPane {
         Text url24 = new Text("https://www.flaticon.com/free-icon/up_8438644?term=growth&page=1&positio\nn=42&origin=search&related_id=8438644");
 
 
-        Text credit25= new Text("This project could not be completed without the supervision of our Professor :");
-        credit25.setStyle("-fx-font-size: 24px;  -fx-font-weight: bold;");
+        Text credit25= new Text("This project could not be completed without the supervision of our Professor : ");
+        credit25.setStyle("-fx-font-size: 24px;  -fx-font-weight: bold; ");
 
-        Text credit26 = new Text("Cai Filiaut");
+        Text credit26 = new Text("Cai Filiaut\n");
         credit26.setStyle("-fx-font-size: 24px; ");
 
 
-        creditsBox.getChildren().addAll(title, credit1, credit2, credit3, credit4 ,credit5,credit6,credit7,credit8,url8,credit9,url9,credit10,url10,credit11,url11,credit12,url12,credit13,url13,credit14,url14,credit15,url15,credit16,url16,credit17,url17,credit18,url18,credit19,url19,credit20,url20,credit21,url21,credit22,url22,credit23,url23,credit24,url24,credit25,credit26);
+        creditsBox.getChildren().addAll(title, credit1, credit2, credit3, credit4 ,credit5,credit6,credit25,credit26 ,credit7,credit8,url8,credit9,url9,credit10,url10,credit11,url11,credit12,url12,credit13,url13,credit14,url14,credit15,url15,credit16,url16,credit17,url17,credit18,url18,credit19,url19,credit20,url20,credit21,url21,credit22,url22,credit23,url23,credit24,url24);
 
 
 
@@ -134,8 +134,8 @@ public class Credits extends BorderPane {
         this.setCenter(contentPane);
 
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(10), creditsBox);
-        translateTransition.setFromY(800);
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(15), creditsBox);
+        translateTransition.setFromY(1200);
         translateTransition.setToY(-600);
         translateTransition.setCycleCount(TranslateTransition.INDEFINITE);
         translateTransition.setInterpolator(javafx.animation.Interpolator.LINEAR);
