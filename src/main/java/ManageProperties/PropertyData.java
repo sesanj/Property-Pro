@@ -18,25 +18,35 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+/**
+ * This class manages the display of property data in the form of a pie chart.
+ * It includes functionality to display default data and filter data by province,
+ * city, or property type.
+ */
 public class PropertyData extends BorderPane {
 
     public static PieChart pieChart;
 
+    /**
+     * Constructor initializes the layout and the pie chart for property data.
+     */
     public PropertyData(){
 
         pieChart = new PieChart();
-        pieChart.setLegendVisible(false);
+        pieChart.setLegendVisible(false);  // Hide legend by default
 
-        defaultPieChart();
+        defaultPieChart();  // Load default pie chart with property data
 
         this.setCenter(pieChart);
 
         VBox container = new VBox(20);
         HBox headerBox = new HBox();
 
+        // Property navigation menu
         PropertyNav propertyNav = new PropertyNav();
         propertyNav.setAlignment(Pos.CENTER_RIGHT);
 
+        // Title of the property data section
         Text title = new Text("Property Data");
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
@@ -49,10 +59,14 @@ public class PropertyData extends BorderPane {
 
         this.setCenter(container);
 
+        // Add animation to the pie chart
         Animations.translate(pieChart, 800);
 
     }
 
+    /**
+     * This method generates a default pie chart based on the properties in each province.
+     */
     public static void defaultPieChart(){
 
         ProvinceTable provinceTable = new ProvinceTable();
@@ -64,6 +78,7 @@ public class PropertyData extends BorderPane {
         ArrayList<PieChart.Data> data = new ArrayList<>();
         int count = 0;
 
+        // Count properties in each province
         for(ProvincePOJO province : allProvince){
 
             for(PropertyPOJO property : allProperties){
@@ -73,6 +88,7 @@ public class PropertyData extends BorderPane {
                 }
             }
 
+            // Add data to pie chart if there are properties in the province
             if(count > 0){
                 data.add(new PieChart.Data(count + " in " + province.getProvince(), count));
             }
@@ -83,10 +99,14 @@ public class PropertyData extends BorderPane {
                 = FXCollections.observableArrayList(data);
 
         pieChart.setData(pieChartData);
-        pieChart.setLabelsVisible(true);
-        pieChart.setAnimated(true);
+        pieChart.setLabelsVisible(true);  // Show labels
+        pieChart.setAnimated(true);  // Enable animation
     }
 
+    /**
+     * This method filters the pie chart data by a specific province.
+     * @param provinceID The ID of the province to filter by.
+     */
     public static void pieChartByProvince(int provinceID){
 
         pieChart.getData().clear();
@@ -100,6 +120,7 @@ public class PropertyData extends BorderPane {
         ArrayList<PieChart.Data> data = new ArrayList<>();
         int count = 0;
 
+        // Count properties of each type in the specified province
         for(PropertyTypePOJO propertyType : allPropertyTypes){
 
             for(PropertyPOJO property : allProperties){
@@ -109,6 +130,7 @@ public class PropertyData extends BorderPane {
                 }
             }
 
+            // Add data to pie chart if there are properties of this type in the province
             if(count > 0){
                 data.add(new PieChart.Data(+ count + " " + propertyType.getProperty_type(), count));
             }
@@ -124,6 +146,10 @@ public class PropertyData extends BorderPane {
 
     }
 
+    /**
+     * This method filters the pie chart data by a specific city.
+     * @param cityID The ID of the city to filter by.
+     */
     public static void pieChartByCity(int cityID){
 
         pieChart.getData().clear();
@@ -137,6 +163,7 @@ public class PropertyData extends BorderPane {
         ArrayList<PieChart.Data> data = new ArrayList<>();
         int count = 0;
 
+        // Count properties of each type in the specified city
         for(PropertyTypePOJO propertyType : allPropertyType){
 
             for(PropertyPOJO property : allProperties){
@@ -146,6 +173,7 @@ public class PropertyData extends BorderPane {
                 }
             }
 
+            // Add data to pie chart if there are properties of this type in the city
             if(count > 0){
                 data.add(new PieChart.Data(+ count + " " + propertyType.getProperty_type(), count));
             }
@@ -161,6 +189,10 @@ public class PropertyData extends BorderPane {
 
     }
 
+    /**
+     * This method filters the pie chart data by a specific property type.
+     * @param typeID The ID of the property type to filter by.
+     */
     public static void pieChartByPropertyType(int typeID){
 
         pieChart.getData().clear();
@@ -174,6 +206,7 @@ public class PropertyData extends BorderPane {
         ArrayList<PieChart.Data> data = new ArrayList<>();
         int count = 0;
 
+        // Count properties in each city for the specified property type
         for(CityPOJO city : allCities){
 
             for(PropertyPOJO property : allProperties){
@@ -183,6 +216,7 @@ public class PropertyData extends BorderPane {
                 }
             }
 
+            // Add data to pie chart if there are properties of this type in the city
             if(count > 0){
                 data.add(new PieChart.Data(+ count + " in " + city.getCity(), count));
             }
@@ -195,6 +229,5 @@ public class PropertyData extends BorderPane {
         pieChart.setData(pieChartData);
         pieChart.setLabelsVisible(true);
         pieChart.setAnimated(true);
-
     }
 }
