@@ -10,8 +10,20 @@ import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
 
+/**
+ * The TransactionTable class provides implementations of methods to interact with the transaction data
+ * in the database, such as retrieving, updating, creating, and deleting transactions.
+ * It implements the TransactionDAO interface and provides specific methods for querying transactions
+ * by various criteria including transaction ID, user, property, and date range.
+ */
 public class TransactionTable implements TransactionDAO {
     Database db = Database.getNewDatabase();
+
+    /**
+     * Retrieves all transactions from the database, joining with the client and property tables.
+     *
+     * @return A list of TransactionPOJORefined objects representing all transactions.
+     */
     @Override
     public ArrayList<TransactionPOJORefined> getAllTransactions() {
 
@@ -40,6 +52,12 @@ public class TransactionTable implements TransactionDAO {
         return transactions;
     }
 
+    /**
+     * Retrieves a transaction by its unique ID from the database.
+     *
+     * @param TransactionId The ID of the transaction to retrieve.
+     * @return A TransactionPOJORefined object representing the transaction, or null if not found.
+     */
     @Override
     public TransactionPOJORefined getTransactionById(int TransactionId) {
 
@@ -66,6 +84,13 @@ public class TransactionTable implements TransactionDAO {
         }
         return null;
     }
+
+    /**
+     * Retrieves all transactions for a specific user from the database.
+     *
+     * @param user_id The ID of the user to filter transactions by.
+     * @return A list of TransactionPOJORefined objects representing the user's transactions.
+     */
 
     @Override
     public ArrayList<TransactionPOJORefined> getTransactionByUser(int user_id) {
@@ -98,6 +123,12 @@ public class TransactionTable implements TransactionDAO {
         return allTransactions;
     }
 
+    /**
+     * Retrieves a transaction for a specific property from the database.
+     *
+     * @param property_Id The ID of the property to filter transactions by.
+     * @return A TransactionPOJORefined object representing the transaction, or null if not found.
+     */
     @Override
     public TransactionPOJORefined getTransactionByProperty(int property_Id) {
 
@@ -126,6 +157,13 @@ public class TransactionTable implements TransactionDAO {
         return null;
     }
 
+    /**
+     * Retrieves transactions within a specified date range from the database.
+     *
+     * @param startDate The start of the date range.
+     * @param endDate The end of the date range.
+     * @return A list of TransactionPOJORefined objects representing transactions within the date range.
+     */
     @Override
     public ArrayList<TransactionPOJORefined> getTransactionByDate(Timestamp startDate, Timestamp endDate) {
         String query = "SELECT t." + TRANSACTION_ID + ", t." + TRANSACTION_AMOUNT + ", c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", p." + PROPERTY_NAME +
@@ -160,6 +198,11 @@ public class TransactionTable implements TransactionDAO {
 
     }
 
+    /**
+     * Deletes a transaction from the database based on the given transaction ID.
+     *
+     * @param TransactionId The ID of the transaction to delete.
+     */
     @Override
     public void deleteTransaction(int TransactionId) {
         String query = "DELETE FROM " + TRANSACTION_TABLE + " WHERE " + TRANSACTION_ID + " = ?";
@@ -181,6 +224,11 @@ public class TransactionTable implements TransactionDAO {
 
     }
 
+    /**
+     * Updates the details of an existing transaction in the database.
+     *
+     * @param transaction The TransactionPOJO object containing the updated transaction data.
+     */
     @Override
     public void updateTransaction(TransactionPOJO transaction) {
         String query = "UPDATE " + TRANSACTION_TABLE +
@@ -207,6 +255,11 @@ public class TransactionTable implements TransactionDAO {
 
     }
 
+    /**
+     * Creates a new transaction in the database using the provided transaction data.
+     *
+     * @param transaction The TransactionPOJO object containing the transaction details to create.
+     */
     @Override
     public void createTransaction(TransactionPOJO transaction) {
 
@@ -230,6 +283,12 @@ public class TransactionTable implements TransactionDAO {
 
     }
 
+    /**
+     * Retrieves all transactions from the database, including transaction amounts, client IDs, property IDs,
+     * and transaction timestamps, and returns them as a list of TransactionPOJO objects.
+     *
+     * @return A list of TransactionPOJO objects representing all transactions in the database.
+     */
     @Override
     public ArrayList<TransactionPOJO> getAllTransactions2() {
         ArrayList<TransactionPOJO> transactions = new ArrayList<>();
@@ -252,7 +311,5 @@ public class TransactionTable implements TransactionDAO {
             throw new RuntimeException(e);
         }
         return transactions;
-
-
     }
 }

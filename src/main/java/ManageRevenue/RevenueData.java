@@ -23,6 +23,11 @@ import java.util.Collections;
 import static Database.DatabaseTableConstants.*;
 import static Database.DatabaseTableConstants.TRANSACTION_TIMESTAMP;
 
+/**
+ * The RevenueData class is responsible for managing and displaying revenue-related data.
+ * It shows total revenue, total transactions, best and worst revenue months or years,
+ * and allows interaction with different revenue stats.
+ */
 public class RevenueData extends BorderPane {
 
     public static Text totalRevenueText;
@@ -41,10 +46,12 @@ public class RevenueData extends BorderPane {
     public static VBox chartBox;
     public static VBox revenueBox;
     public static VBox transactionBox;
-
     private static Database db = Database.getNewDatabase();
 
-
+    /**
+     * Constructor for the RevenueData class.
+     * Initializes the UI components and sets up event handling for buttons and interactions.
+     */
     public RevenueData(){
 
 
@@ -125,6 +132,7 @@ public class RevenueData extends BorderPane {
         });
 
 
+        // Add elements to the UI layout
         chartBox.getChildren().addAll(chartImage, percentage);
         chartBox.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(chartBox, Priority.ALWAYS);
@@ -156,6 +164,11 @@ public class RevenueData extends BorderPane {
         animate();
     }
 
+    /**
+     * Updates the total revenue displayed in the UI.
+     *
+     * @param totalRevenue The new total revenue value.
+     */
     public static void getRevenue(double totalRevenue){
 
         revenue = totalRevenue;
@@ -164,6 +177,14 @@ public class RevenueData extends BorderPane {
         totalRevenueText.setText("$" + formattedRevenue + RevenueFormatter(totalRevenue));
     }
 
+    /**
+     * Updates the best and worst revenue statistics, along with their corresponding months or days.
+     *
+     * @param highestRevenue The highest revenue value.
+     * @param lowestRevenue The lowest revenue value.
+     * @param best The best month or day.
+     * @param worst The worst month or day.
+     */
     public static void getBestAndWorst(double highestRevenue, double lowestRevenue, String best, String worst){
 
         bestRevenue.setText("$" + String.format("%,.2f", highestRevenue) + RevenueFormatter(highestRevenue));
@@ -187,6 +208,13 @@ public class RevenueData extends BorderPane {
         percentage.setText(String.format("%,.0f", getPercentage(highestRevenue, lowestRevenue)) + "% ");
     }
 
+    /**
+     * Calculates the percentage difference between the highest and lowest revenue.
+     *
+     * @param highest The highest revenue value.
+     * @param lowest The lowest revenue value.
+     * @return The percentage difference.
+     */
     public static double getPercentage(double highest, double lowest){
         double difference = 0;
 
@@ -199,11 +227,17 @@ public class RevenueData extends BorderPane {
         return difference;
     }
 
+    /**
+     * Formats the day as a string with a suffix (e.g., "1st", "2nd", "3rd").
+     *
+     * @param input The day to be formatted.
+     * @return The formatted day.
+     */
     public static String dayFormatter(String input){
 
         String day;
 
-        int number = Integer.parseInt(input); // Convert to integer
+        int number = Integer.parseInt(input); // Convert string input to integer
 
         if (number % 100 >= 11 && number % 100 <= 13) {
 
@@ -229,6 +263,9 @@ public class RevenueData extends BorderPane {
         return day;
     }
 
+    /**
+     * Retrieves the yearly transaction data and updates the best and worst revenue statistics.
+     */
     public void getYearlyTransactions(){
 
         ArrayList<Integer> years = new ArrayList<>();
@@ -286,6 +323,12 @@ public class RevenueData extends BorderPane {
     }
 
 
+    /**
+     * Helper method to format the revenue text with a suffix depending on the value.
+     *
+     * @param revenue The revenue value.
+     * @return The formatted revenue string.
+     */
     public static String RevenueFormatter(Double revenue){
 
         String figure = "";
@@ -301,20 +344,29 @@ public class RevenueData extends BorderPane {
         return figure;
     }
 
-    public static void updateTotalTransaction(){
-
+    /**
+     * Updates the total transaction count by decrementing it by 1
+     * and reflects the change in the UI.
+     */
+    public static void updateTotalTransaction() {
         totalTransactions.setText(String.format("%,d", getTransactionCount() - 1) + "+");
-
         setTransactionCount(getTransactionCount() - 1);
     }
 
-    public static void addTransactionCount(){
-
+    /**
+     * Adds 1 to the total transaction count and updates the UI accordingly.
+     */
+    public static void addTransactionCount() {
         totalTransactions.setText(String.format("%,d", getTransactionCount() + 1) + "+");
-
         setTransactionCount(getTransactionCount() + 1);
     }
 
+
+    /**
+     * Helper method to get the total revenue.
+     *
+     * @return The total revenue.
+     */
     public static double getTotalRevenue() {
         return revenue;
     }
@@ -326,6 +378,9 @@ public class RevenueData extends BorderPane {
         setTransactionCount(count);
     }
 
+    /**
+     * Animates the entire display of data.
+     */
     public static void animate(){
 
         Animations.translate(revenueBox, 900);
@@ -335,10 +390,20 @@ public class RevenueData extends BorderPane {
         Animations.translate(chartBox, 1400);
     }
 
+    /**
+     * Helper method to get the transaction count.
+     *
+     * @return The transaction count.
+     */
     public static int getTransactionCount() {
         return transactionCount;
     }
 
+    /**
+     * Helper method to set the transaction count.
+     *
+     * @param transactionCount The transaction count.
+     */
     public static void setTransactionCount(int transactionCount) {
         RevenueData.transactionCount = transactionCount;
     }

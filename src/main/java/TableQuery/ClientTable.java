@@ -12,8 +12,20 @@ import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
 
+/**
+ * The ClientTable class implements the ClientDAO interface and provides methods for interacting with
+ * client data in the database. It allows performing CRUD operations such as retrieving all clients,
+ * fetching a client by various fields (ID, first name, last name, phone number, email), creating, updating,
+ * and deleting clients.
+ */
 public class ClientTable implements ClientDAO {
     public Database db = Database.getNewDatabase();
+
+    /**
+     * Retrieves all clients from the database.
+     *
+     * @return An ArrayList containing all ClientPOJO objects representing the clients in the database.
+     */
     @Override
     public ArrayList<ClientPOJO> getAllClient() {
 
@@ -36,6 +48,12 @@ public class ClientTable implements ClientDAO {
         return clients;
     }
 
+    /**
+     * Retrieves a client by their unique ID.
+     *
+     * @param user_id The ID of the client to be retrieved.
+     * @return A ClientPOJO object representing the client with the specified ID, or null if not found.
+     */
     @Override
     public ClientPOJO getClientId(int user_id) {
 
@@ -59,6 +77,12 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
+    /**
+     * Retrieves a client by their first name.
+     *
+     * @param f_name The first name of the client to be retrieved.
+     * @return A ClientPOJO object representing the client with the specified first name, or null if not found.
+     */
     @Override
     public ClientPOJO getClientByFirstName(String f_name) {
 
@@ -82,6 +106,12 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
+    /**
+     * Retrieves a client by their last name.
+     *
+     * @param l_name The last name of the client to be retrieved.
+     * @return A ClientPOJO object representing the client with the specified last name, or null if not found.
+     */
     @Override
     public ClientPOJO getClientByLastName(String l_name) {
 
@@ -105,6 +135,12 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
+    /**
+     * Retrieves a client by their phone number.
+     *
+     * @param clientNumber The phone number of the client to be retrieved.
+     * @return A ClientPOJO object representing the client with the specified phone number, or null if not found.
+     */
     @Override
     public ClientPOJO getClientByPhoneNumber(String clientNumber) {
 
@@ -127,6 +163,12 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
+    /**
+     * Retrieves a client by their email address.
+     *
+     * @param clientEmail The email address of the client to be retrieved.
+     * @return A ClientPOJO object representing the client with the specified email, or null if not found.
+     */
     @Override
     public ClientPOJO getClientByEmail(String clientEmail) {
 
@@ -149,6 +191,11 @@ public class ClientTable implements ClientDAO {
         return null;
     }
 
+    /**
+     * Deletes a client from the database based on their unique ID.
+     *
+     * @param user_id The ID of the client to be deleted.
+     */
     @Override
     public void deleteClient(int user_id) {
         String query = "DELETE FROM " + CLIENT_TABLE + " WHERE " + CLIENT_ID + " = ?";
@@ -165,6 +212,11 @@ public class ClientTable implements ClientDAO {
         }
     }
 
+    /**
+     * Updates the information of an existing client in the database.
+     *
+     * @param client The ClientPOJO object containing the updated client information.
+     */
     @Override
     public void updateClient(ClientPOJO client) {String query = "UPDATE " + CLIENT_TABLE + " SET " + CLIENT_FIRST_NAME + " = ?, " + CLIENT_LAST_NAME + " = ?, " + CLIENT_PHONE_NUMBER + " = ?, " + CLIENT_EMAIL + " = ? " +
             "WHERE " + CLIENT_ID + " = ?";
@@ -185,6 +237,11 @@ public class ClientTable implements ClientDAO {
         }
     }
 
+    /**
+     * Creates a new client in the database.
+     *
+     * @param client The ClientPOJO object containing the client information to be inserted.
+     */
     @Override
     public void createClient(ClientPOJO client) {
 

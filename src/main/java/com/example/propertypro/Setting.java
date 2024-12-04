@@ -12,23 +12,17 @@ public class Setting extends BorderPane {
 
     Setting() {
 
-// Text labels for navigation items
+        // Text labels for navigation items
         Text creditText = new Text("Credits");
         Text help_SupportText = new Text("Help & Support");
 
-
-
-
         // Styles for active and inactive navigation items
         String navInactiveStyle = "-fx-font-size: 16px;" + "-fx-fill: black;" + "-fx-font-family: Ariel;";
-        String navActiveStyle = "-fx-font-size: 16px;" + "-fx-fill: #8dd9ff;" + "-fx-font-family: Ariel;";
+        String navActiveStyle = "-fx-font-size: 16px;" + "-fx-fill: #202469;" + "-fx-font-family: Ariel;";
 
         // Set inactive style for all text labels initially
         creditText.setStyle(navInactiveStyle);
         help_SupportText.setStyle(navInactiveStyle);
-
-
-
 
         // VBox for the entire navigation layout
         VBox navBar = new VBox(180);
@@ -36,28 +30,17 @@ public class Setting extends BorderPane {
         VBox mainNav = new VBox(30); // Main navigation sections
         VBox settingsAndLogout = new VBox(120); // Settings and logout at bottom
 
-//
-
-
         HBox credit = new HBox(20);
         credit.getChildren().add( creditText);
         credit.setAlignment(Pos.CENTER_LEFT);
-
 
         HBox help_support = new HBox(20);
         help_support.getChildren().addAll(help_SupportText);
         help_support.setAlignment(Pos.CENTER_LEFT);
 
-
-        HBox city = new HBox(20);
-
-
-
-
-
         // Add navigation elements to VBox containers for positioning
         logoAndNavBox.getChildren().addAll( mainNav);
-        mainNav.getChildren().addAll(credit,help_support,city);
+        mainNav.getChildren().addAll(help_support,credit);
 
         // Set up the complete navigation bar layout
         navBar.getChildren().addAll(logoAndNavBox, settingsAndLogout);
@@ -66,7 +49,7 @@ public class Setting extends BorderPane {
         navBar.setAlignment(Pos.CENTER_LEFT);
 
         // Set default view to "Overview" section in center pane
-        this.setCenter(new Credits());
+        this.setCenter(new Help_Support());
         this.setLeft(navBar);
 
         // Click event handlers for each navigation item
@@ -82,9 +65,6 @@ public class Setting extends BorderPane {
             help_SupportText.setStyle(navActiveStyle);
             creditText.setStyle(navInactiveStyle);
         });
-
-
-
     }
-    }
+}
 

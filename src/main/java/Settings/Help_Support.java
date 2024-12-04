@@ -1,5 +1,6 @@
 package Settings;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -16,14 +17,28 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Help_Support class represents the help and support section of the application.
+ * It allows users to contact support via email or phone, send feedback, and view application version information.
+ */
 public class Help_Support extends BorderPane {
 
+    /**
+     * Constructs a Help and Support view with options to contact support and send feedback.
+     * It contains sections for displaying support contact details and a feedback form.
+     */
     public Help_Support() {
 
+        // Title for the Help and Support section
         Text title = new Text("Help and Support");
         title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold;");
-        title.setTextAlignment(TextAlignment.CENTER);
+        title.setTextAlignment(TextAlignment.JUSTIFY);
 
+        HBox title1 = new HBox();
+        title1.setAlignment(Pos.TOP_LEFT);
+        title1.setPadding(new Insets(0,0,30,0));
+
+        // Bottom Box for placing contact support information
         HBox bottomBox = new HBox(20);
         bottomBox.setAlignment(Pos.CENTER);
         bottomBox.setStyle("-fx-padding: 10px 0;");
@@ -32,6 +47,7 @@ public class Help_Support extends BorderPane {
         contentPane.getStylesheets().add(getClass().getResource("/content.css").toExternalForm());
         contentPane.setId("content-pane");
 
+        // Contact Support Section
         VBox contactSupport = new VBox(15);
         contactSupport.setAlignment(Pos.CENTER);
 
@@ -39,6 +55,7 @@ public class Help_Support extends BorderPane {
         Text contactTitle = new Text("Contact Support: ");
         contactTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
+        // Email link to open Gmail compose window
         Hyperlink emailText = new Hyperlink("\nEmail: aabrahamofficial@gmail.com\n");
         emailText.setOnAction(event -> {
             try {
@@ -62,9 +79,10 @@ public class Help_Support extends BorderPane {
         versionText.setStyle("-fx-text-fill: #f0f0f0 -fx-font-size: 16px;");
         versionText.setTextAlignment(TextAlignment.CENTER);
 
-
+        // Adding all contact-related elements to the VBox
         contactSupport.getChildren().addAll(contactTitle, emailText, phoneText, urgentText, versionText);
 
+        // Feedback Section
         VBox feedbackSection = new VBox(15);
         feedbackSection.setAlignment(Pos.CENTER);
         feedbackSection.setMaxWidth(500);
@@ -82,11 +100,13 @@ public class Help_Support extends BorderPane {
         feedbackTextFlow.getChildren().addAll(feedbackTitle, feedbackInfo);
         feedbackSection.getChildren().add(feedbackTextFlow);
 
+        // TextField for feedback input and Button to submit feedback
         TextField feedbackField = new TextField();
         feedbackField.setPromptText("Enter your feedback here...");
 
         Button sendFeedbackButton = new Button("Send Feedback");
 
+        // Handling feedback submission
         sendFeedbackButton.setOnAction(e -> {
             String feedback = feedbackField.getText();
 
@@ -101,19 +121,25 @@ public class Help_Support extends BorderPane {
 
         feedbackSection.getChildren().addAll(feedbackField, sendFeedbackButton);
 
+        // Setting up the layout structure
+        title1.getChildren().add(title);
         contentPane.getChildren().add(feedbackSection);
 
         bottomBox.getChildren().addAll(contactSupport);
 
-        this.setTop(title);
+        this.setTop(title1);
         this.setCenter(contentPane);
         this.setBottom(bottomBox);
 
-        this.setStyle("-fx-padding: 20px;");
+        this.setStyle("-fx-padding: 50px;");
     }
 
+    /**
+     * Saves the feedback submitted by the user to a file named "feedback.txt".
+     *
+     * @param feedback The feedback entered by the user to be saved.
+     */
     private void saveFeedbackToFile(String feedback) {
-
         File file = new File("feedback.txt");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
