@@ -12,12 +12,9 @@ public class Setting extends BorderPane {
 
     Setting() {
 
-// Text labels for navigation items
+        // Text labels for navigation items
         Text creditText = new Text("Credits");
         Text help_SupportText = new Text("Help & Support");
-
-
-
 
         // Styles for active and inactive navigation items
         String navInactiveStyle = "-fx-font-size: 16px;" + "-fx-fill: black;" + "-fx-font-family: Ariel;";
@@ -27,28 +24,19 @@ public class Setting extends BorderPane {
         creditText.setStyle(navInactiveStyle);
         help_SupportText.setStyle(navInactiveStyle);
 
-
-
-
         // VBox for the entire navigation layout
         VBox navBar = new VBox(180);
         VBox logoAndNavBox = new VBox(80); // Holds logo and main navigation items
         VBox mainNav = new VBox(30); // Main navigation sections
         VBox settingsAndLogout = new VBox(120); // Settings and logout at bottom
 
-//
-
-
         HBox credit = new HBox(20);
         credit.getChildren().add( creditText);
         credit.setAlignment(Pos.CENTER_LEFT);
 
-
         HBox help_support = new HBox(20);
         help_support.getChildren().addAll(help_SupportText);
         help_support.setAlignment(Pos.CENTER_LEFT);
-
-
 
         // Add navigation elements to VBox containers for positioning
         logoAndNavBox.getChildren().addAll( mainNav);
@@ -77,9 +65,6 @@ public class Setting extends BorderPane {
             help_SupportText.setStyle(navActiveStyle);
             creditText.setStyle(navInactiveStyle);
         });
-
-
-
     }
-    }
+}
 

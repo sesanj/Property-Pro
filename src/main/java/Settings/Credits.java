@@ -2,15 +2,22 @@ package Settings;
 
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.ScrollPane;
 import javafx.util.Duration;
 
+/**
+ * The Credits class displays the credits for the project, including developers' names, sources,
+ * and acknowledgements. It uses a scrolling animation to showcase the information.
+ */
 public class Credits extends BorderPane {
+
+    /**
+     * Constructs a Credits view that displays the project credits with developers' names,
+     * image sources, and project acknowledgements.
+     */
     public Credits() {
 
         // StackPane to hold the content that will change when a button is clicked
@@ -123,17 +130,11 @@ public class Credits extends BorderPane {
 
         creditsBox.getChildren().addAll(title, credit1, credit2, credit3, credit4 ,credit5,credit6,credit25,credit26 ,credit7,credit8,url8,credit9,url9,credit10,url10,credit11,url11,credit12,url12,credit13,url13,credit14,url14,credit15,url15,credit16,url16,credit17,url17,credit18,url18,credit19,url19,credit20,url20,credit21,url21,credit22,url22,credit23,url23,credit24,url24);
 
-
-
-
-
        contentPane.getChildren().addAll(creditsBox);
-
-
 
         this.setCenter(contentPane);
 
-
+        // Apply scrolling animation for the credits
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(15), creditsBox);
         translateTransition.setFromY(1200);
         translateTransition.setToY(-600);

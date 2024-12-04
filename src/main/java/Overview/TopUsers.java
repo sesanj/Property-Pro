@@ -2,11 +2,6 @@ package Overview;
 
 import Animations.Animations;
 import Database.Database;
-import TableQuery.ClientTable;
-import TableQuery.TransactionTable;
-import com.example.propertypro.Pojo.ClientPOJO;
-import com.example.propertypro.Pojo.TransactionPOJO;
-import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
@@ -14,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -22,13 +16,23 @@ import java.util.ArrayList;
 
 import static Database.DatabaseTableConstants.*;
 
-
+/**
+ * The TopUsers class represents a view of the top 20 clients based on the total amount spent.
+ * It retrieves data from the database and displays it in a TableView with client details such as
+ * name, phone number, total transactions, and the amount spent.
+ */
 public class TopUsers extends BorderPane {
 
-    public TopUsers(){
+    /**
+     * Constructs a TopUsers view by querying the top 20 clients from the database
+     * and displaying the results in a TableView.
+     */
+    public TopUsers() {
 
+        // Initialize the database connection
         Database db = Database.getNewDatabase();
 
+        // Query to retrieve the top 20 clients
         String query = "SELECT c." + CLIENT_FIRST_NAME + ", c." + CLIENT_LAST_NAME + ", c." + CLIENT_PHONE_NUMBER + ", c." + CLIENT_EMAIL + ", c." + CLIENT_ID + ", " +
                 "SUM(t." + TRANSACTION_AMOUNT + ") AS amountSpent, " +
                 "COUNT(t." + TRANSACTION_ID + ") AS totalTransactions " +
@@ -37,18 +41,21 @@ public class TopUsers extends BorderPane {
                 "GROUP BY c." + CLIENT_ID + ", c." + CLIENT_FIRST_NAME + " " +
                 "ORDER BY amountSpent DESC LIMIT 20";
 
-
         VBox topClientsBox = new VBox(30);
 
+        // Title for the TableView
         Text title = new Text("Top 20 Clients");
         title.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
+        // TableView to display top client data
         TableView userTable = new TableView();
         userTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        // List to hold TopClients objects
         ArrayList<TopClients> topClients = new ArrayList<>();
 
-        try{
+        try {
+            // Execute the query and populate the list with TopClients data
             Statement getClients = db.getConnection().createStatement();
             ResultSet data = getClients.executeQuery(query);
 
@@ -58,11 +65,11 @@ public class TopUsers extends BorderPane {
 
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-
+        // Define columns for the TableView
         TableColumn<TopClients, String> firstName = new TableColumn<>("First Name");
         firstName.setCellValueFactory(e-> new SimpleStringProperty(e.getValue().getFirst_name()));
 
@@ -78,17 +85,22 @@ public class TopUsers extends BorderPane {
         TableColumn<TopClients, String> amount = new TableColumn<>("Amount Spent");
         amount.setCellValueFactory(e-> new SimpleStringProperty("$" + String.format("%,.2f", e.getValue().getAmount())));
 
+        // Add columns to the TableView
         userTable.getColumns().addAll(firstName, lastName, phoneNumber, totalTransactions, amount);
+
+        // Add data to the TableView
         userTable.getItems().addAll(topClients);
         userTable.getStylesheets().add(getClass().getResource("/tableView.css").toExternalForm());
 
-
+        // Add the title and TableView to the VBox
         topClientsBox.getChildren().addAll(title, userTable);
         topClientsBox.setAlignment(Pos.CENTER_LEFT);
         topClientsBox.setStyle("-fx-padding: 30px 50px 50px 50px");
 
+        // Set the VBox as the center of the BorderPane
         this.setCenter(topClientsBox);
 
+        // Apply animation to the TableView
         Animations.translate(userTable, 800);
     }
 }

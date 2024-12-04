@@ -1,9 +1,6 @@
 package ManageProperties;
 
 import Animations.Animations;
-import ManageRevenue.AllTransaction;
-import ManageRevenue.RevenueData;
-import ManageRevenue.RevenueForm;
 import TableQuery.*;
 import com.example.propertypro.Pojo.*;
 import javafx.collections.FXCollections;
@@ -16,33 +13,38 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.stream.Collectors;
+/**
+ * PropertyForm class for managing property information such as adding or updating property details.
+ * This class defines the form layout, validation, and action handlers for adding or updating properties.
+ */
 
 public class PropertyForm extends BorderPane {
 
+    // Static tables to fetch data for combo boxes
     public static CityTable cityTable = new CityTable();
     public static ProvinceTable provinceTable = new ProvinceTable();
     public static PropertyTypeTable propertyTypeTable = new PropertyTypeTable();
 
-
+    // UI components for the form
     public static ComboBox<PropertyTypePOJO> propertyType;
     public static ComboBox<CityPOJO> propertyCity;
     public static ComboBox<ProvincePOJO> propertyProvince;
     public static ComboBox<String> availability;
-//    public static ComboBox<PropertyPOJO> allProperties;
     public static TextField propertyName;
-
     public static TextField propertyAddress;
     public static TextField postalCode;
+
+    // Variables for handling update
     public static int updatablePropertyID;
     public static boolean updateFormClicked = false;
     public static Text prompt;
-//    public static PropertyTable propertyTable = new PropertyTable();
 
+    /**
+     * Constructor for PropertyForm class that sets up the UI components and their action handlers.
+     */
     public PropertyForm(){
 
+        // Initialize combo boxes and text fields with styles
         propertyType = new ComboBox<>();
         propertyType.getStylesheets().add(getClass().getResource("/comboBox.css").toExternalForm());
 
@@ -54,7 +56,6 @@ public class PropertyForm extends BorderPane {
 
         availability = new ComboBox<>();
         availability.getStylesheets().add(getClass().getResource("/comboBox.css").toExternalForm());
-
 
 
         propertyName = new TextField();
@@ -74,6 +75,8 @@ public class PropertyForm extends BorderPane {
 
         VBox layout = new VBox(20);
         HBox tabBox = new HBox(20);
+
+        // Create layout and action handlers for buttons and tabs
 
         Button newPropertyTab = new Button("New Property");
         newPropertyTab.getStylesheets().add(getClass().getResource("/buttons.css").toExternalForm());
@@ -202,8 +205,13 @@ public class PropertyForm extends BorderPane {
         layout.setStyle("-fx-padding: 20px 40px 40px 50px");
     }
 
+    /**
+     * Generates the form layout for property details, including fields like property name, address, and availability.
+     * @return a VBox containing the form elements
+     */
     public static VBox propertyForm(){
 
+        // Reset form fields before displaying new form
         propertyType.getSelectionModel().clearSelection();
         propertyCity.getSelectionModel().clearSelection();
         propertyProvince.getSelectionModel().clearSelection();
@@ -298,6 +306,13 @@ public class PropertyForm extends BorderPane {
 
     }
 
+    /**
+     * Populates the form fields with details of the property to be updated.
+     * This method is used when the user clicks on a property to load its details
+     * into the form for editing.
+     *
+     * @param property The PropertyPOJO object containing the details of the property to update.
+     */
     public static void getPropertyDetails(PropertyPOJO property){
 
         if (updateFormClicked){
@@ -322,6 +337,11 @@ public class PropertyForm extends BorderPane {
         }
     }
 
+
+    /**
+     * Retrieves the property ID for the property to be updated.
+     * @return the ID of the property to update
+     */
     public static int getUpdatablePropertyID() {
         return updatablePropertyID;
     }
@@ -330,6 +350,15 @@ public class PropertyForm extends BorderPane {
         PropertyForm.updatablePropertyID = updatablePropertyID;
     }
 
+    /**
+     * Animates the given nodes by applying translation effects with staggered delays.
+     * This method is used to animate multiple UI nodes, making them appear with a slight delay for a smooth transition effect.
+     *
+     * @param node1 The first node to animate.
+     * @param node2 The second node to animate.
+     * @param node3 The third node to animate.
+     * @param node4 The fourth node to animate.
+     */
     public static void animate(Node node1, Node node2, Node node3, Node node4){
 
         Animations.translate(node1, 500);
