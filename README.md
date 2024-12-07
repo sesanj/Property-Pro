@@ -12,24 +12,24 @@ Businesses can perform certain operations like updating, creating, retrieving an
 The application will manage the following data:
 
 
-### Monthly Revenue:
+#### Monthly Revenue:
 
 The application provides a clean UI/UX that allows the business to track and manage revenue as well as transactions related to the business.
 Generated revenue can be tracked on different data points by day, month or years.
 
 
-### Client Information:
+#### Client Information:
 
 This involves managing customers personal information like Name, Phone Number, Email, amount income generated for the business, total bookings, as well as the property they stayed at.
 
 
-### Properties Owned:
+#### Properties Owned:
 
 This involves managing data related to properties owned by the business, these data include, property Type, location, availability, revenue generated. The business can keep track of all 
 properties in various locations in a clean and refined manner.
 
 
-### Contact Support:
+#### Contact Support:
 
 The settings section provides an option to contact support, in this case, the developers which can be a helpful tool just in case you run into a problem when utilizing the application.
 
@@ -142,23 +142,76 @@ When login is successful, you get access to the application where all relevant o
 #### Settings Tab
 ![support.png](src%2Fmain%2Fresources%2Fsupport.png)
 
+<br>
 
+## Database Schema
+You can find descriptive images of the database schematics for all tables and how their primary keys are linked as foreign keys in other tables, specifically the transaction table and property table.
+
+<br>
+
+### Property Table Schema
+![property.jpg](src%2Fmain%2Fresources%2Fproperty.jpg)
+
+<br>
+
+### Transaction Table Schema
+![transaction.jpg](src%2Fmain%2Fresources%2Ftransaction.jpg)
+
+<br>
+
+## Compatibility
+
+- **Operating System:** The application is compatible with MacOs, Windows and Linux.
+
+
+- **Required Screen Size:** The application is built with a width of 1,600px and height of 900px. Layout is designed on a 2 x 2 grid pane.
+
+
+- **Browser Requirement:** No browser required
+
+<br>
 
 ## Authors
 
-**Name:** Sesan Popoola <br>
-**Email:** W0836046@myscc.ca <br>
-**GitHub:** Sesanj
+<br>
 
-**Name:** Irene Eweka <br>
-**Email:** W0780653@myscc.ca <br>
-**GitHub:** ireneewe
+| Name              | Email                 | GitHub Username     |
+|-------------------|-----------------------|---------------------|
+| Sesan Popoola     | W0836046@myscc.ca     | @Sesanj             |
+| Irene Eweka       | W0780653@myscc.ca     | @ireneewe           |
+| Emilin Syju       | W0847462@myscc.ca     | @emilinsj           |
+| Aarav Abraham     | W0848228@myscc.ca     | @AaravAbraham       |
 
-**Name:** Emilin Syju <br>
-**Email:** W0847462@myscc.ca <br>
-**GitHub:** emilinsj
 
-**Name:** Aarav Abraham <br>
-**Email:** W0848228@myscc.ca <br>
-**GitHub:** AaravAbraham
+<br>
 
+## License
+
+MIT License
+
+Copyright (c) 2024 Property Pro
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+<br>
+
+## Acknowledgment
+Special thanks goes to our professor Câi Filiault for all the lessons, and support throughout the project. 
+
+Appreciation also goes to all the authors who contributed to the success of this project.
